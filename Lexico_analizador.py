@@ -38,6 +38,7 @@ tokens = (
    'RPAREN',
    'MOD',
    'PUNTOYCOMA',
+   'ARRAY' ,     #array #Fin Kevin Magallanes
    'VARIABLE',
    'NUMERAL',
    'STRING',
@@ -46,6 +47,29 @@ tokens = (
    'MAYOR',         # >
    'MENOR',         # <
    'IGUAL',     # =
+   'LBRACKET',  # [   #Inicio Kevin Magallanes
+   'RBRACKET',   #]
+   'ARROW',
+   'COMA',
+   'INCREMENT',
+   'DECREMENT',
+   'AND_LOGICAL',
+   'OR_LOGICAL',
+   'NOT_LOGICAL',
+   'AND_WORD',
+   'OR_WORD',
+   'XOR_WORD',
+   'PLUS_ASSIGN', 
+   'MINUS_ASSIGN', 
+   'TIMES_ASSIGN', 
+   'DIVIDE_ASSIGN', 
+   'MODULO_ASSIGN',
+   'EQUAL', 'IDENTICAL', 
+   'NOT_EQUAL', 
+   'NOT_IDENTICAL',
+   'GREATER_EQUAL', 
+   'LESS_EQUAL' #Fin Kevin Magallanes
+   
 
     # FIN lEONARDOPARRA
 
@@ -68,7 +92,30 @@ t_LLLAVE     = r'\{'
 t_RLLAVE   = r'\}'
 t_MAYOR         = r'>'
 t_MENOR         = r'<'
-t_IGUAL    = r'='
+t_IGUAL    = r'=' #Inicio Kevin Magallanes
+t_COMA = r','
+t_ARROW = r'=>'
+t_LBRACKET = r'\['
+t_RBRACKET = r'\]'
+t_INCREMENT = r'\+\+'
+t_DECREMENT = r'--'
+t_AND_LOGICAL = r'&&'
+t_OR_LOGICAL = r'\|\|'
+t_NOT_LOGICAL = r'!'
+t_AND_WORD = r'\band\b'
+t_OR_WORD = r'\bor\b'
+t_XOR_WORD = r'\bxor\b'
+t_PLUS_ASSIGN = r'\+='
+t_MINUS_ASSIGN = r'-='
+t_TIMES_ASSIGN = r'\*='
+t_DIVIDE_ASSIGN = r'/='
+t_MODULO_ASSIGN = r'%='
+t_EQUAL = r'=='
+t_IDENTICAL = r'==='
+t_NOT_EQUAL = r'!='
+t_NOT_IDENTICAL = r'!=='
+t_GREATER_EQUAL = r'>='
+t_LESS_EQUAL = r'<=' #Fin Kevin Magallanes
 
  # Fin lEONARDOPARRA
 
@@ -88,12 +135,18 @@ def t_NUMBER(t):
     t.value = int(t.value)
     return t
 
+# Define el token ARRAY antes de VARIABLE
+def t_ARRAY(t):
+    r'array\s*\('
+    return t
+
 def t_ID(t):
     r'\$?[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value, 'VARIABLE')  # Check for reserved words
     return t
 
  # FIN lEONARDOPARRA
+
 
 
 def t_newline(t):
@@ -131,6 +184,9 @@ EOT;
 <<<'EOT'
 Este es un ejemplo de cadena nowdoc
 EOT;
+$numeros = array(1, 2, 3, 4);
+$colores = ["rojo", "verde", "azul"];
+$mixto = ["texto", 123, 4.56, array("anidado", 42)];
 '''
 
 
@@ -170,3 +226,38 @@ def analyze_code_and_generate_log(file_path):
 # Ejemplo de uso: Analizar el archivo PHP en la carpeta 'algoritmos'
 analyze_code_and_generate_log('algoritmos/algoritmo1.php') 
 
+#Inicio Kevin Magallanes
+# Función para generar el nombre del archivo de log
+def generate_log_filename2():
+    usuario_git = "kevinMaga"  
+    fecha_hora = time.strftime("%d%m%Y-%Hh%M")
+    return f"lexico-{usuario_git}-{fecha_hora}.txt"
+# Función principal para analizar el código y guardar los resultados en el log
+def analyze_code_and_generate_log2(file_path):
+    with open(file_path, 'r') as file:
+        data = file.read()
+
+    # Inicializa el lexer
+    lexer = lex.lex()
+
+    # Genera el nombre del archivo de log
+    log_filename2 = generate_log_filename2()
+    
+    # Abre el archivo de log para escribir
+    with open(log_filename2, 'w') as log_file:
+        lexer.input(data)
+        
+        while True:
+            tok = lexer.token()
+            if not tok:
+                break
+            # Escribe el token y su valor en el archivo de log
+            log_file.write(f"Token: {tok.type}, Value: {tok.value}, Line: {tok.lineno}\n")
+        
+        print(f"Log guardado en {log_filename2}")
+
+
+# Ejemplo de uso: Analizar el archivo PHP de prueba
+analyze_code_and_generate_log2('algoritmos/algoritmo2.php')
+analyze_code_and_generate_log2('algoritmos/algoritmo3.php')
+#Fin Kevin Magallanes
