@@ -1,0 +1,61 @@
+Token: MENOR, Value: <, Line: 1
+Token: VARIABLE, Value: php, Line: 1
+Token: DIVIDE, Value: /, Line: 2
+Token: DIVIDE, Value: /, Line: 2
+Token: VARIABLE, Value: Algoritmo, Line: 2
+Token: VARIABLE, Value: de, Line: 2
+Token: VARIABLE, Value: prueba, Line: 2
+Token: VARIABLE, Value: para, Line: 2
+Token: VARIABLE, Value: PHP, Line: 2
+Token: VARIABLE, Value: $nombre, Line: 4
+Token: IGUAL, Value: =, Line: 4
+Token: STRING, Value: "Leonardo", Line: 4
+Token: PUNTOYCOMA, Value: ;, Line: 4
+Token: IF, Value: if, Line: 5
+Token: LPAREN, Value: (, Line: 5
+Token: VARIABLE, Value: $nombre, Line: 5
+Token: IGUAL, Value: =, Line: 5
+Token: IGUAL, Value: =, Line: 5
+Token: STRING, Value: "Leonardo", Line: 5
+Token: RPAREN, Value: ), Line: 5
+Token: LLLAVE, Value: {, Line: 5
+Token: ECHO, Value: echo, Line: 6
+Token: STRING, Value: "Leonardo, $nombre", Line: 6
+Token: PUNTOYCOMA, Value: ;, Line: 6
+Token: RLLAVE, Value: }, Line: 7
+Token: ELSE, Value: else, Line: 7
+Token: LLLAVE, Value: {, Line: 7
+Token: ECHO, Value: echo, Line: 8
+Token: STRING, Value: "No es Leonardo", Line: 8
+Token: PUNTOYCOMA, Value: ;, Line: 8
+Token: RLLAVE, Value: }, Line: 9
+Token: VARIABLE, Value: $variable, Line: 11
+Token: IGUAL, Value: =, Line: 11
+Token: NUMBER, Value: 42, Line: 11
+Token: PUNTOYCOMA, Value: ;, Line: 11
+Token: VARIABLE, Value: $float_var, Line: 12
+Token: IGUAL, Value: =, Line: 12
+Token: FLOAT, Value: 3.1415, Line: 12
+Token: PUNTOYCOMA, Value: ;, Line: 12
+Token: WHILE, Value: while, Line: 14
+Token: LPAREN, Value: (, Line: 14
+Token: VARIABLE, Value: $variable, Line: 14
+Token: MAYOR, Value: >, Line: 14
+Token: NUMBER, Value: 23, Line: 14
+Token: RPAREN, Value: ), Line: 14
+Token: LLLAVE, Value: {, Line: 14
+Token: VARIABLE, Value: $variable, Line: 15
+Token: IGUAL, Value: =, Line: 15
+Token: VARIABLE, Value: $variable, Line: 15
+Token: MINUS, Value: -, Line: 15
+Token: NUMBER, Value: 5, Line: 15
+Token: RLLAVE, Value: }, Line: 16
+Token: STRING, Value: "Esto es una cadena entre comillas dobles", Line: 18
+Token: STRING, Value: 'Esto es una cadena entre comillas simples', Line: 19
+Token: STRING, Value: <<<EOT
+Este es un ejemplo de cadena heredoc
+EOT;, Line: 20
+Token: STRING, Value: <<<'EOT'
+Este es un ejemplo de cadena nowdoc
+EOT;, Line: 21
+Token: MAYOR, Value: >, Line: 23

@@ -1,4 +1,5 @@
 import ply.lex as lex 
+import time
 
 reserved = {
     # Inicio lEONARDOPARRA
@@ -108,8 +109,6 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-lexer = lex.lex()
-
 # Test con tokens
 data = '''
 3 + 5 - 2 * 10 / 5 % 2;
@@ -135,12 +134,39 @@ EOT;
 '''
 
 
-lexer.input(data)
 
 
-while True:
-    tok = lexer.token()
-    if not tok:
-        break      
-    print(tok)
+
+# Función para generar el nombre del archivo de log
+def generate_log_filename():
+    usuario_git = "LeoParra03"  
+    fecha_hora = time.strftime("%d%m%Y-%Hh%M")
+    return f"lexico-{usuario_git}-{fecha_hora}.txt"
+
+# Función principal para analizar el código y guardar los resultados en el log
+def analyze_code_and_generate_log(file_path):
+    with open(file_path, 'r') as file:
+        data = file.read()
+
+    # Inicializa el lexer
+    lexer = lex.lex()
+
+    # Genera el nombre del archivo de log
+    log_filename = generate_log_filename()
+    
+    # Abre el archivo de log para escribir
+    with open(log_filename, 'w') as log_file:
+        lexer.input(data)
+        
+        while True:
+            tok = lexer.token()
+            if not tok:
+                break
+            # Escribe el token y su valor en el archivo de log
+            log_file.write(f"Token: {tok.type}, Value: {tok.value}, Line: {tok.lineno}\n")
+        
+        print(f"Log guardado en {log_filename}")
+
+# Ejemplo de uso: Analizar el archivo PHP en la carpeta 'algoritmos'
+analyze_code_and_generate_log('algoritmos/algoritmo1.php') 
 
