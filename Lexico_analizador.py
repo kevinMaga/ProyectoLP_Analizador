@@ -37,7 +37,6 @@ reserved = {
     'die': 'DIE',
     'elseif': 'ELSEIF',
     'empty': 'EMPTY',
-    'enddeclare': 'ENDDECLARE',
     'endfor': 'ENDFOR',
     'endforeach': 'ENDFOREACH',
     'endif': 'ENDIF',
@@ -53,7 +52,6 @@ reserved = {
     'global': 'GLOBAL',
     'goto': 'GOTO',
     'implements': 'IMPLEMENTS',
-    'include_once': 'INCLUDE_ONCE',
     'instanceof': 'INSTANCEOF',
     'insteadof': 'INSTEADOF',
     'interface': 'INTERFACE',
@@ -62,7 +60,6 @@ reserved = {
     'match': 'MATCH',
     'new': 'NEW',
     'or': 'OR',
-    'require_once': 'REQUIRE_ONCE',
     'trait': 'TRAIT',
     'unset': 'UNSET',
     'use': 'USE',
@@ -71,6 +68,7 @@ reserved = {
     'yield': 'YIELD',
     'yield_from': 'YIELD_FROM'
     # Fin Ariana Gonzabay
+
 
 }
 
@@ -137,8 +135,6 @@ tokens = (
    'DELIM_INICIO',
    'DELIM_FIN'
    #Fin Ariana Gonzabay
-   
-    
 
 ) + tuple(reserved.values())
 
@@ -384,3 +380,29 @@ def analyze_code_and_generate_log2(file_path):
 analyze_code_and_generate_log2('algoritmos/algoritmo2.php')
 analyze_code_and_generate_log2('algoritmos/algoritmo3.php')
 #Fin Kevin Magallanes
+
+#Inicio Ariana Gonzabay
+def generate_log_filename3():
+    usuario_git = 'ArianaGonzabay'
+    fecha_hora = time.strftime("%d%m%Y-%Hh%M")
+    return f"lexico-{usuario_git}-{fecha_hora}.txt"
+
+def analyze_code_and_generate_log3(file_path):
+    with open(file_path, 'r') as file:
+        data = file.read()
+        lexer = lex.lex()
+        log_filename = generate_log_filename3()
+
+    with open(log_filename, 'w') as log_file:
+        lexer.input(data)
+    
+        while True:
+            tok = lexer.token()
+            if tok is None:
+                break
+            log_file.write(f"Token: {tok.type}, Value: {tok.value}, Line: {tok.lineno}\n")
+    
+    print(f"Log guardado en {log_filename}")
+
+analyze_code_and_generate_log3('algoritmos/algoritmo4.php')
+#Fin Ariana Gonzabay
