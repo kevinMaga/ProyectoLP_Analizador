@@ -20,7 +20,10 @@ reserved = {
     'switch': 'SWITCH',
     'try': 'TRY',
     'catch': 'CATCH',
-    'throw': 'THROW',  
+    'throw': 'THROW',
+    'function': 'FUNCTION',
+    'default' : 'DEFAULT',
+    'break' : 'BREAK',
     # Fin LEONARDOPARRA
 
     # Inicio Ariana Gonzabay
@@ -217,7 +220,7 @@ def t_BOOLEAN(t):
 
 
 def t_ID(t):
-    r'\$?[a-zA-Z_][a-zA-Z_0-9]*'
+    r'\$?(this(?:->\w+)?|\w+)'
     t.type = reserved.get(t.value, 'VARIABLE')  
     return t
 
@@ -237,10 +240,6 @@ def t_newline(t):
 
 t_ignore = ' \t'
 
-
-def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
-    t.lexer.skip(1)
 
 
 #Inicio Ariana Gonzabay
@@ -315,6 +314,13 @@ def generate_log_filename():
     usuario_git = "LeoParra03"  
     fecha_hora = time.strftime("%d%m%Y-%Hh%M")
     return f"lexico-{usuario_git}-{fecha_hora}.txt"
+
+def t_error(t):
+    log_filename = generate_log_filename()
+    with open(log_filename, 'a') as log_file:
+        log_file.write(f"Illegal character '{t.value[0]}' at line {t.lineno}\n")
+    print(f"Illegal character '{t.value[0]}'")
+    t.lexer.skip(1)
 
 # Función principal para analizar el código y guardar los resultados en el log
 def analyze_code_and_generate_log(file_path):

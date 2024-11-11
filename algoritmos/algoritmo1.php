@@ -52,19 +52,6 @@ class Persona {
 $persona = new Persona("Carlos", 25);
 
 
-$cadenaHereda = <<<EOT
-Esta es una cadena heredoc
-que puede ocupar varias líneas
-y se usa para cadenas largas.
-EOT;
-
-$cadenaNowdoc = <<<'EOT'
-Este es un ejemplo de cadena nowdoc
-que también puede ocupar varias líneas
-pero no interpreta variables como en heredoc.
-EOT;
-
-
 function retornarTrue() {
     return TRUE;
 }
