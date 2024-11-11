@@ -20,7 +20,7 @@ reserved = {
     'switch': 'SWITCH',
     'try': 'TRY',
     'catch': 'CATCH',
-    'throw': 'THROW',,   
+    'throw': 'THROW',  
     # Fin LEONARDOPARRA
 
     # Inicio Ariana Gonzabay
