@@ -14,14 +14,13 @@ reserved = {
     'private': 'PRIVATE',
     'protected': 'PROTECTED',
     'static': 'STATIC',
-    'namespace': 'NAMESPACE',
     'include': 'INCLUDE',
     'require': 'REQUIRE',
     'return': 'RETURN',
     'switch': 'SWITCH',
     'try': 'TRY',
     'catch': 'CATCH',
-    'throw': 'THROW'
+    'throw': 'THROW',   
     # Fin LEONARDOPARRA
 }
 
@@ -37,8 +36,8 @@ tokens = (
    'LPAREN',
    'RPAREN',
    'MOD',
+   'BOOLEAN',
    'PUNTOYCOMA',
-   'ARRAY' ,     #array #Fin Kevin Magallanes
    'VARIABLE',
    'NUMERAL',
    'STRING',
@@ -47,8 +46,16 @@ tokens = (
    'MAYOR',         # >
    'MENOR',         # <
    'IGUAL',     # =
-   'LBRACKET',  # [   #Inicio Kevin Magallanes
-   'RBRACKET',   #]
+   'PUNTO',
+   'DOBLEPUNTO',
+   'CLOSEINTER',
+   
+   # FIN lEONARDOPARRA
+
+   #Inicio Kevin Magallanes
+   'ARRAY' ,    
+   'LBRACKET',    
+   'RBRACKET',   
    'ARROW',
    'COMA',
    'INCREMENT',
@@ -68,10 +75,11 @@ tokens = (
    'NOT_EQUAL', 
    'NOT_IDENTICAL',
    'GREATER_EQUAL', 
-   'LESS_EQUAL' #Fin Kevin Magallanes
+   'LESS_EQUAL' 
+   #Fin Kevin Magallanes
    
 
-    # FIN lEONARDOPARRA
+    
 
 ) + tuple(reserved.values())
 
@@ -92,7 +100,13 @@ t_LLLAVE     = r'\{'
 t_RLLAVE   = r'\}'
 t_MAYOR         = r'>'
 t_MENOR         = r'<'
-t_IGUAL    = r'=' #Inicio Kevin Magallanes
+t_IGUAL    = r'=' 
+t_PUNTO = R'\.'
+t_DOBLEPUNTO = R'\:'
+t_CLOSEINTER = R'\?'
+ # Fin lEONARDOPARRA
+
+#Inicio Kevin Magallanes
 t_COMA = r','
 t_ARROW = r'=>'
 t_LBRACKET = r'\['
@@ -115,9 +129,10 @@ t_IDENTICAL = r'==='
 t_NOT_EQUAL = r'!='
 t_NOT_IDENTICAL = r'!=='
 t_GREATER_EQUAL = r'>='
-t_LESS_EQUAL = r'<=' #Fin Kevin Magallanes
+t_LESS_EQUAL = r'<=' 
+#Fin Kevin Magallanes
 
- # Fin lEONARDOPARRA
+
 
 
  # Inicio lEONARDOPARRA
@@ -135,19 +150,25 @@ def t_NUMBER(t):
     t.value = int(t.value)
     return t
 
-# Define el token ARRAY antes de VARIABLE
-def t_ARRAY(t):
-    r'array\s*\('
+def t_BOOLEAN(t):
+    r'\bTRUE\b|\bFALSE\b'  # Coincide solo con TRUE y FALSE como palabras completas
+    t.type = 'BOOLEAN'  # Aseguramos que el tipo sea 'BOOLEAN'
     return t
+
 
 def t_ID(t):
     r'\$?[a-zA-Z_][a-zA-Z_0-9]*'
-    t.type = reserved.get(t.value, 'VARIABLE')  # Check for reserved words
+    t.type = reserved.get(t.value, 'VARIABLE')  
     return t
+
 
  # FIN lEONARDOPARRA
 
-
+# Inicio Kevin Magallanes
+def t_ARRAY(t):
+    r'array\s*\('
+    return t
+# Fin Kevin Magallanes
 
 def t_newline(t):
     r'\n+'
