@@ -304,31 +304,31 @@ $expresion6 = (expresion);
 $expresion7 = <expresion>;
 '''
 
-
 # Función para generar el nombre del archivo de log
-def generate_log_filename():
-    usuario_git = "LeoParra03"  
+def generate_log_filename(usuario_git):
     fecha_hora = time.strftime("%d%m%Y-%Hh%M")
     return f"lexico-{usuario_git}-{fecha_hora}.txt"
 
+# Función para manejar errores de caracteres ilegales
 def t_error(t):
-    log_filename = generate_log_filename()
+    log_filename = generate_log_filename("user")
     with open(log_filename, 'a') as log_file:
         log_file.write(f"Illegal character '{t.value[0]}' at line {t.lineno}\n")
     print(f"Illegal character '{t.value[0]}'")
     t.lexer.skip(1)
 
 # Función principal para analizar el código y guardar los resultados en el log
-def analyze_code_and_generate_log(file_path):
+def analyze_code_and_generate_log(file_path, usuario_git):
+    # Leer el archivo a analizar
     with open(file_path, 'r') as file:
         data = file.read()
 
     # Inicializa el lexer
     lexer = lex.lex()
 
-    # Genera el nombre del archivo de log
-    log_filename = generate_log_filename()
-    
+    # Genera el nombre del archivo de log usando el usuario proporcionado
+    log_filename = generate_log_filename(usuario_git)
+
     # Abre el archivo de log para escribir
     with open(log_filename, 'w') as log_file:
         lexer.input(data)
@@ -342,67 +342,8 @@ def analyze_code_and_generate_log(file_path):
         
         print(f"Log guardado en {log_filename}")
 
-# Ejemplo de uso: Analizar el archivo PHP en la carpeta 'algoritmos'
-analyze_code_and_generate_log('algoritmos/algoritmo1.php') 
-
-#Inicio Kevin Magallanes
-# Función para generar el nombre del archivo de log
-def generate_log_filename2():
-    usuario_git = "kevinMaga"  
-    fecha_hora = time.strftime("%d%m%Y-%Hh%M")
-    return f"lexico-{usuario_git}-{fecha_hora}.txt"
-# Función principal para analizar el código y guardar los resultados en el log
-def analyze_code_and_generate_log2(file_path):
-    with open(file_path, 'r') as file:
-        data = file.read()
-
-    # Inicializa el lexer
-    lexer = lex.lex()
-
-    # Genera el nombre del archivo de log
-    log_filename2 = generate_log_filename2()
-    
-    # Abre el archivo de log para escribir
-    with open(log_filename2, 'w') as log_file:
-        lexer.input(data)
-        
-        while True:
-            tok = lexer.token()
-            if not tok:
-                break
-            # Escribe el token y su valor en el archivo de log
-            log_file.write(f"Token: {tok.type}, Value: {tok.value}, Line: {tok.lineno}\n")
-        
-        print(f"Log guardado en {log_filename2}")
-
-
-# Ejemplo de uso: Analizar el archivo PHP de prueba
-analyze_code_and_generate_log2('algoritmos/algoritmo2.php')
-analyze_code_and_generate_log2('algoritmos/algoritmo3.php')
-#Fin Kevin Magallanes
-
-#Inicio Ariana Gonzabay
-def generate_log_filename3():
-    usuario_git = 'ArianaGonzabay'
-    fecha_hora = time.strftime("%d%m%Y-%Hh%M")
-    return f"lexico-{usuario_git}-{fecha_hora}.txt"
-
-def analyze_code_and_generate_log3(file_path):
-    with open(file_path, 'r') as file:
-        data = file.read()
-        lexer = lex.lex()
-        log_filename = generate_log_filename3()
-
-    with open(log_filename, 'w') as log_file:
-        lexer.input(data)
-    
-        while True:
-            tok = lexer.token()
-            if tok is None:
-                break
-            log_file.write(f"Token: {tok.type}, Value: {tok.value}, Line: {tok.lineno}\n")
-    
-    print(f"Log guardado en {log_filename}")
-
-analyze_code_and_generate_log3('algoritmos/algoritmo4.php')
-#Fin Ariana Gonzabay
+# Analizar archivos PHP
+analyze_code_and_generate_log('algoritmos/algoritmo1.php', "LeoParra03")
+analyze_code_and_generate_log('algoritmos/algoritmo2.php', "kevinMaga")
+analyze_code_and_generate_log('algoritmos/algoritmo3.php', "kevinMaga")
+analyze_code_and_generate_log('algoritmos/algoritmo4.php', "ArianaGonzabay")
