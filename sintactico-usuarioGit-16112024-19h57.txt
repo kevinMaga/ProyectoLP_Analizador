@@ -1,0 +1,2 @@
+Error de sintaxis en el token: PUNTOYCOMA, valor: ;
+Ubicación: Línea 109, Columna 825

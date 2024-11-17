@@ -163,9 +163,9 @@ t_CLOSEINTER = R'\?'
 
 #Inicio Kevin Magallanes
 t_COMA = r','
-t_ARROW = r'=>'
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
+t_ARROW = r'=>'
 t_INCREMENT = r'\+\+'
 t_DECREMENT = r'--'
 t_AND_LOGICAL = r'&&'
@@ -210,7 +210,7 @@ def t_NUMBER(t):
     return t
 
 def t_BOOLEAN(t):
-    r'\bTRUE\b|\bFALSE\b'  # Coincide solo con TRUE y FALSE como palabras completas
+    r'\bTRUE\b|\bFALSE\b|\btrue|\bfalse'  # Coincide solo con TRUE y FALSE como palabras completas
     t.type = 'BOOLEAN'  # Aseguramos que el tipo sea 'BOOLEAN'
     return t
 
@@ -257,11 +257,11 @@ def t_COMENTARIO_MULTILINEA(t):
 
 #Delimitadores
 def t_DELIM_INICIO(t):
-    r'[/#~\[{(<]'
+    r'[/#~{(<]'
     return t
 
 def t_DELIM_FIN(t):
-    r'[/#~\]})>]'
+    r'[/#~})>]'
     return t
 #Fin Ariana Gonzabay
 
@@ -344,6 +344,7 @@ def analyze_code_and_generate_log(file_path, usuario_git):
 
 # Analizar archivos PHP
 analyze_code_and_generate_log('algoritmos/algoritmo1.php', "LeoParra03")
+analyze_code_and_generate_log('algoritmos/algoritmo4.php', "ArianaGonzabay")
 analyze_code_and_generate_log('algoritmos/algoritmo2.php', "kevinMaga")
 analyze_code_and_generate_log('algoritmos/algoritmo3.php', "kevinMaga")
-analyze_code_and_generate_log('algoritmos/algoritmo4.php', "ArianaGonzabay")
+

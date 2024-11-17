@@ -151,17 +151,17 @@ Token: DELIM_FIN, Value: ), Line: 33
 Token: PUNTOYCOMA, Value: ;, Line: 33
 Token: VARIABLE, Value: $verdadero, Line: 36
 Token: IGUAL, Value: =, Line: 36
-Token: VARIABLE, Value: true, Line: 36
+Token: BOOLEAN, Value: true, Line: 36
 Token: PUNTOYCOMA, Value: ;, Line: 36
 Token: VARIABLE, Value: $falso, Line: 37
 Token: IGUAL, Value: =, Line: 37
-Token: VARIABLE, Value: false, Line: 37
+Token: BOOLEAN, Value: false, Line: 37
 Token: PUNTOYCOMA, Value: ;, Line: 37
 Token: VARIABLE, Value: verificar, Line: 38
 Token: DELIM_INICIO, Value: (, Line: 38
 Token: STRING, Value: 'AND lógico (&&)', Line: 38
 Token: COMA, Value: ,, Line: 38
-Token: VARIABLE, Value: false, Line: 38
+Token: BOOLEAN, Value: false, Line: 38
 Token: COMA, Value: ,, Line: 38
 Token: VARIABLE, Value: $verdadero, Line: 38
 Token: AND_LOGICAL, Value: &&, Line: 38
@@ -172,7 +172,7 @@ Token: VARIABLE, Value: verificar, Line: 39
 Token: DELIM_INICIO, Value: (, Line: 39
 Token: STRING, Value: 'OR lógico (||)', Line: 39
 Token: COMA, Value: ,, Line: 39
-Token: VARIABLE, Value: true, Line: 39
+Token: BOOLEAN, Value: true, Line: 39
 Token: COMA, Value: ,, Line: 39
 Token: VARIABLE, Value: $verdadero, Line: 39
 Token: OR_LOGICAL, Value: ||, Line: 39
@@ -183,7 +183,7 @@ Token: VARIABLE, Value: verificar, Line: 40
 Token: DELIM_INICIO, Value: (, Line: 40
 Token: STRING, Value: 'NOT lógico (!)', Line: 40
 Token: COMA, Value: ,, Line: 40
-Token: VARIABLE, Value: false, Line: 40
+Token: BOOLEAN, Value: false, Line: 40
 Token: COMA, Value: ,, Line: 40
 Token: NOT_LOGICAL, Value: !, Line: 40
 Token: VARIABLE, Value: $verdadero, Line: 40
@@ -193,7 +193,7 @@ Token: VARIABLE, Value: verificar, Line: 41
 Token: DELIM_INICIO, Value: (, Line: 41
 Token: STRING, Value: 'AND palabra (and)', Line: 41
 Token: COMA, Value: ,, Line: 41
-Token: VARIABLE, Value: false, Line: 41
+Token: BOOLEAN, Value: false, Line: 41
 Token: COMA, Value: ,, Line: 41
 Token: VARIABLE, Value: $verdadero, Line: 41
 Token: AND, Value: and, Line: 41
@@ -204,7 +204,7 @@ Token: VARIABLE, Value: verificar, Line: 42
 Token: DELIM_INICIO, Value: (, Line: 42
 Token: STRING, Value: 'OR palabra (or)', Line: 42
 Token: COMA, Value: ,, Line: 42
-Token: VARIABLE, Value: true, Line: 42
+Token: BOOLEAN, Value: true, Line: 42
 Token: COMA, Value: ,, Line: 42
 Token: VARIABLE, Value: $verdadero, Line: 42
 Token: OR, Value: or, Line: 42
@@ -215,7 +215,7 @@ Token: VARIABLE, Value: verificar, Line: 43
 Token: DELIM_INICIO, Value: (, Line: 43
 Token: STRING, Value: 'XOR palabra (xor)', Line: 43
 Token: COMA, Value: ,, Line: 43
-Token: VARIABLE, Value: true, Line: 43
+Token: BOOLEAN, Value: true, Line: 43
 Token: COMA, Value: ,, Line: 43
 Token: VARIABLE, Value: $verdadero, Line: 43
 Token: XOR, Value: xor, Line: 43
@@ -308,7 +308,7 @@ Token: VARIABLE, Value: verificar, Line: 66
 Token: DELIM_INICIO, Value: (, Line: 66
 Token: STRING, Value: 'Igualdad (==)', Line: 66
 Token: COMA, Value: ,, Line: 66
-Token: VARIABLE, Value: false, Line: 66
+Token: BOOLEAN, Value: false, Line: 66
 Token: COMA, Value: ,, Line: 66
 Token: VARIABLE, Value: $a, Line: 66
 Token: EQUAL, Value: ==, Line: 66
@@ -319,7 +319,7 @@ Token: VARIABLE, Value: verificar, Line: 67
 Token: DELIM_INICIO, Value: (, Line: 67
 Token: STRING, Value: 'Identidad (===)', Line: 67
 Token: COMA, Value: ,, Line: 67
-Token: VARIABLE, Value: false, Line: 67
+Token: BOOLEAN, Value: false, Line: 67
 Token: COMA, Value: ,, Line: 67
 Token: VARIABLE, Value: $a, Line: 67
 Token: IDENTICAL, Value: ===, Line: 67
@@ -330,7 +330,7 @@ Token: VARIABLE, Value: verificar, Line: 68
 Token: DELIM_INICIO, Value: (, Line: 68
 Token: STRING, Value: 'Diferente (!=)', Line: 68
 Token: COMA, Value: ,, Line: 68
-Token: VARIABLE, Value: true, Line: 68
+Token: BOOLEAN, Value: true, Line: 68
 Token: COMA, Value: ,, Line: 68
 Token: VARIABLE, Value: $a, Line: 68
 Token: NOT_EQUAL, Value: !=, Line: 68
@@ -341,7 +341,7 @@ Token: VARIABLE, Value: verificar, Line: 69
 Token: DELIM_INICIO, Value: (, Line: 69
 Token: STRING, Value: 'No idéntico (!==)', Line: 69
 Token: COMA, Value: ,, Line: 69
-Token: VARIABLE, Value: true, Line: 69
+Token: BOOLEAN, Value: true, Line: 69
 Token: COMA, Value: ,, Line: 69
 Token: VARIABLE, Value: $a, Line: 69
 Token: NOT_IDENTICAL, Value: !==, Line: 69
@@ -352,7 +352,7 @@ Token: VARIABLE, Value: verificar, Line: 70
 Token: DELIM_INICIO, Value: (, Line: 70
 Token: STRING, Value: 'Mayor que (>)', Line: 70
 Token: COMA, Value: ,, Line: 70
-Token: VARIABLE, Value: true, Line: 70
+Token: BOOLEAN, Value: true, Line: 70
 Token: COMA, Value: ,, Line: 70
 Token: VARIABLE, Value: $a, Line: 70
 Token: DELIM_FIN, Value: >, Line: 70
@@ -363,7 +363,7 @@ Token: VARIABLE, Value: verificar, Line: 71
 Token: DELIM_INICIO, Value: (, Line: 71
 Token: STRING, Value: 'Menor que (<)', Line: 71
 Token: COMA, Value: ,, Line: 71
-Token: VARIABLE, Value: false, Line: 71
+Token: BOOLEAN, Value: false, Line: 71
 Token: COMA, Value: ,, Line: 71
 Token: VARIABLE, Value: $a, Line: 71
 Token: DELIM_INICIO, Value: <, Line: 71
@@ -374,7 +374,7 @@ Token: VARIABLE, Value: verificar, Line: 72
 Token: DELIM_INICIO, Value: (, Line: 72
 Token: STRING, Value: 'Mayor o igual que (>=)', Line: 72
 Token: COMA, Value: ,, Line: 72
-Token: VARIABLE, Value: true, Line: 72
+Token: BOOLEAN, Value: true, Line: 72
 Token: COMA, Value: ,, Line: 72
 Token: VARIABLE, Value: $a, Line: 72
 Token: DELIM_FIN, Value: >, Line: 72
@@ -386,7 +386,7 @@ Token: VARIABLE, Value: verificar, Line: 73
 Token: DELIM_INICIO, Value: (, Line: 73
 Token: STRING, Value: 'Menor o igual que (<=)', Line: 73
 Token: COMA, Value: ,, Line: 73
-Token: VARIABLE, Value: false, Line: 73
+Token: BOOLEAN, Value: false, Line: 73
 Token: COMA, Value: ,, Line: 73
 Token: VARIABLE, Value: $a, Line: 73
 Token: DELIM_INICIO, Value: <, Line: 73
