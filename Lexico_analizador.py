@@ -146,8 +146,8 @@ tokens = (
    'COMENTARIO_LINEA',
    'COMENTARIO_MULTILINEA',
    'COMENTARIO_SHELL',
-   'DELIM_INICIO',
-   'DELIM_FIN',
+   'PHP_START',
+   'PHP_END',
    'LBRACE',
    'RBRACE'
    #Fin Ariana Gonzabay
@@ -214,6 +214,8 @@ t_VIRGULILLA = r'~'
 t_MENOR_MAYOR = r'<>'
 t_LBRACE = r'\{'
 t_RBRACE = r'\}'
+t_PHP_START = r'<\?php'
+t_PHP_END = r'\?>'
 
 #Fin Ariana Gonzabay
 
@@ -238,10 +240,15 @@ def t_BOOLEAN(t):
     return t
 
 
-def t_ID(t):
-    r'\$?(this(?:->\w+)?|\w+)'
-    t.type = reserved.get(t.value, 'VARIABLE')
+def t_VARIABLE(t):
+    r'\$[a-zA-Z_][a-zA-Z0-9_]*'
     return t
+
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    t.type = reserved.get(t.value, 'ID')
+    return t
+
 
  # FIN lEONARDOPARRA
 
@@ -277,14 +284,16 @@ def t_COMENTARIO_MULTILINEA(t):
     t.lexer.lineno += t.value.count('\n')
     pass
 
-#Delimitadores
-def t_DELIM_INICIO(t):
-    r'[/#~{(<]'
-    return t
 
-def t_DELIM_FIN(t):
-    r'[/#~})>]'
-    return t
+#Delimitadores
+
+#def t_PHP_START(t):
+#    r'<\?php'
+#    return t
+
+#def t_PHP_END(t):
+#    r'\?>'
+#    return t
 #Fin Ariana Gonzabay
 
 # Test con tokens

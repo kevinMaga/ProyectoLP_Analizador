@@ -73,6 +73,7 @@ def p_valor(p):
           | STRING
           | BOOLEAN
           | VARIABLE
+          | ID
     """
 # -------------------------OPERADORES----------------------
 def p_operadores(p):
