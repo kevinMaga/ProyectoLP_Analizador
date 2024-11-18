@@ -7,7 +7,6 @@ reserved = {
     'else': 'ELSE',
     'while': 'WHILE',
     'for': 'FOR',
-    'array': 'ARRAY',
     'print': 'PRINT',
     'echo': 'ECHO',
     'class': 'CLASS',
@@ -75,7 +74,8 @@ reserved = {
     'var': 'VAR',
     'xor': 'XOR',
     'yield': 'YIELD',
-    'yield_from': 'YIELD_FROM'
+    'yield_from': 'YIELD_FROM',
+    'readline': 'READLINE'
     # Fin Ariana Gonzabay
 
 
@@ -104,16 +104,18 @@ tokens = (
    'RLLAVE',     # }
    'MAYOR',         # >
    'MENOR',         # <
-   'MAYORIGUAL',     #>=
-    'MENORIGUAL',     #<=
    'IGUAL',     # =
+   'MAYORIGUAL',
+   'MENORIGUAL',
    'PUNTO',
    'DOBLEPUNTO',
    'CLOSEINTER',
+   'ID',
    
    # FIN lEONARDOPARRA
 
-   #Inicio Kevin Magallanes   
+   #Inicio Kevin Magallanes
+   'ARRAY' ,    
    'LBRACKET',    
    'RBRACKET',   
    'ARROW',
@@ -134,7 +136,8 @@ tokens = (
    'EQUAL', 'IDENTICAL', 
    'NOT_EQUAL', 
    'NOT_IDENTICAL',
-   
+   'GREATER_EQUAL', 
+   'LESS_EQUAL', 
    #Fin Kevin Magallanes
    
    #Inicio Ariana Gonzabay
@@ -144,7 +147,9 @@ tokens = (
    'COMENTARIO_MULTILINEA',
    'COMENTARIO_SHELL',
    'DELIM_INICIO',
-   'DELIM_FIN'
+   'DELIM_FIN',
+   'LBRACE',
+   'RBRACE'
    #Fin Ariana Gonzabay
 
 ) + tuple(reserved.values())
@@ -195,9 +200,11 @@ t_MODULO_ASSIGN = r'%='
 t_EQUAL = r'=='
 t_IDENTICAL = r'==='
 t_NOT_EQUAL = r'!='
-t_NOT_IDENTICAL = r'!=='
 t_MAYORIGUAL = r'>='
-t_MENORIGUAL = r'<=' 
+t_MENORIGUAL = r'<='
+t_NOT_IDENTICAL = r'!=='
+t_GREATER_EQUAL = r'>='
+t_LESS_EQUAL = r'<=' 
 #Fin Kevin Magallanes
 
 
@@ -205,6 +212,9 @@ t_MENORIGUAL = r'<='
 #Inicio Ariana Gonzabay
 t_VIRGULILLA = r'~'
 t_MENOR_MAYOR = r'<>'
+t_LBRACE = r'\{'
+t_RBRACE = r'\}'
+
 #Fin Ariana Gonzabay
 
  # Inicio lEONARDOPARRA
@@ -229,10 +239,9 @@ def t_BOOLEAN(t):
 
 
 def t_ID(t):
-    r'\$(this(?:->\w+)?|[a-zA-Z_]\w*)'
-    t.type = reserved.get(t.value, 'VARIABLE')  
+    r'\$?(this(?:->\w+)?|\w+)'
+    t.type = reserved.get(t.value, 'VARIABLE')
     return t
-
 
  # FIN lEONARDOPARRA
 
@@ -360,4 +369,3 @@ analyze_code_and_generate_log('algoritmos/algoritmo1.php', "LeoParra03")
 analyze_code_and_generate_log('algoritmos/algoritmo4.php', "ArianaGonzabay")
 analyze_code_and_generate_log('algoritmos/algoritmo2.php', "kevinMaga")
 analyze_code_and_generate_log('algoritmos/algoritmo3.php', "kevinMaga")
-

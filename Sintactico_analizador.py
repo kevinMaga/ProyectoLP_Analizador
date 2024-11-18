@@ -8,14 +8,12 @@ usuario_git_global = None
 #Inicio Kevin Magallanes
 # Reglas de producción
 
-
-
-
+ 
 
 # Valores simples
 #---------------------------Estructura Basica---------------------
 def p_input(p):
-  "input : VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA"
+  "input : ID IGUAL FGETS LPAREN ID RPAREN PUNTOYCOMA"
 
 #Inicio Ariana Gonzabay
 #Impresión con cero, uno o más argumentos
@@ -66,84 +64,116 @@ def p_valor(p):
           | BOOLEAN
           | VARIABLE
     """
-#-------------------------COMPARADORES----------------   
-def p_comparadorNum(p):
-	''' comparadorNum : MAYOR
-					| MAYORIGUAL
-					| MENOR
-					| MENORIGUAL
-	'''
-def p_comparador(p):
-	''' comparador : EQUAL
-					| NOT_IDENTICAL
-                    | NOT_EQUAL
-					| IGUAL
-                    | IDENTICAL
-
-	'''
-    
-def p_variableOperacion(p):
-    ''' variable : NUMBER
-                  | VARIABLE
+# -------------------------OPERADORES----------------------
+def p_operadores(p):
+    '''operadores : AND_LOGICAL
+                 | OR_LOGICAL
     '''
+    p[0] = p[1]
+
+# -------------------------OPERADORES ARITMETICOS----------------------
+def p_operadorAritmetico(p):
+    '''operadorAritmetico : PLUS
+                          | MINUS
+                          | TIMES
+                          | DIVIDE
+                          | MOD
+                          | POT
+    '''
+    p[0] = p[1]
+
+# -------------------------COMPARADORES----------------------
+def p_comparadorNum(p):
+    ''' comparadorNum : MAYOR
+                      | MAYORIGUAL
+                      | MENOR
+                      | MENORIGUAL
+    '''
+    p[0] = p[1]
+
+def p_comparador(p):
+    ''' comparador : EQUAL
+                 | NOT_IDENTICAL
+                 | NOT_EQUAL
+                 | IGUAL
+                 | IDENTICAL
+    '''
+    p[0] = p[1]
 
 def p_comparaciones(p):
 	''' comparaciones : comparacion  
 					 | comparacion operadores comparaciones
 	'''
-
 def p_comparacion(p):
-	''' comparacion :  variable comparadorNum variable 
+	''' comparacion :  VARIABLE comparadorNum VARIABLE 
             | valor comparador valor 
 	'''
 
-def p_operadores(p):
-   '''operadores : OPERADOR
-	         | AND_LOGICAL
-	         | OR_LOGICAL
-	'''
-#----------------OPERACIONES ASIGNACION e INCREMENTACION/DECREMENTACION-----------------
+#Inicio Ariana Gonzabay
+
+# -------------------------CONDITIONS----------------------
+def p_condicion(p):
+    """ 
+    condicion : condicion_simple
+              | condicion compuesta_logica condicion
+    """
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        p[0] = ('condicion_compuesta', p[2], p[1], p[3])
+
+def p_condicion_simple(p):
+    """
+    condicion_simple : valor comparador valor
+    """
+    p[0] = ('condicion_simple', p[1], p[2], p[3])
+
+# -------------------------LOGICAL OPERATORS----------------------
+def p_compuesta_logica(p):
+    """
+    compuesta_logica : AND_LOGICAL
+                     | OR_LOGICAL
+    """
+    p[0] = p[1]
+
+#Fin Ariana Gonzabay
+
+# -------------------------OPERACIONES DE ASIGNACION E INCREMENTO/DECREMENTO----------------------
 def p_operacionesASIG(p):
-  '''OperacionASIG : VARIABLE PLUS_ASSIGN NUMBER
-                          | VARIABLE MINUS_ASSIGN NUMBER
-                          | VARIABLE TIMES_ASSIGN NUMBER
-                          | VARIABLE DIVIDE_ASSIGN NUMBER
-                          | VARIABLE MODULO_ASSIGN NUMBER
-                          | VARIABLE PLUS_ASSIGN NUMBER PUNTOYCOMA
-                          | VARIABLE MINUS_ASSIGN NUMBER PUNTOYCOMA
-                          | VARIABLE TIMES_ASSIGN NUMBER PUNTOYCOMA
-                          | VARIABLE DIVIDE_ASSIGN NUMBER PUNTOYCOMA
-                          | VARIABLE MODULO_ASSIGN NUMBER PUNTOYCOMA
-  '''
+    '''OperacionASIG : VARIABLE PLUS_ASSIGN NUMBER
+                    | VARIABLE MINUS_ASSIGN NUMBER
+                    | VARIABLE TIMES_ASSIGN NUMBER
+                    | VARIABLE DIVIDE_ASSIGN NUMBER
+                    | VARIABLE MODULO_ASSIGN NUMBER
+                    | VARIABLE PLUS_ASSIGN NUMBER PUNTOYCOMA
+                    | VARIABLE MINUS_ASSIGN NUMBER PUNTOYCOMA
+                    | VARIABLE TIMES_ASSIGN NUMBER PUNTOYCOMA
+                    | VARIABLE DIVIDE_ASSIGN NUMBER PUNTOYCOMA
+                    | VARIABLE MODULO_ASSIGN NUMBER PUNTOYCOMA
+    '''
+    p[0] = ('asignacion', p[1], p[2], p[3])
+
 def p_incrementoDecremento(p):
-  '''incrementoDecremento : variable INCREMENT 
-                          | variable DECREMENT
-                          | variable INCREMENT PUNTOYCOMA
-                          | variable DECREMENT PUNTOYCOMA
-  '''
-#----------------OPERACIONES ARITMETICAS-----------------
+    '''incrementoDecremento : VARIABLE INCREMENT
+                            | VARIABLE DECREMENT
+                            | VARIABLE INCREMENT PUNTOYCOMA
+                            | VARIABLE DECREMENT PUNTOYCOMA
+    '''
+    p[0] = ('incremento_decremento', p[1], p[2])
 
+# -------------------------OPERACIONES ARITMETICAS----------------------
 def p_operacion(p): 
-   ''' operacion : variable operadorAritmetico variable
-                | operacion operadorAritmetico operacion
-   '''
-
-def p_operadorAritmetico(p):
-    '''operadorAritmetico : PLUS
-						  | MINUS
-						  | TIMES
-						  | DIVIDE 
-                          | DOBLEDIVIDE
-						  | MOD
-						  | POT
-	'''
+    ''' operacion : VARIABLE operadorAritmetico VARIABLE
+                 | operacion operadorAritmetico operacion
+    '''
+    p[0] = ('operacion', p[1], p[2], p[3])
 
 def p_operaciones(p): 
-   ''' operaciones : operacion
+    ''' operaciones : operacion
                     | operacion PUNTOYCOMA
                     | operacion operadorAritmetico operaciones 
                     | VARIABLE IGUAL operaciones'''
-
+    p[0] = p[1]
 
 #----------------ESTRUCTURA DE DATOS--------------------
 # (Leonardo Parra) Regla principal: Lista
@@ -224,10 +254,10 @@ def p_par(p):
 
 
 def p_estructurasControl(p):
-  '''estructurasControl : while
-                        | if
-                        | else
-                        | for
+  '''estructurasControl : WHILE
+                        | IF
+                        | ELSE
+                        | FOR
   '''
 def p_if(p):
     '''
@@ -256,13 +286,13 @@ def p_declaraciones(p):
     '''
 def p_declaracion(p):
     '''
-    declaracion : if
+    declaracion : IF
                 | asignacion
-                | else
+                | ELSE
                 | operacion
-                | while
-                | for
-                | funcion_inbuilt
+                | WHILE
+                | FOR
+                | funcioninbuilt
     '''
 def p_asignacion(p):
     '''
@@ -273,47 +303,14 @@ def p_asignacion(p):
 #Fin Leonardo Parra
 
 # (Ariana Gonzabay) Regla principal: WHILE
+# ------------------------------WHILE---------------------------------
 def p_while(p):
     """
     while : WHILE LBRACE condicion RBRACE bloque
     """
     p[0] = ('while', p[3], p[5])
 
-#Condiciones con uno o más conectores
-def p_condicion(p):
-    """
-    condicion : condicion_simple
-              | condicion compuesta_logica condicion
-    """
-    if len(p) == 2:
-        p[0] = p[1]
-    else:
-        p[0] = ('condicion_compuesta', p[2], p[1], p[3])
-
-def p_condicion_simple(p):
-    """
-    condicion_simple : valor operador valor
-    """
-    p[0] = ('condicion_simple', p[1], p[2], p[3])
-
-def p_compuesta_logica(p):
-    """
-    compuesta_logica : AND_LOGICAL
-                     | OR_LOGICAL
-    """
-    p[0] = p[1]
-
-def p_operador(p):
-    """
-    operador : EQUAL
-             | LESS
-             | GREATER
-             | GREATER_EQUAL
-             | LESS_EQUAL
-             | NOT_EQUAL
-    """
-    p[0] = p[1]
-
+# -------------------------BLOQUES DE INSTRUCCIONES----------------------
 def p_bloque(p):
     """
     bloque : LBRACE instrucciones RBRACE
@@ -337,13 +334,6 @@ def p_instruccion(p):
     """
     p[0] = p[1]
 
-def p_asignacion(p):
-    """
-    asignacion : STRING EQUAL valor PUNTOYCOMA
-    """
-    p[0] = ('asignacion', p[1], p[3])
-
-
 #Fin Ariana Gonzabay
 
 #----------------FUNCIONES----------------------
@@ -357,13 +347,13 @@ def p_funcioninbuilt(p):
 
 def p_funcionesdefin(p):
     '''
-    funciones : strlen
-                | strpos
-                | array_push
-                | array_pop
-                | in_array
-                | count
-                | sort
+    funciones : STRLEN
+                | STRPOS
+                | ARRAY_PUSH
+                | ARRAY_POP
+                | IN_ARRAY
+                | COUNT
+                | SORT
     '''
 
 #Fin Leonardo Parra
@@ -390,7 +380,6 @@ def p_parametros(p):
 # Función de manejo de errores para el log
 def p_error(p):
     global usuario_git_global
-
     # Si se encuentra un error, crear un archivo de log
     if p:
         # Obtener la fecha y hora actual
@@ -404,7 +393,7 @@ def p_error(p):
         with open(log_filename, 'a') as log_file:
             log_file.write(f"Error de sintaxis en el token: {p.type}, valor: {p.value}\n")
             log_file.write(f"Ubicación: Línea {p.lineno}, Columna {p.lexpos}\n")
-        
+
         print(f"Error de sintaxis registrado en {log_filename}")
     else:
         print(f"Error de sintaxis al final de la entrada para el usuario {usuario_git_global}.")
@@ -417,7 +406,6 @@ def analizar_php(archivo_php, usuario_git):
     global usuario_git_global
     # Asignamos el valor de usuario_git a la variable global
     usuario_git_global = usuario_git
-
     try:
         # Verificar si el archivo existe antes de intentar abrirlo
         if not os.path.isfile(archivo_php):
@@ -431,7 +419,6 @@ def analizar_php(archivo_php, usuario_git):
             # Analizar el código PHP con el parser
             result = parser.parse(php_code)
             print(f"Resultado del análisis de {archivo_php}: {result}")
-
         except Exception as e:
             # Manejo de errores en el análisis sintáctico
             print(f"Error al analizar el archivo PHP: {str(e)}")
@@ -443,7 +430,6 @@ def analizar_php(archivo_php, usuario_git):
             with open(log_filename, 'a') as log_file:  # Modo append
                 log_file.write(f"Error de sintaxis en el archivo: {archivo_php}\n")
                 log_file.write(f"Error: {str(e)}\n")
-
     except FileNotFoundError as fnf_error:
         # Manejo de errores si el archivo no se encuentra
         print(fnf_error)
@@ -453,7 +439,6 @@ def analizar_php(archivo_php, usuario_git):
         log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
         with open(log_filename, 'a') as log_file:  # Modo append
             log_file.write(f"Error: El archivo {archivo_php} no fue encontrado.\n")
-
     except Exception as e:
         # Captura cualquier otro tipo de excepción
         print(f"Error inesperado: {str(e)}")
