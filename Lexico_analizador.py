@@ -7,6 +7,7 @@ reserved = {
     'else': 'ELSE',
     'while': 'WHILE',
     'for': 'FOR',
+    'array': 'ARRAY',
     'print': 'PRINT',
     'echo': 'ECHO',
     'class': 'CLASS',
@@ -24,6 +25,14 @@ reserved = {
     'function': 'FUNCTION',
     'default' : 'DEFAULT',
     'break' : 'BREAK',
+    'fgets': 'FGETS',
+    'strlen': 'STRLEN',
+    'strpos': 'STRPOS',
+    'array_push': 'ARRAY_PUSH',
+    'array_pop': 'ARRAY_POP',
+    'in_array': 'IN_ARRAY',
+    'count': 'COUNT',
+    'sort': 'SORT',
     # Fin LEONARDOPARRA
 
     # Inicio Ariana Gonzabay
@@ -81,6 +90,8 @@ tokens = (
    'MINUS',
    'TIMES',
    'DIVIDE',
+   'DOBLEDIVIDE',
+   'POT',
    'LPAREN',
    'RPAREN',
    'MOD',
@@ -93,6 +104,8 @@ tokens = (
    'RLLAVE',     # }
    'MAYOR',         # >
    'MENOR',         # <
+   'MAYORIGUAL',     #>=
+    'MENORIGUAL',     #<=
    'IGUAL',     # =
    'PUNTO',
    'DOBLEPUNTO',
@@ -100,8 +113,7 @@ tokens = (
    
    # FIN lEONARDOPARRA
 
-   #Inicio Kevin Magallanes
-   'ARRAY' ,    
+   #Inicio Kevin Magallanes   
    'LBRACKET',    
    'RBRACKET',   
    'ARROW',
@@ -122,8 +134,7 @@ tokens = (
    'EQUAL', 'IDENTICAL', 
    'NOT_EQUAL', 
    'NOT_IDENTICAL',
-   'GREATER_EQUAL', 
-   'LESS_EQUAL', 
+   
    #Fin Kevin Magallanes
    
    #Inicio Ariana Gonzabay
@@ -146,6 +157,8 @@ t_PLUS    = r'\+'
 t_MINUS   = r'-'
 t_TIMES   = r'\*'
 t_DIVIDE  = r'/'
+t_DOBLEDIVIDE = r'//'
+t_POT = r'\*\*'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
 t_MOD     = r'%'
@@ -183,8 +196,8 @@ t_EQUAL = r'=='
 t_IDENTICAL = r'==='
 t_NOT_EQUAL = r'!='
 t_NOT_IDENTICAL = r'!=='
-t_GREATER_EQUAL = r'>='
-t_LESS_EQUAL = r'<=' 
+t_MAYORIGUAL = r'>='
+t_MENORIGUAL = r'<=' 
 #Fin Kevin Magallanes
 
 
@@ -216,7 +229,7 @@ def t_BOOLEAN(t):
 
 
 def t_ID(t):
-    r'\$?(this(?:->\w+)?|\w+)'
+    r'\$(this(?:->\w+)?|[a-zA-Z_]\w*)'
     t.type = reserved.get(t.value, 'VARIABLE')  
     return t
 
