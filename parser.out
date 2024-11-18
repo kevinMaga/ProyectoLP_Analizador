@@ -33,7 +33,6 @@ Unused terminals:
     EXTENDS
     FINAL
     FINALLY
-    FN
     FOREACH
     GLOBAL
     GOTO
@@ -185,18 +184,43 @@ Rule 105   instrucciones -> instruccion
 Rule 106   instrucciones -> instrucciones instruccion
 Rule 107   instruccion -> asignacion
 Rule 108   instruccion -> imprimir
-Rule 109   funcioninbuilt -> funciones LPAREN operaciones RPAREN
-Rule 110   funcioninbuilt -> funciones LPAREN RPAREN
-Rule 111   funciones -> STRLEN
-Rule 112   funciones -> STRPOS
-Rule 113   funciones -> ARRAY_PUSH
-Rule 114   funciones -> ARRAY_POP
-Rule 115   funciones -> IN_ARRAY
-Rule 116   funciones -> COUNT
-Rule 117   funciones -> SORT
-Rule 118   funcion_anonima -> FUNCTION LPAREN parametros RPAREN LBRACE instrucciones RBRACE
-Rule 119   parametros -> STRING
-Rule 120   parametros -> parametros COMA STRING
+Rule 109   program -> for_statement
+Rule 110   program -> program for_statement
+Rule 111   program -> empty
+Rule 112   for_statement -> FOR LPAREN initialization PUNTOYCOMA condition PUNTOYCOMA increment RPAREN LLLAVE program RLLAVE
+Rule 113   initialization -> VARIABLE IGUAL expression
+Rule 114   initialization -> empty
+Rule 115   condition -> VARIABLE MAYOR expression
+Rule 116   condition -> VARIABLE MENOR expression
+Rule 117   condition -> VARIABLE EQUAL expression
+Rule 118   condition -> empty
+Rule 119   increment -> VARIABLE INCREMENT
+Rule 120   increment -> VARIABLE DECREMENT
+Rule 121   increment -> VARIABLE PLUS_ASSIGN expression
+Rule 122   increment -> VARIABLE MINUS_ASSIGN expression
+Rule 123   increment -> empty
+Rule 124   empty -> <empty>
+Rule 125   funcioninbuilt -> funciones LPAREN operaciones RPAREN
+Rule 126   funcioninbuilt -> funciones LPAREN RPAREN
+Rule 127   funciones -> STRLEN
+Rule 128   funciones -> STRPOS
+Rule 129   funciones -> ARRAY_PUSH
+Rule 130   funciones -> ARRAY_POP
+Rule 131   funciones -> IN_ARRAY
+Rule 132   funciones -> COUNT
+Rule 133   funciones -> SORT
+Rule 134   funcion_anonima -> FUNCTION LPAREN parametros RPAREN LBRACE instrucciones RBRACE
+Rule 135   parametros -> STRING
+Rule 136   parametros -> parametros COMA STRING
+Rule 137   arrow_function -> VARIABLE EQUAL FN LPAREN parameter_list RPAREN ARROW expression
+Rule 138   parameter_list -> VARIABLE
+Rule 139   parameter_list -> VARIABLE COMA parameter_list
+Rule 140   expression -> VARIABLE
+Rule 141   expression -> NUMBER
+Rule 142   expression -> VARIABLE TIMES VARIABLE
+Rule 143   expression -> VARIABLE PLUS VARIABLE
+Rule 144   expression -> VARIABLE MINUS VARIABLE
+Rule 145   expression -> VARIABLE DIVIDE VARIABLE
 
 Terminals, with rules where they appear
 
@@ -205,9 +229,9 @@ AND                  :
 AND_LOGICAL          : 22 46
 AND_WORD             : 
 ARRAY                : 68 69
-ARRAY_POP            : 114
-ARRAY_PUSH           : 113
-ARROW                : 79 83
+ARRAY_POP            : 130
+ARRAY_PUSH           : 129
+ARROW                : 79 83 137
 AS                   : 
 BOOLEAN              : 19
 BREAK                : 
@@ -217,16 +241,16 @@ CATCH                :
 CLASS                : 
 CLONE                : 
 CLOSEINTER           : 
-COMA                 : 6 78 82 120
+COMA                 : 6 78 82 136 139
 COMENTARIO_LINEA     : 
 COMENTARIO_MULTILINEA : 
 COMENTARIO_SHELL     : 
-COUNT                : 116
+COUNT                : 132
 DECLARE              : 
-DECREMENT            : 59 61
+DECREMENT            : 59 61 120
 DEFAULT              : 
 DIE                  : 
-DIVIDE               : 27
+DIVIDE               : 27 145
 DIVIDE_ASSIGN        : 51 56
 DOBLEDIVIDE          : 
 DOBLEPUNTO           : 
@@ -239,7 +263,7 @@ ENDFOREACH           :
 ENDIF                : 
 ENDSWITCH            : 
 ENDWHILE             : 
-EQUAL                : 34
+EQUAL                : 34 117 137
 EVAL                 : 
 EXIT                 : 
 EXTENDS              : 
@@ -247,83 +271,83 @@ FGETS                : 10
 FINAL                : 
 FINALLY              : 
 FLOAT                : 15 17
-FN                   : 
-FOR                  : 87 99
+FN                   : 137
+FOR                  : 87 99 112
 FOREACH              : 
-FUNCTION             : 118
+FUNCTION             : 134
 GLOBAL               : 
 GOTO                 : 
 GREATER_EQUAL        : 
 ID                   : 21
 IDENTICAL            : 38
 IF                   : 85 88 89 94
-IGUAL                : 10 37 67 68 69 70 71 101 102
+IGUAL                : 10 37 67 68 69 70 71 101 102 113
 IMPLEMENTS           : 
 INCLUDE              : 
-INCREMENT            : 58 60
+INCREMENT            : 58 60 119
 INSTANCEOF           : 
 INSTEADOF            : 
 INTERFACE            : 
-IN_ARRAY             : 115
+IN_ARRAY             : 131
 ISSET                : 
-LBRACE               : 80 103 104 118
+LBRACE               : 80 103 104 134
 LBRACKET             : 11 12 70 71 72 73
 LESS_EQUAL           : 
 LIST                 : 
-LLLAVE               : 88 89 90 91
-LPAREN               : 1 2 7 10 68 69 88 89 109 110 118
+LLLAVE               : 88 89 90 91 112
+LPAREN               : 1 2 7 10 68 69 88 89 112 125 126 134 137
 MATCH                : 
-MAYOR                : 30
+MAYOR                : 30 115
 MAYORIGUAL           : 31
-MENOR                : 32
+MENOR                : 32 116
 MENORIGUAL           : 33
 MENOR_MAYOR          : 
-MINUS                : 14 25
-MINUS_ASSIGN         : 49 54
+MINUS                : 14 25 144
+MINUS_ASSIGN         : 49 54 122
 MOD                  : 28
 MODULO_ASSIGN        : 52 57
 NEW                  : 
 NOT_EQUAL            : 36
 NOT_IDENTICAL        : 35
 NOT_LOGICAL          : 
-NUMBER               : 13 14 16 48 49 50 51 52 53 54 55 56 57
+NUMBER               : 13 14 16 48 49 50 51 52 53 54 55 56 57 141
 NUMERAL              : 
 OR                   : 
 OR_LOGICAL           : 23 47
 OR_WORD              : 
 PHP_END              : 
 PHP_START            : 
-PLUS                 : 24
-PLUS_ASSIGN          : 48 53
+PLUS                 : 24 143
+PLUS_ASSIGN          : 48 53 121
 POT                  : 29
 PRINT                : 1 2
 PRIVATE              : 
 PROTECTED            : 
 PUBLIC               : 
 PUNTO                : 9
-PUNTOYCOMA           : 1 2 3 4 7 10 12 53 54 55 56 57 60 61 65 68 69 70 71 101
-RBRACE               : 80 103 104 118
+PUNTOYCOMA           : 1 2 3 4 7 10 12 53 54 55 56 57 60 61 65 68 69 70 71 101 112 112
+RBRACE               : 80 103 104 134
 RBRACKET             : 11 12 70 71 72 73
 READLINE             : 7
 REQUIRE              : 
 RETURN               : 
-RLLAVE               : 88 89 90 90 91
-RPAREN               : 1 2 7 10 68 69 88 89 109 110 118
-SORT                 : 117
+RLLAVE               : 88 89 90 90 91 112
+RPAREN               : 1 2 7 10 68 69 88 89 112 125 126 134 137
+SORT                 : 133
 STATIC               : 
-STRING               : 7 18 83 119 120
-STRLEN               : 111
-STRPOS               : 112
+STRING               : 7 18 83 135 136
+STRLEN               : 127
+STRPOS               : 128
 SWITCH               : 
 THROW                : 
-TIMES                : 26
+TIMES                : 26 142
 TIMES_ASSIGN         : 50 55
 TRAIT                : 
 TRY                  : 
 UNSET                : 
 USE                  : 
 VAR                  : 
-VARIABLE             : 10 10 11 12 20 41 41 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 62 67 68 69 70 71 89 101 102
+VARIABLE             : 10 10 11 12 20 41 41 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 62 67 68 69 70 71 89 101 102 113 115 116 117 119 120 121 122 137 138 139 140 142 142 143 143 144 144 145 145
 VIRGULILLA           : 
 WHILE                : 84 98 103
 XOR                  : 
@@ -337,6 +361,7 @@ Nonterminals, with rules where they appear
 OperacionASIG        : 
 argumentos           : 2 6
 array                : 
+arrow_function       : 
 asignacion           : 95 107
 bloque               : 103
 clave_valor          : 76
@@ -348,32 +373,40 @@ compuesta_logica     : 44
 concatenar           : 4 9
 condicion            : 44 44 103
 condicion_simple     : 43
+condition            : 112
 declaracion          : 92 93
 declaraciones        : 88 89 90 91 93
 diccionario          : 
 elemento             : 77 78
 elementos            : 69 71 73 78
 else                 : 
+empty                : 111 114 118 123
 estructurasControl   : 
+expression           : 113 115 116 117 121 122 137
+for_statement        : 109 110
 funcion_anonima      : 
-funciones            : 109 110
+funciones            : 125 126
 funcioninbuilt       : 100
 if                   : 
 imprimir             : 108 0
+increment            : 112
 incrementoDecremento : 
 indexacion           : 
+initialization       : 112
 input                : 
 instruccion          : 105 106
-instrucciones        : 104 106 118
+instrucciones        : 104 106 134
 lista                : 75
 numero               : 
 operacion            : 63 63 64 65 66 97
-operaciones          : 66 67 109
+operaciones          : 66 67 125
 operadorAritmetico   : 62 63 66
 operadores           : 40
 par                  : 81 82
-parametros           : 118 120
+parameter_list       : 137 139
+parametros           : 134 136
 pares                : 80 82
+program              : 110 112
 solicitud_datos      : 
 valor                : 1 3 5 6 8 9 11 12 42 42 45 45 74 79 79 83 101 102
 while                : 

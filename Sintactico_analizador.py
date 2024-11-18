@@ -348,6 +348,54 @@ def p_instruccion(p):
 
 #Fin Ariana Gonzabay
 
+#Inicio Kevin Magallanes 
+# Regla inicial
+def p_program(p):
+    '''program : for_statement
+               | program for_statement
+               | empty'''
+    pass
+
+# Regla para el bucle for
+def p_for_statement(p):
+    '''for_statement : FOR LPAREN initialization PUNTOYCOMA condition PUNTOYCOMA increment RPAREN LLLAVE program RLLAVE'''
+    print("Bucle 'for' válido")
+
+# Reglas para las partes del bucle for
+def p_initialization(p):
+    '''initialization : VARIABLE IGUAL expression
+                      | empty'''
+    pass
+
+def p_condition(p):
+    '''condition : VARIABLE MAYOR expression
+                 | VARIABLE MENOR expression
+                 | VARIABLE EQUAL expression
+                 | empty'''
+    pass
+
+def p_increment(p):
+    '''increment : VARIABLE INCREMENT
+                 | VARIABLE DECREMENT
+                 | VARIABLE PLUS_ASSIGN expression
+                 | VARIABLE MINUS_ASSIGN expression
+                 | empty'''
+    pass
+
+# Expresiones generales
+def p_expression(p):
+    '''expression : NUMBER
+                  | VARIABLE
+                  | STRING
+                  | FLOAT'''
+    pass
+
+# Regla para manejar cadenas vacías (necesario para evitar errores de parsing)
+def p_empty(p):
+    'empty :'
+    pass
+#fin Kevin Magallanes
+
 #----------------FUNCIONES----------------------
 
 # (Leonardo Parra) Regla principal: funcion_inbuilt
@@ -388,6 +436,27 @@ def p_parametros(p):
         p[0] = p[1] + [p[3]]
 
 #Fin Ariana Gonzabay
+
+#Inicio Kevin Magallanes 
+# Reglas de producción para funciones flecha
+def p_arrow_function(p):
+    '''arrow_function : VARIABLE EQUAL FN LPAREN parameter_list RPAREN ARROW expression'''
+    print("Función flecha válida:", p[1])
+
+def p_parameter_list(p):
+    '''parameter_list : VARIABLE
+                      | VARIABLE COMA parameter_list'''
+    pass
+
+def p_expression(p):
+    '''expression : VARIABLE
+                  | NUMBER
+                  | VARIABLE TIMES VARIABLE
+                  | VARIABLE PLUS VARIABLE
+                  | VARIABLE MINUS VARIABLE
+                  | VARIABLE DIVIDE VARIABLE'''
+    pass
+#Fin Kevin Magallanes
 
 # Función de manejo de errores para el log
 def p_error(p):

@@ -1,37 +1,58 @@
 <?php
-//Kevin Magallanes
-// Ejemplo 1: Operaciones matemáticas básicas
-$numero1 = 5;
-$numero2 = 3;
-$resultado = $numero1 + $numero2; // Suma
-echo "Resultado de la suma: " . $resultado;
+// Caso 1: Lista válida
+$numeros = [1, 2, 3, 4];
 
-// Ejemplo 2: Condicional IF
-$edad = 20;
-if ($edad >= 18) {
-    echo "Eres adulto";
-} else {
-    echo "Eres menor de edad";
+// Caso 2: Lista válida asociativa
+$colores = [
+    "rojo" => "#FF0000",
+    "verde" => "#00FF00",
+    "azul" => "#0000FF"
+];
+
+// Caso 3: Lista válida multidimensional
+$matriz = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+];
+
+// Caso 4: Error en la lista (coma faltante)
+$malArray = [1, 2 3, 4]; // Error: Falta una coma entre 2 y 3
+
+// Caso 5: Error en la lista asociativa (falta "=>")
+$malAsociativo = [
+    "amarillo" #FFFF00 // Error: Falta "=>"
+];
+
+// Caso 6: Error en lista vacía (válida en PHP pero podría generar errores lógicos)
+$listaVacia = []; // Esto es válido, pero verifica si está vacía.
+
+
+
+// Caso 1: Bucle 'for' válido
+for ($i = 0; $i < 10; $i++) {
+    echo "Iteración: $i\n";
 }
 
-// Ejemplo 3: Bucle FOR
-for ($i = 0; $i < 5; $i++) {
-    echo "El valor de i es: " . $i . "\n";
+// Caso 2: Bucle 'for' válido sin cuerpo explícito
+for ($k = 0; $k < 5; $k++)
+    echo "k = $k\n";
+
+
+// Caso 3: Bucle 'for' con error (falta un punto y coma en la condición)
+for ($a = 0 $a < 5; $a++) { // Error: falta ';' después de la inicialización
+    echo "a = $a\n";
 }
 
-// Ejemplo 4: Función simple
-function saludo($nombre) {
-    return "Hola, " . $nombre;
-}
+$doblar = fn($n) => $n * 2;
+$triple = fn($x) => $x + 3;
+// Palabra reservada "fn" mal escrita
+$invalida4 = fun($x) => $x * 2;
+// Uso incorrecto de operadores en la expresión
+$invalida3 = fn($a, $b) => $a + * $b;
 
-echo saludo("Juan");
+// Caso 4: Bucle 'for' con error (llave de cierre mal colocada)
+for ($d = 0; $d < 2; $d++) {
+    echo "d = $d\n"; // Error: llave de cierre faltante o mal colocada
 
-// Ejemplo 5: Array y acceso a sus elementos
-$colores = array("Rojo", "Verde", "Azul");
-echo $colores[1]; // Acceso a elemento 'Verde'
-
-// Ejemplo 6: Uso de arrays asociativos
-$persona = array("nombre" => "Carlos", "edad" => 30);
-echo "Nombre: " . $persona["nombre"] . ", Edad: " . $persona["edad"];
-//Kevin Magallanes
 ?>

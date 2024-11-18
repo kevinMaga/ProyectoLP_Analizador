@@ -1,0 +1,10 @@
+Error de sintaxis en el token: PHP_START, valor: <?php
+Ubicación: Línea 75, Columna 0
+Error de sintaxis en el token: RLLAVE, valor: }
+Ubicación: Línea 109, Columna 765
+Error de sintaxis en el token: FOR, valor: for
+Ubicación: Línea 117, Columna 945
+Error de sintaxis en el token: RLLAVE, valor: }
+Ubicación: Línea 119, Columna 1045
+Error de sintaxis en el token: PHP_END, valor: ?>
+Ubicación: Línea 132, Columna 1427
