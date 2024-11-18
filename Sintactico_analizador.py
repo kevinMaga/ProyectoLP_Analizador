@@ -17,12 +17,36 @@ usuario_git_global = None
 def p_input(p):
   "input : VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA"
 
+#Inicio Ariana Gonzabay
+#Impresión con cero, uno o más argumentos
+def p_imprimir(p):
+    """
+    imprimir : PRINT LPAREN valor RPAREN PUNTOYCOMA
+             | PRINT LPAREN argumentos RPAREN PUNTOYCOMA
+    """
+    if len(p) == 5:
+        p[0] = ('imprimir', [])
+    else:
+        p[0] = ('imprimir', p[3])
 
-def p_impresion(p):
-    '''impresion : print
-                | echo
-                | input
-                '''
+def p_argumentos(p):
+    """
+    argumentos : valor
+               | argumentos COMA valor
+    """
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[3]]
+
+#Solicitud de datos por teclado
+def p_solicitud_datos(p):
+    """
+    solicitud_datos : READLINE LPAREN STRING RPAREN PUNTOYCOMA
+    """
+    p[0] = ('solicitud_datos', p[3])
+
+#Fin Ariana Gonzabay
 
 def p_indexacion(p):
    '''indexacion : VARIABLE LBRACKET valor RBRACKET
@@ -169,6 +193,31 @@ def p_clave_valor(p):
 
 #Fin Kevin Magallanes
 
+# (Ariana Gonzabay) Regla principal: Diccionario
+def p_diccionario(p):
+    """
+    diccionario : LBRACE pares RBRACE
+    """
+    p[0] = dict(p[2])
+
+def p_pares(p):
+    """
+    pares : par
+          | pares COMA par
+    """
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[3]]
+
+def p_par(p):
+    """
+    par : STRING ARROW valor
+    """
+    p[0] = [(p[1], p[3])]
+
+#Fin Ariana Gonzabay
+
 #-------------ESTRUCTURAS DE CONTROL-----------------------
 
 # (Leonardo Parra) Regla principal: IF/ELSE
@@ -221,6 +270,81 @@ def p_asignacion(p):
                 | VARIABLE IGUAL valor 
     '''
 
+#Fin Leonardo Parra
+
+# (Ariana Gonzabay) Regla principal: WHILE
+def p_while(p):
+    """
+    while : WHILE LBRACE condicion RBRACE bloque
+    """
+    p[0] = ('while', p[3], p[5])
+
+#Condiciones con uno o más conectores
+def p_condicion(p):
+    """
+    condicion : condicion_simple
+              | condicion compuesta_logica condicion
+    """
+    if len(p) == 2:
+        p[0] = p[1]
+    else:
+        p[0] = ('condicion_compuesta', p[2], p[1], p[3])
+
+def p_condicion_simple(p):
+    """
+    condicion_simple : valor operador valor
+    """
+    p[0] = ('condicion_simple', p[1], p[2], p[3])
+
+def p_compuesta_logica(p):
+    """
+    compuesta_logica : AND_LOGICAL
+                     | OR_LOGICAL
+    """
+    p[0] = p[1]
+
+def p_operador(p):
+    """
+    operador : EQUAL
+             | LESS
+             | GREATER
+             | GREATER_EQUAL
+             | LESS_EQUAL
+             | NOT_EQUAL
+    """
+    p[0] = p[1]
+
+def p_bloque(p):
+    """
+    bloque : LBRACE instrucciones RBRACE
+    """
+    p[0] = p[2]
+
+def p_instrucciones(p):
+    """
+    instrucciones : instruccion
+                  | instrucciones instruccion
+    """
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[2]]
+
+def p_instruccion(p):
+    """
+    instruccion : asignacion
+                | imprimir
+    """
+    p[0] = p[1]
+
+def p_asignacion(p):
+    """
+    asignacion : STRING EQUAL valor PUNTOYCOMA
+    """
+    p[0] = ('asignacion', p[1], p[3])
+
+
+#Fin Ariana Gonzabay
 
 #----------------FUNCIONES----------------------
 
@@ -242,6 +366,26 @@ def p_funcionesdefin(p):
                 | sort
     '''
 
+#Fin Leonardo Parra
+
+# (Ariana Gonzabay) Regla principal: funciones_anonimas
+def p_funcion_anonima(p):
+    """
+    funcion_anonima : FUNCTION LPAREN parametros RPAREN LBRACE instrucciones RBRACE
+    """
+    p[0] = ('funcion_anonima', p[3], p[6])
+
+def p_parametros(p):
+    """
+    parametros : STRING
+               | parametros COMA STRING
+    """
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[3]]
+
+#Fin Ariana Gonzabay
 
 # Función de manejo de errores para el log
 def p_error(p):
@@ -322,3 +466,4 @@ def analizar_php(archivo_php, usuario_git):
 
 # Llamar a la función de análisis con el archivo PHP y el usuario Git
 analizar_php('algoritmos/algoritmo5.php', 'kevinMaga')
+analizar_php('algoritmos/algoritmo6.php', 'ArianaGonzabay')
