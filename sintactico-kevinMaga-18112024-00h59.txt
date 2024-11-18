@@ -1,0 +1,12 @@
+Error de sintaxis en el token: DELIM_INICIO, valor: <
+Ubicación: Línea 75, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $edad
+Ubicación: Línea 84, Columna 215
+Error de sintaxis en el token: DELIM_FIN, valor: }
+Ubicación: Línea 87, Columna 270
+Error de sintaxis en el token: DELIM_FIN, valor: }
+Ubicación: Línea 89, Columna 310
+Error de sintaxis en el token: DELIM_FIN, valor: }
+Ubicación: Línea 94, Columna 409
+Error de sintaxis en el token: LBRACKET, valor: [
+Ubicación: Línea 109, Columna 780

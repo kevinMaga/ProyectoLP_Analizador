@@ -23,7 +23,6 @@ Unused terminals:
     DIE
     DOBLEDIVIDE
     DOBLEPUNTO
-    ECHO
     ELSEIF
     EMPTY
     ENDFOR
@@ -41,6 +40,7 @@ Unused terminals:
     GLOBAL
     GOTO
     GREATER_EQUAL
+    ID
     IMPLEMENTS
     INCLUDE
     INSTANCEOF
@@ -59,7 +59,6 @@ Unused terminals:
     PRIVATE
     PROTECTED
     PUBLIC
-    PUNTO
     REQUIRE
     RETURN
     STATIC
@@ -78,135 +77,144 @@ Unused terminals:
 
 Grammar
 
-Rule 0     S' -> input
-Rule 1     input -> ID IGUAL FGETS LPAREN ID RPAREN PUNTOYCOMA
-Rule 2     imprimir -> PRINT LPAREN valor RPAREN PUNTOYCOMA
-Rule 3     imprimir -> PRINT LPAREN argumentos RPAREN PUNTOYCOMA
-Rule 4     argumentos -> valor
-Rule 5     argumentos -> argumentos COMA valor
-Rule 6     solicitud_datos -> READLINE LPAREN STRING RPAREN PUNTOYCOMA
-Rule 7     indexacion -> VARIABLE LBRACKET valor RBRACKET
-Rule 8     indexacion -> VARIABLE LBRACKET valor RBRACKET PUNTOYCOMA
-Rule 9     numero -> NUMBER
-Rule 10    numero -> MINUS NUMBER
-Rule 11    numero -> FLOAT
-Rule 12    valor -> NUMBER
-Rule 13    valor -> FLOAT
-Rule 14    valor -> STRING
-Rule 15    valor -> BOOLEAN
-Rule 16    valor -> VARIABLE
-Rule 17    operadores -> AND_LOGICAL
-Rule 18    operadores -> OR_LOGICAL
-Rule 19    operadorAritmetico -> PLUS
-Rule 20    operadorAritmetico -> MINUS
-Rule 21    operadorAritmetico -> TIMES
-Rule 22    operadorAritmetico -> DIVIDE
-Rule 23    operadorAritmetico -> MOD
-Rule 24    operadorAritmetico -> POT
-Rule 25    comparadorNum -> MAYOR
-Rule 26    comparadorNum -> MAYORIGUAL
-Rule 27    comparadorNum -> MENOR
-Rule 28    comparadorNum -> MENORIGUAL
-Rule 29    comparador -> EQUAL
-Rule 30    comparador -> NOT_IDENTICAL
-Rule 31    comparador -> NOT_EQUAL
-Rule 32    comparador -> IGUAL
-Rule 33    comparador -> IDENTICAL
-Rule 34    comparaciones -> comparacion
-Rule 35    comparaciones -> comparacion operadores comparaciones
-Rule 36    comparacion -> VARIABLE comparadorNum VARIABLE
-Rule 37    comparacion -> valor comparador valor
-Rule 38    condicion -> condicion_simple
-Rule 39    condicion -> condicion compuesta_logica condicion
-Rule 40    condicion_simple -> valor comparador valor
-Rule 41    compuesta_logica -> AND_LOGICAL
-Rule 42    compuesta_logica -> OR_LOGICAL
-Rule 43    OperacionASIG -> VARIABLE PLUS_ASSIGN NUMBER
-Rule 44    OperacionASIG -> VARIABLE MINUS_ASSIGN NUMBER
-Rule 45    OperacionASIG -> VARIABLE TIMES_ASSIGN NUMBER
-Rule 46    OperacionASIG -> VARIABLE DIVIDE_ASSIGN NUMBER
-Rule 47    OperacionASIG -> VARIABLE MODULO_ASSIGN NUMBER
-Rule 48    OperacionASIG -> VARIABLE PLUS_ASSIGN NUMBER PUNTOYCOMA
-Rule 49    OperacionASIG -> VARIABLE MINUS_ASSIGN NUMBER PUNTOYCOMA
-Rule 50    OperacionASIG -> VARIABLE TIMES_ASSIGN NUMBER PUNTOYCOMA
-Rule 51    OperacionASIG -> VARIABLE DIVIDE_ASSIGN NUMBER PUNTOYCOMA
-Rule 52    OperacionASIG -> VARIABLE MODULO_ASSIGN NUMBER PUNTOYCOMA
-Rule 53    incrementoDecremento -> VARIABLE INCREMENT
-Rule 54    incrementoDecremento -> VARIABLE DECREMENT
-Rule 55    incrementoDecremento -> VARIABLE INCREMENT PUNTOYCOMA
-Rule 56    incrementoDecremento -> VARIABLE DECREMENT PUNTOYCOMA
-Rule 57    operacion -> VARIABLE operadorAritmetico VARIABLE
-Rule 58    operacion -> operacion operadorAritmetico operacion
-Rule 59    operaciones -> operacion
-Rule 60    operaciones -> operacion PUNTOYCOMA
-Rule 61    operaciones -> operacion operadorAritmetico operaciones
-Rule 62    operaciones -> VARIABLE IGUAL operaciones
-Rule 63    array -> VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-Rule 64    array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
-Rule 65    array -> VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
-Rule 66    array -> VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
-Rule 67    lista -> LBRACKET RBRACKET
-Rule 68    lista -> LBRACKET elementos RBRACKET
-Rule 69    elemento -> valor
-Rule 70    elemento -> lista
-Rule 71    elemento -> clave_valor
-Rule 72    elementos -> elemento
-Rule 73    elementos -> elementos COMA elemento
-Rule 74    clave_valor -> valor ARROW valor
-Rule 75    diccionario -> LBRACE pares RBRACE
-Rule 76    pares -> par
-Rule 77    pares -> pares COMA par
-Rule 78    par -> STRING ARROW valor
-Rule 79    estructurasControl -> WHILE
-Rule 80    estructurasControl -> IF
-Rule 81    estructurasControl -> ELSE
-Rule 82    estructurasControl -> FOR
-Rule 83    if -> IF LPAREN comparaciones RPAREN LLLAVE declaraciones RLLAVE
-Rule 84    if -> IF LPAREN VARIABLE RPAREN LLLAVE declaraciones RLLAVE
-Rule 85    else -> RLLAVE ELSE LLLAVE declaraciones RLLAVE
-Rule 86    else -> ELSE LLLAVE declaraciones RLLAVE
-Rule 87    declaraciones -> declaracion
-Rule 88    declaraciones -> declaraciones declaracion
-Rule 89    declaracion -> IF
-Rule 90    declaracion -> asignacion
-Rule 91    declaracion -> ELSE
-Rule 92    declaracion -> operacion
-Rule 93    declaracion -> WHILE
-Rule 94    declaracion -> FOR
-Rule 95    declaracion -> funcioninbuilt
-Rule 96    asignacion -> VARIABLE IGUAL valor PUNTOYCOMA
-Rule 97    asignacion -> VARIABLE IGUAL valor
-Rule 98    while -> WHILE LBRACE condicion RBRACE bloque
-Rule 99    bloque -> LBRACE instrucciones RBRACE
-Rule 100   instrucciones -> instruccion
-Rule 101   instrucciones -> instrucciones instruccion
-Rule 102   instruccion -> asignacion
-Rule 103   instruccion -> imprimir
-Rule 104   funcioninbuilt -> funciones LPAREN operaciones RPAREN
-Rule 105   funcioninbuilt -> funciones LPAREN RPAREN
-Rule 106   funciones -> STRLEN
-Rule 107   funciones -> STRPOS
-Rule 108   funciones -> ARRAY_PUSH
-Rule 109   funciones -> ARRAY_POP
-Rule 110   funciones -> IN_ARRAY
-Rule 111   funciones -> COUNT
-Rule 112   funciones -> SORT
-Rule 113   funcion_anonima -> FUNCTION LPAREN parametros RPAREN LBRACE instrucciones RBRACE
-Rule 114   parametros -> STRING
-Rule 115   parametros -> parametros COMA STRING
+Rule 0     S' -> imprimir
+Rule 1     imprimir -> PRINT LPAREN valor RPAREN PUNTOYCOMA
+Rule 2     imprimir -> PRINT LPAREN argumentos RPAREN PUNTOYCOMA
+Rule 3     imprimir -> ECHO valor PUNTOYCOMA
+Rule 4     imprimir -> ECHO concatenar PUNTOYCOMA
+Rule 5     argumentos -> valor
+Rule 6     argumentos -> argumentos COMA valor
+Rule 7     solicitud_datos -> READLINE LPAREN STRING RPAREN PUNTOYCOMA
+Rule 8     concatenar -> valor
+Rule 9     concatenar -> valor PUNTO concatenar
+Rule 10    input -> VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA
+Rule 11    indexacion -> VARIABLE LBRACKET valor RBRACKET
+Rule 12    indexacion -> VARIABLE LBRACKET valor RBRACKET PUNTOYCOMA
+Rule 13    numero -> NUMBER
+Rule 14    numero -> MINUS NUMBER
+Rule 15    numero -> FLOAT
+Rule 16    valor -> NUMBER
+Rule 17    valor -> FLOAT
+Rule 18    valor -> STRING
+Rule 19    valor -> BOOLEAN
+Rule 20    valor -> VARIABLE
+Rule 21    operadores -> AND_LOGICAL
+Rule 22    operadores -> OR_LOGICAL
+Rule 23    operadorAritmetico -> PLUS
+Rule 24    operadorAritmetico -> MINUS
+Rule 25    operadorAritmetico -> TIMES
+Rule 26    operadorAritmetico -> DIVIDE
+Rule 27    operadorAritmetico -> MOD
+Rule 28    operadorAritmetico -> POT
+Rule 29    comparadorNum -> MAYOR
+Rule 30    comparadorNum -> MAYORIGUAL
+Rule 31    comparadorNum -> MENOR
+Rule 32    comparadorNum -> MENORIGUAL
+Rule 33    comparador -> EQUAL
+Rule 34    comparador -> NOT_IDENTICAL
+Rule 35    comparador -> NOT_EQUAL
+Rule 36    comparador -> IGUAL
+Rule 37    comparador -> IDENTICAL
+Rule 38    comparaciones -> comparacion
+Rule 39    comparaciones -> comparacion operadores comparaciones
+Rule 40    comparacion -> VARIABLE comparadorNum VARIABLE
+Rule 41    comparacion -> valor comparador valor
+Rule 42    condicion -> condicion_simple
+Rule 43    condicion -> condicion compuesta_logica condicion
+Rule 44    condicion_simple -> valor comparador valor
+Rule 45    compuesta_logica -> AND_LOGICAL
+Rule 46    compuesta_logica -> OR_LOGICAL
+Rule 47    OperacionASIG -> VARIABLE PLUS_ASSIGN NUMBER
+Rule 48    OperacionASIG -> VARIABLE MINUS_ASSIGN NUMBER
+Rule 49    OperacionASIG -> VARIABLE TIMES_ASSIGN NUMBER
+Rule 50    OperacionASIG -> VARIABLE DIVIDE_ASSIGN NUMBER
+Rule 51    OperacionASIG -> VARIABLE MODULO_ASSIGN NUMBER
+Rule 52    OperacionASIG -> VARIABLE PLUS_ASSIGN NUMBER PUNTOYCOMA
+Rule 53    OperacionASIG -> VARIABLE MINUS_ASSIGN NUMBER PUNTOYCOMA
+Rule 54    OperacionASIG -> VARIABLE TIMES_ASSIGN NUMBER PUNTOYCOMA
+Rule 55    OperacionASIG -> VARIABLE DIVIDE_ASSIGN NUMBER PUNTOYCOMA
+Rule 56    OperacionASIG -> VARIABLE MODULO_ASSIGN NUMBER PUNTOYCOMA
+Rule 57    incrementoDecremento -> VARIABLE INCREMENT
+Rule 58    incrementoDecremento -> VARIABLE DECREMENT
+Rule 59    incrementoDecremento -> VARIABLE INCREMENT PUNTOYCOMA
+Rule 60    incrementoDecremento -> VARIABLE DECREMENT PUNTOYCOMA
+Rule 61    operacion -> VARIABLE operadorAritmetico VARIABLE
+Rule 62    operacion -> operacion operadorAritmetico operacion
+Rule 63    operaciones -> operacion
+Rule 64    operaciones -> operacion PUNTOYCOMA
+Rule 65    operaciones -> operacion operadorAritmetico operaciones
+Rule 66    operaciones -> VARIABLE IGUAL operaciones
+Rule 67    estructurasDeDatos -> array
+Rule 68    estructurasDeDatos -> lista
+Rule 69    estructurasDeDatos -> diccionario
+Rule 70    array -> VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
+Rule 71    array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+Rule 72    array -> VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
+Rule 73    array -> VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
+Rule 74    lista -> LBRACKET RBRACKET
+Rule 75    lista -> LBRACKET elementos RBRACKET
+Rule 76    elemento -> valor
+Rule 77    elemento -> lista
+Rule 78    elemento -> clave_valor
+Rule 79    elementos -> elemento
+Rule 80    elementos -> elementos COMA elemento
+Rule 81    clave_valor -> valor ARROW valor
+Rule 82    diccionario -> LBRACE pares RBRACE
+Rule 83    pares -> par
+Rule 84    pares -> pares COMA par
+Rule 85    par -> STRING ARROW valor
+Rule 86    estructurasControl -> while
+Rule 87    estructurasControl -> if
+Rule 88    estructurasControl -> else
+Rule 89    estructurasControl -> for
+Rule 90    if -> IF LPAREN comparaciones RPAREN LLLAVE declaraciones RLLAVE
+Rule 91    if -> IF LPAREN VARIABLE RPAREN LLLAVE declaraciones RLLAVE
+Rule 92    else -> RLLAVE ELSE LLLAVE declaraciones RLLAVE
+Rule 93    else -> ELSE LLLAVE declaraciones RLLAVE
+Rule 94    declaraciones -> declaracion
+Rule 95    declaraciones -> declaraciones declaracion
+Rule 96    declaracion -> IF
+Rule 97    declaracion -> asignacion
+Rule 98    declaracion -> ELSE
+Rule 99    declaracion -> operacion
+Rule 100   declaracion -> WHILE
+Rule 101   declaracion -> FOR
+Rule 102   declaracion -> funcioninbuilt
+Rule 103   asignacion -> VARIABLE IGUAL valor PUNTOYCOMA
+Rule 104   asignacion -> VARIABLE IGUAL valor
+Rule 105   while -> WHILE LBRACE condicion RBRACE bloque
+Rule 106   bloque -> LBRACE instrucciones RBRACE
+Rule 107   instrucciones -> instruccion
+Rule 108   instrucciones -> instrucciones instruccion
+Rule 109   instruccion -> asignacion
+Rule 110   instruccion -> imprimir
+Rule 111   funciones -> funcioninbuilt
+Rule 112   funciones -> funcion_anonima
+Rule 113   funcioninbuilt -> funciones LPAREN operaciones RPAREN
+Rule 114   funcioninbuilt -> funciones LPAREN RPAREN
+Rule 115   funciones -> STRLEN
+Rule 116   funciones -> STRPOS
+Rule 117   funciones -> ARRAY_PUSH
+Rule 118   funciones -> ARRAY_POP
+Rule 119   funciones -> IN_ARRAY
+Rule 120   funciones -> COUNT
+Rule 121   funciones -> SORT
+Rule 122   funcion_anonima -> FUNCTION LPAREN parametros RPAREN LBRACE instrucciones RBRACE
+Rule 123   parametros -> STRING
+Rule 124   parametros -> parametros COMA STRING
 
 Terminals, with rules where they appear
 
 ABSTRACT             : 
 AND                  : 
-AND_LOGICAL          : 17 41
+AND_LOGICAL          : 21 45
 AND_WORD             : 
-ARRAY                : 63 64
-ARRAY_POP            : 109
-ARRAY_PUSH           : 108
-ARROW                : 74 78
+ARRAY                : 70 71
+ARRAY_POP            : 118
+ARRAY_PUSH           : 117
+ARROW                : 81 85
 AS                   : 
-BOOLEAN              : 15
+BOOLEAN              : 19
 BREAK                : 
 CALLABLE             : 
 CASE                 : 
@@ -214,23 +222,23 @@ CATCH                :
 CLASS                : 
 CLONE                : 
 CLOSEINTER           : 
-COMA                 : 5 73 77 115
+COMA                 : 6 80 84 124
 COMENTARIO_LINEA     : 
 COMENTARIO_MULTILINEA : 
 COMENTARIO_SHELL     : 
-COUNT                : 111
+COUNT                : 120
 DECLARE              : 
-DECREMENT            : 54 56
+DECREMENT            : 58 60
 DEFAULT              : 
 DELIM_FIN            : 
 DELIM_INICIO         : 
 DIE                  : 
-DIVIDE               : 22
-DIVIDE_ASSIGN        : 46 51
+DIVIDE               : 26
+DIVIDE_ASSIGN        : 50 55
 DOBLEDIVIDE          : 
 DOBLEPUNTO           : 
-ECHO                 : 
-ELSE                 : 81 85 86 91
+ECHO                 : 3 4
+ELSE                 : 92 93 98
 ELSEIF               : 
 EMPTY                : 
 ENDFOR               : 
@@ -238,91 +246,91 @@ ENDFOREACH           :
 ENDIF                : 
 ENDSWITCH            : 
 ENDWHILE             : 
-EQUAL                : 29
+EQUAL                : 33
 EVAL                 : 
 EXIT                 : 
 EXTENDS              : 
-FGETS                : 1
+FGETS                : 10
 FINAL                : 
 FINALLY              : 
-FLOAT                : 11 13
+FLOAT                : 15 17
 FN                   : 
-FOR                  : 82 94
+FOR                  : 101
 FOREACH              : 
-FUNCTION             : 113
+FUNCTION             : 122
 GLOBAL               : 
 GOTO                 : 
 GREATER_EQUAL        : 
-ID                   : 1 1
-IDENTICAL            : 33
-IF                   : 80 83 84 89
-IGUAL                : 1 32 62 63 64 65 66 96 97
+ID                   : 
+IDENTICAL            : 37
+IF                   : 90 91 96
+IGUAL                : 10 36 66 70 71 72 73 103 104
 IMPLEMENTS           : 
 INCLUDE              : 
-INCREMENT            : 53 55
+INCREMENT            : 57 59
 INSTANCEOF           : 
 INSTEADOF            : 
 INTERFACE            : 
-IN_ARRAY             : 110
+IN_ARRAY             : 119
 ISSET                : 
-LBRACE               : 75 98 99 113
-LBRACKET             : 7 8 65 66 67 68
+LBRACE               : 82 105 106 122
+LBRACKET             : 11 12 72 73 74 75
 LESS_EQUAL           : 
 LIST                 : 
-LLLAVE               : 83 84 85 86
-LPAREN               : 1 2 3 6 63 64 83 84 104 105 113
+LLLAVE               : 90 91 92 93
+LPAREN               : 1 2 7 10 70 71 90 91 113 114 122
 MATCH                : 
-MAYOR                : 25
-MAYORIGUAL           : 26
-MENOR                : 27
-MENORIGUAL           : 28
+MAYOR                : 29
+MAYORIGUAL           : 30
+MENOR                : 31
+MENORIGUAL           : 32
 MENOR_MAYOR          : 
-MINUS                : 10 20
-MINUS_ASSIGN         : 44 49
-MOD                  : 23
-MODULO_ASSIGN        : 47 52
+MINUS                : 14 24
+MINUS_ASSIGN         : 48 53
+MOD                  : 27
+MODULO_ASSIGN        : 51 56
 NEW                  : 
-NOT_EQUAL            : 31
-NOT_IDENTICAL        : 30
+NOT_EQUAL            : 35
+NOT_IDENTICAL        : 34
 NOT_LOGICAL          : 
-NUMBER               : 9 10 12 43 44 45 46 47 48 49 50 51 52
+NUMBER               : 13 14 16 47 48 49 50 51 52 53 54 55 56
 NUMERAL              : 
 OR                   : 
-OR_LOGICAL           : 18 42
+OR_LOGICAL           : 22 46
 OR_WORD              : 
-PLUS                 : 19
-PLUS_ASSIGN          : 43 48
-POT                  : 24
-PRINT                : 2 3
+PLUS                 : 23
+PLUS_ASSIGN          : 47 52
+POT                  : 28
+PRINT                : 1 2
 PRIVATE              : 
 PROTECTED            : 
 PUBLIC               : 
-PUNTO                : 
-PUNTOYCOMA           : 1 2 3 6 8 48 49 50 51 52 55 56 60 63 64 65 66 96
-RBRACE               : 75 98 99 113
-RBRACKET             : 7 8 65 66 67 68
-READLINE             : 6
+PUNTO                : 9
+PUNTOYCOMA           : 1 2 3 4 7 10 12 52 53 54 55 56 59 60 64 70 71 72 73 103
+RBRACE               : 82 105 106 122
+RBRACKET             : 11 12 72 73 74 75
+READLINE             : 7
 REQUIRE              : 
 RETURN               : 
-RLLAVE               : 83 84 85 85 86
-RPAREN               : 1 2 3 6 63 64 83 84 104 105 113
-SORT                 : 112
+RLLAVE               : 90 91 92 92 93
+RPAREN               : 1 2 7 10 70 71 90 91 113 114 122
+SORT                 : 121
 STATIC               : 
-STRING               : 6 14 78 114 115
-STRLEN               : 106
-STRPOS               : 107
+STRING               : 7 18 85 123 124
+STRLEN               : 115
+STRPOS               : 116
 SWITCH               : 
 THROW                : 
-TIMES                : 21
-TIMES_ASSIGN         : 45 50
+TIMES                : 25
+TIMES_ASSIGN         : 49 54
 TRAIT                : 
 TRY                  : 
 UNSET                : 
 USE                  : 
 VAR                  : 
-VARIABLE             : 7 8 16 36 36 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 57 62 63 64 65 66 84 96 97
+VARIABLE             : 10 10 11 12 20 40 40 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 61 66 70 71 72 73 91 103 104
 VIRGULILLA           : 
-WHILE                : 79 93 98
+WHILE                : 100 105
 XOR                  : 
 XOR_WORD             : 
 YIELD                : 
@@ -332,110 +340,48 @@ error                :
 Nonterminals, with rules where they appear
 
 OperacionASIG        : 
-argumentos           : 3 5
-array                : 
-asignacion           : 90 102
-bloque               : 98
-clave_valor          : 71
-comparacion          : 34 35
-comparaciones        : 35 83
-comparador           : 37 40
-comparadorNum        : 36
-compuesta_logica     : 39
-condicion            : 39 39 98
-condicion_simple     : 38
-declaracion          : 87 88
-declaraciones        : 83 84 85 86 88
-diccionario          : 
-elemento             : 72 73
-elementos            : 64 66 68 73
-else                 : 
+argumentos           : 2 6
+array                : 67
+asignacion           : 97 109
+bloque               : 105
+clave_valor          : 78
+comparacion          : 38 39
+comparaciones        : 39 90
+comparador           : 41 44
+comparadorNum        : 40
+compuesta_logica     : 43
+concatenar           : 4 9
+condicion            : 43 43 105
+condicion_simple     : 42
+declaracion          : 94 95
+declaraciones        : 90 91 92 93 95
+diccionario          : 69
+elemento             : 79 80
+elementos            : 71 73 75 80
+else                 : 88
 estructurasControl   : 
-funcion_anonima      : 
-funciones            : 104 105
-funcioninbuilt       : 95
-if                   : 
-imprimir             : 103
+estructurasDeDatos   : 
+for                  : 89
+funcion_anonima      : 112
+funciones            : 113 114
+funcioninbuilt       : 102 111
+if                   : 87
+imprimir             : 110 0
 incrementoDecremento : 
 indexacion           : 
-input                : 0
-instruccion          : 100 101
-instrucciones        : 99 101 113
-lista                : 70
+input                : 
+instruccion          : 107 108
+instrucciones        : 106 108 122
+lista                : 68 77
 numero               : 
-operacion            : 58 58 59 60 61 92
-operaciones          : 61 62 104
-operadorAritmetico   : 57 58 61
-operadores           : 35
-par                  : 76 77
-parametros           : 113 115
-pares                : 75 77
+operacion            : 62 62 63 64 65 99
+operaciones          : 65 66 113
+operadorAritmetico   : 61 62 65
+operadores           : 39
+par                  : 83 84
+parametros           : 122 124
+pares                : 82 84
 solicitud_datos      : 
-valor                : 2 4 5 7 8 37 37 40 40 69 74 74 78 96 97
-while                : 
-
-Parsing method: LALR
-
-state 0
-
-    (0) S' -> . input
-    (1) input -> . ID IGUAL FGETS LPAREN ID RPAREN PUNTOYCOMA
-
-    ID              shift and go to state 2
-
-    input                          shift and go to state 1
-
-state 1
-
-    (0) S' -> input .
-
-
-
-state 2
-
-    (1) input -> ID . IGUAL FGETS LPAREN ID RPAREN PUNTOYCOMA
-
-    IGUAL           shift and go to state 3
-
-
-state 3
-
-    (1) input -> ID IGUAL . FGETS LPAREN ID RPAREN PUNTOYCOMA
-
-    FGETS           shift and go to state 4
-
-
-state 4
-
-    (1) input -> ID IGUAL FGETS . LPAREN ID RPAREN PUNTOYCOMA
-
-    LPAREN          shift and go to state 5
-
-
-state 5
-
-    (1) input -> ID IGUAL FGETS LPAREN . ID RPAREN PUNTOYCOMA
-
-    ID              shift and go to state 6
-
-
-state 6
-
-    (1) input -> ID IGUAL FGETS LPAREN ID . RPAREN PUNTOYCOMA
-
-    RPAREN          shift and go to state 7
-
-
-state 7
-
-    (1) input -> ID IGUAL FGETS LPAREN ID RPAREN . PUNTOYCOMA
-
-    PUNTOYCOMA      shift and go to state 8
-
-
-state 8
-
-    (1) input -> ID IGUAL FGETS LPAREN ID RPAREN PUNTOYCOMA .
-
-    $end            reduce using rule 1 (input -> ID IGUAL FGETS LPAREN ID RPAREN PUNTOYCOMA .)
+valor                : 1 3 5 6 8 9 11 12 41 41 44 44 76 81 81 85 103 104
+while                : 86
 

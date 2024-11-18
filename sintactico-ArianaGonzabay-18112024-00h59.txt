@@ -1,0 +1,16 @@
+Error de sintaxis en el token: DELIM_INICIO, valor: <
+Ubicación: Línea 111, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $contador
+Ubicación: Línea 124, Columna 196
+Error de sintaxis en el token: VARIABLE, valor: $contador
+Ubicación: Línea 127, Columna 271
+Error de sintaxis en el token: DELIM_FIN, valor: }
+Ubicación: Línea 135, Columna 408
+Error de sintaxis en el token: DELIM_FIN, valor: }
+Ubicación: Línea 141, Columna 574
+Error de sintaxis en el token: DELIM_FIN, valor: }
+Ubicación: Línea 146, Columna 654
+Error de sintaxis en el token: ECHO, valor: echo
+Ubicación: Línea 151, Columna 762
+Error de sintaxis en el token: VARIABLE, valor: $nombre
+Ubicación: Línea 155, Columna 864

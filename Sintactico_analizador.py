@@ -12,8 +12,6 @@ usuario_git_global = None
 
 # Valores simples
 #---------------------------Estructura Basica---------------------
-def p_input(p):
-  "input : ID IGUAL FGETS LPAREN ID RPAREN PUNTOYCOMA"
 
 #Inicio Ariana Gonzabay
 #Impresión con cero, uno o más argumentos
@@ -21,6 +19,8 @@ def p_imprimir(p):
     """
     imprimir : PRINT LPAREN valor RPAREN PUNTOYCOMA
              | PRINT LPAREN argumentos RPAREN PUNTOYCOMA
+             | ECHO valor PUNTOYCOMA
+             | ECHO concatenar PUNTOYCOMA
     """
     if len(p) == 5:
         p[0] = ('imprimir', [])
@@ -45,7 +45,17 @@ def p_solicitud_datos(p):
     p[0] = ('solicitud_datos', p[3])
 
 #Fin Ariana Gonzabay
+#Inicio Leo Parra
+def p_concatenar(p):
+    '''
+    concatenar : valor
+                | valor PUNTO concatenar
+    '''
+def p_input(p):
+  """
+  input : VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA
 
+  """
 def p_indexacion(p):
    '''indexacion : VARIABLE LBRACKET valor RBRACKET
                   | VARIABLE LBRACKET valor RBRACKET PUNTOYCOMA'''
@@ -108,7 +118,7 @@ def p_comparacion(p):
 	''' comparacion :  VARIABLE comparadorNum VARIABLE 
             | valor comparador valor 
 	'''
-
+#Fin Leo Parra
 #Inicio Ariana Gonzabay
 
 # -------------------------CONDITIONS----------------------
@@ -137,7 +147,7 @@ def p_compuesta_logica(p):
     p[0] = p[1]
 
 #Fin Ariana Gonzabay
-
+#Inicio Leo Parra
 # -------------------------OPERACIONES DE ASIGNACION E INCREMENTO/DECREMENTO----------------------
 def p_operacionesASIG(p):
     '''OperacionASIG : VARIABLE PLUS_ASSIGN NUMBER
@@ -175,8 +185,9 @@ def p_operaciones(p):
                     | VARIABLE IGUAL operaciones'''
     p[0] = p[1]
 
+#Fin Leo Parra
 #----------------ESTRUCTURA DE DATOS--------------------
-# (Leonardo Parra) Regla principal: Lista
+# (Leonardo Parra) Regla principal: Array
 def p_array(p):
   ''' array : VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
             | VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
@@ -452,3 +463,4 @@ def analizar_php(archivo_php, usuario_git):
 # Llamar a la función de análisis con el archivo PHP y el usuario Git
 analizar_php('algoritmos/algoritmo5.php', 'kevinMaga')
 analizar_php('algoritmos/algoritmo6.php', 'ArianaGonzabay')
+analizar_php('algoritmos/algoritmo7.php', 'LeoParra')
