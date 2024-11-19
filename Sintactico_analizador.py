@@ -480,7 +480,7 @@ def p_error(p):
         print(f"Error de sintaxis al final de la entrada para el usuario {usuario_git_global}.")
 
 # Build the parser
-parser = yacc.yacc(debug=True)
+parser = yacc.yacc()
 
 # Función para analizar el archivo PHP
 def analizar_php(archivo_php, usuario_git):

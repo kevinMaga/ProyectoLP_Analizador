@@ -1,0 +1,6 @@
+Error de sintaxis en el token: PHP_START, valor: <?php
+Ubicación: Línea 75, Columna 0
+Error de sintaxis en el token: RLLAVE, valor: }
+Ubicación: Línea 96, Columna 377
+Error de sintaxis en el token: VARIABLE, valor: $doblar
+Ubicación: Línea 103, Columna 483
