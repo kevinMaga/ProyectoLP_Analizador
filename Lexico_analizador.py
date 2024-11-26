@@ -1,6 +1,8 @@
 import ply.lex as lex 
 import time
 
+error_messages = []
+
 reserved = {
     # Inicio lEONARDOPARRA
     'if': 'IF',
@@ -335,46 +337,84 @@ $expresion6 = (expresion);
 $expresion7 = <expresion>;
 '''
 
-# Función para generar el nombre del archivo de log
-def generate_log_filename(usuario_git):
-    fecha_hora = time.strftime("%d%m%Y-%Hh%M")
-    return f"lexico-{usuario_git}-{fecha_hora}.txt"
+# # Función para generar el nombre del archivo de log
+# def generate_log_filename(usuario_git):
+#     fecha_hora = time.strftime("%d%m%Y-%Hh%M")
+#     return f"lexico-{usuario_git}-{fecha_hora}.txt"
 
-# Función para manejar errores de caracteres ilegales
+# # Función para manejar errores de caracteres ilegales
+# def t_error(t):
+#     log_filename = generate_log_filename("user")
+#     with open(log_filename, 'a') as log_file:
+#         log_file.write(f"Illegal character '{t.value[0]}' at line {t.lineno}\n")
+#     print(f"Illegal character '{t.value[0]}'")
+#     t.lexer.skip(1)
+
+# # Función principal para analizar el código y guardar los resultados en el log
+# def analyze_code_and_generate_log(file_path, usuario_git):
+#     # Leer el archivo a analizar
+#     with open(file_path, 'r') as file:
+#         data = file.read()
+
+#     # Inicializa el lexer
+#     lexer = lex.lex()
+
+#     # Genera el nombre del archivo de log usando el usuario proporcionado
+#     log_filename = generate_log_filename(usuario_git)
+
+#     # Abre el archivo de log para escribir
+#     with open(log_filename, 'w') as log_file:
+#         lexer.input(data)
+        
+#         while True:
+#             tok = lexer.token()
+#             if not tok:
+#                 break
+#             # Escribe el token y su valor en el archivo de log
+#             log_file.write(f"Token: {tok.type}, Value: {tok.value}, Line: {tok.lineno}\n")
+        
+#         print(f"Log guardado en {log_filename}")
+
+# # Analizar archivos PHP
+# analyze_code_and_generate_log('algoritmos/algoritmo1.php', "LeoParra03")
+# analyze_code_and_generate_log('algoritmos/algoritmo4.php', "ArianaGonzabay")
+# analyze_code_and_generate_log('algoritmos/algoritmo2.php', "kevinMaga")
+# analyze_code_and_generate_log('algoritmos/algoritmo3.php', "kevinMaga")
+
+#FUNCIONES PARA LA INTERFAZ
+
+def checkErrorsL():
+    if len(error_messages)==0:
+        return False
+    else:
+        return True
+    
+def getErrorsL():
+    return error_messages
+
+def deleteErrorsL():
+    error_messages.clear()
+
 def t_error(t):
-    log_filename = generate_log_filename("user")
-    with open(log_filename, 'a') as log_file:
-        log_file.write(f"Illegal character '{t.value[0]}' at line {t.lineno}\n")
-    print(f"Illegal character '{t.value[0]}'")
+    global error_messages
+    error_message = f"Carácter ilegal '%s'" % t.value[0]
+    error_messages.append(error_message)
+    print(len(error_messages))
+    print(error_message)
     t.lexer.skip(1)
 
-# Función principal para analizar el código y guardar los resultados en el log
-def analyze_code_and_generate_log(file_path, usuario_git):
-    # Leer el archivo a analizar
-    with open(file_path, 'r') as file:
-        data = file.read()
+# Construcción del lexer
+lexer = lex.lex()
 
-    # Inicializa el lexer
-    lexer = lex.lex()
 
-    # Genera el nombre del archivo de log usando el usuario proporcionado
-    log_filename = generate_log_filename(usuario_git)
+# Analizar el código
+def analizar_codigoLexico(codigo):
+    lexer.input(codigo)
+    tokens_reconocidos = []
 
-    # Abre el archivo de log para escribir
-    with open(log_filename, 'w') as log_file:
-        lexer.input(data)
-        
-        while True:
-            tok = lexer.token()
-            if not tok:
-                break
-            # Escribe el token y su valor en el archivo de log
-            log_file.write(f"Token: {tok.type}, Value: {tok.value}, Line: {tok.lineno}\n")
-        
-        print(f"Log guardado en {log_filename}")
-
-# Analizar archivos PHP
-analyze_code_and_generate_log('algoritmos/algoritmo1.php', "LeoParra03")
-analyze_code_and_generate_log('algoritmos/algoritmo4.php', "ArianaGonzabay")
-analyze_code_and_generate_log('algoritmos/algoritmo2.php', "kevinMaga")
-analyze_code_and_generate_log('algoritmos/algoritmo3.php', "kevinMaga")
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break
+        print(tok)
+        tokens_reconocidos.append(tok)
