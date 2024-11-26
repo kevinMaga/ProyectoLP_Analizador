@@ -6,19 +6,51 @@ from Lexico_analizador import tokens
 usuario_git_global = None
 
 #Inicio Kevin Magallanes
-# Reglas de producción
+def p_padre(p):
+    """
+    padre : PHP_START cuerpo PHP_END
+    """
+    p[0] = ('programa', p[2])
 
- 
+# Definición del cuerpo del programa
+def p_cuerpo(p):
+    """
+    cuerpo : instrucciones
+           | empty
+    """
+    p[0] = p[1]
 
-# Valores simples
-#---------------------------Estructura Basica---------------------
+# Reglas ya existentes para las instrucciones
+def p_instrucciones(p):
+    """
+    instrucciones : instruccion
+                  | instrucciones instruccion
+    """
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[2]]
 
-#Inicio Ariana Gonzabay
-#Impresión con cero, uno o más argumentos
+def p_instruccion(p):
+    """
+    instruccion : imprimir
+                | solicitud_datos
+                | input
+                | indexacion
+                | estructurasControl
+                | asignacion
+                | estructurasDatos
+                | funciones
+    """
+    p[0] = p[1]
+    
+##Impresión con cero, uno o más argumentos
 def p_imprimir(p):
     """
     imprimir : PRINT LPAREN valor RPAREN PUNTOYCOMA
              | PRINT LPAREN argumentos RPAREN PUNTOYCOMA
+             | PRINT_R LPAREN valor RPAREN PUNTOYCOMA
+             | PRINT_R LPAREN argumentos RPAREN PUNTOYCOMA
              | ECHO valor PUNTOYCOMA
              | ECHO concatenar PUNTOYCOMA
     """
@@ -26,45 +58,6 @@ def p_imprimir(p):
         p[0] = ('imprimir', [])
     else:
         p[0] = ('imprimir', p[3])
-
-def p_argumentos(p):
-    """
-    argumentos : valor
-               | argumentos COMA valor
-    """
-    if len(p) == 2:
-        p[0] = [p[1]]
-    else:
-        p[0] = p[1] + [p[3]]
-
-#Solicitud de datos por teclado
-def p_solicitud_datos(p):
-    """
-    solicitud_datos : READLINE LPAREN STRING RPAREN PUNTOYCOMA
-    """
-    p[0] = ('solicitud_datos', p[3])
-
-#Fin Ariana Gonzabay
-#Inicio Leo Parra
-def p_concatenar(p):
-    '''
-    concatenar : valor
-                | valor PUNTO concatenar
-    '''
-def p_input(p):
-  """
-  input : VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA
-
-  """
-def p_indexacion(p):
-   '''indexacion : VARIABLE LBRACKET valor RBRACKET
-                  | VARIABLE LBRACKET valor RBRACKET PUNTOYCOMA'''
-
-def p_numero(p):
-  '''numero : NUMBER
-            | MINUS NUMBER
-            | FLOAT
-  '''
 
 def p_valor(p):
     """
@@ -75,25 +68,61 @@ def p_valor(p):
           | VARIABLE
           | ID
     """
-# -------------------------OPERADORES----------------------
-def p_operadores(p):
-    '''operadores : AND_LOGICAL
-                 | OR_LOGICAL
+def p_argumentos(p):
+    """
+    argumentos : valor
+               | argumentos COMA valor
+    """
+    if len(p) == 2:
+        p[0] = [p[1]]
+    else:
+        p[0] = p[1] + [p[3]]
+        
+def p_concatenar(p):
     '''
-    p[0] = p[1]
-
-# -------------------------OPERADORES ARITMETICOS----------------------
-def p_operadorAritmetico(p):
-    '''operadorAritmetico : PLUS
-                          | MINUS
-                          | TIMES
-                          | DIVIDE
-                          | MOD
-                          | POT
+    concatenar : valor
+                | valor PUNTO concatenar
     '''
-    p[0] = p[1]
 
-# -------------------------COMPARADORES----------------------
+        
+#Solicitud de datos por teclado
+def p_solicitud_datos(p):
+    """
+    solicitud_datos : READLINE LPAREN STRING RPAREN PUNTOYCOMA
+    """
+    p[0] = ('solicitud_datos', p[3])
+
+#input
+def p_input(p):
+  """
+  input : VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA
+
+  """
+#indexacion
+def p_indexacion(p):
+   '''indexacion : VARIABLE LBRACKET valor RBRACKET
+                  | VARIABLE LBRACKET valor RBRACKET PUNTOYCOMA'''
+#estructuras de control
+def p_estructurasControl(p):
+  '''estructurasControl : while
+                        | if
+                        | else
+                        | for_statement
+  '''
+def p_if(p):
+    '''
+    if : IF LPAREN comparaciones RPAREN LLLAVE instrucciones RLLAVE
+       | IF LPAREN VARIABLE RPAREN LLLAVE instrucciones RLLAVE
+    '''
+
+def p_comparaciones(p):
+	''' comparaciones : comparacion  
+					 | comparacion operadores comparaciones
+	'''
+def p_comparacion(p):
+	''' comparacion :  VARIABLE comparadorNum VARIABLE 
+            | valor comparador valor 
+	'''
 def p_comparadorNum(p):
     ''' comparadorNum : MAYOR
                       | MAYORIGUAL
@@ -111,18 +140,44 @@ def p_comparador(p):
     '''
     p[0] = p[1]
 
-def p_comparaciones(p):
-	''' comparaciones : comparacion  
-					 | comparacion operadores comparaciones
-	'''
-def p_comparacion(p):
-	''' comparacion :  VARIABLE comparadorNum VARIABLE 
-            | valor comparador valor 
-	'''
-#Fin Leo Parra
-#Inicio Ariana Gonzabay
+def p_operadores(p):
+    '''operadores : AND_LOGICAL
+                 | OR_LOGICAL
+    '''
+    p[0] = p[1]
+#asignacion
+def p_asignacion(p):
+    '''
+    asignacion : VARIABLE IGUAL valor PUNTOYCOMA
+                | VARIABLE IGUAL valor 
+    '''
+def p_operacion(p): 
+    ''' operacion : VARIABLE operadorAritmetico VARIABLE
+                 | operacion operadorAritmetico operacion
+    '''
+    p[0] = ('operacion', p[1], p[2], p[3])
+    
+def p_operadorAritmetico(p):
+    '''operadorAritmetico : PLUS
+                          | MINUS
+                          | TIMES
+                          | DIVIDE
+                          | MOD
+                          | POT
+    '''
+    p[0] = p[1]
 
-# -------------------------CONDITIONS----------------------
+def p_else(p):
+    ''' 
+        else    : RLLAVE ELSE LLLAVE instrucciones RLLAVE
+                | ELSE LLLAVE instrucciones RLLAVE
+    '''
+def p_while(p):
+    """
+        while : WHILE LBRACE condicion RBRACE bloque
+    """
+    p[0] = ('while', p[3], p[5])
+
 def p_condicion(p):
     """ 
     condicion : condicion_simple
@@ -139,7 +194,6 @@ def p_condicion_simple(p):
     """
     p[0] = ('condicion_simple', p[1], p[2], p[3])
 
-# -------------------------LOGICAL OPERATORS----------------------
 def p_compuesta_logica(p):
     """
     compuesta_logica : AND_LOGICAL
@@ -147,72 +201,46 @@ def p_compuesta_logica(p):
     """
     p[0] = p[1]
 
-#Fin Ariana Gonzabay
-#Inicio Leo Parra
-# -------------------------OPERACIONES DE ASIGNACION E INCREMENTO/DECREMENTO----------------------
-def p_operacionesASIG(p):
-    '''OperacionASIG : VARIABLE PLUS_ASSIGN NUMBER
-                    | VARIABLE MINUS_ASSIGN NUMBER
-                    | VARIABLE TIMES_ASSIGN NUMBER
-                    | VARIABLE DIVIDE_ASSIGN NUMBER
-                    | VARIABLE MODULO_ASSIGN NUMBER
-                    | VARIABLE PLUS_ASSIGN NUMBER PUNTOYCOMA
-                    | VARIABLE MINUS_ASSIGN NUMBER PUNTOYCOMA
-                    | VARIABLE TIMES_ASSIGN NUMBER PUNTOYCOMA
-                    | VARIABLE DIVIDE_ASSIGN NUMBER PUNTOYCOMA
-                    | VARIABLE MODULO_ASSIGN NUMBER PUNTOYCOMA
+def p_bloque(p):
+    """
+    bloque : LBRACE instrucciones RBRACE
+    """
+    p[0] = p[2]
+    
+def p_for_statement(p):
+    '''for_statement : FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE'''
+    print("Bucle 'for' válido")
+
+def p_initialization(p):
+    '''initialization : VARIABLE IGUAL valor
+                      | empty'''
+    pass
+
+def p_increment(p):
+    '''increment : VARIABLE INCREMENT
+                 | VARIABLE DECREMENT
+                 | VARIABLE PLUS_ASSIGN valor
+                 | VARIABLE MINUS_ASSIGN valor
+                 | empty'''
+    pass
+
+def p_empty(p):
+    'empty :'
+    pass
+
+def p_estructurasDatos(p):
     '''
-    p[0] = ('asignacion', p[1], p[2], p[3])
-
-def p_incrementoDecremento(p):
-    '''incrementoDecremento : VARIABLE INCREMENT
-                            | VARIABLE DECREMENT
-                            | VARIABLE INCREMENT PUNTOYCOMA
-                            | VARIABLE DECREMENT PUNTOYCOMA
+        estructurasDatos   : array
+                            | lista
+                            | diccionario
     '''
-    p[0] = ('incremento_decremento', p[1], p[2])
 
-# -------------------------OPERACIONES ARITMETICAS----------------------
-def p_operacion(p): 
-    ''' operacion : VARIABLE operadorAritmetico VARIABLE
-                 | operacion operadorAritmetico operacion
-    '''
-    p[0] = ('operacion', p[1], p[2], p[3])
-
-def p_operaciones(p): 
-    ''' operaciones : operacion
-                    | operacion PUNTOYCOMA
-                    | operacion operadorAritmetico operaciones 
-                    | VARIABLE IGUAL operaciones'''
-    p[0] = p[1]
-
-#Fin Leo Parra
-#----------------ESTRUCTURA DE DATOS--------------------
-# (Leonardo Parra) Regla principal: Array
 def p_array(p):
   ''' array : VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
             | VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
             | VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
             | VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
   '''
-
-# (Kevin Magallanes) Regla principal: Lista
-
-def p_lista(p):
-    """
-    lista : LBRACKET RBRACKET
-          | LBRACKET elementos RBRACKET
-    """
-    p[0] = p[2]  # Devuelve los elementos de la lista
-
-# Elementos de la lista
-def p_elemento(p):
-    """
-    elemento : valor
-             | lista
-             | clave_valor
-    """
-    p[0] = p[1]
 def p_elementos(p):
     """
     elementos : elemento
@@ -223,9 +251,14 @@ def p_elementos(p):
     else:
         p[0] = p[1] + [p[3]]  # Combina los elementos anteriores con el nuevo
 
-# Elemento: puede ser un valor simple, una lista anidada o una clave-valor
-
-
+def p_elemento(p):
+    """
+    elemento : valor
+             | lista
+             | clave_valor
+    """
+    p[0] = p[1]
+    
 # Clave-valor (para listas asociativas)
 def p_clave_valor(p):
     """
@@ -233,9 +266,13 @@ def p_clave_valor(p):
     """
     p[0] = {p[1]: p[3]}  # Devuelve un diccionario con clave y valor
 
-#Fin Kevin Magallanes
+def p_lista(p):
+    """
+    lista : LBRACKET RBRACKET
+          | LBRACKET elementos RBRACKET
+    """
+    p[0] = p[2]  # Devuelve los elementos de la lista
 
-# (Ariana Gonzabay) Regla principal: Diccionario
 def p_diccionario(p):
     """
     diccionario : LBRACE pares RBRACE
@@ -258,156 +295,21 @@ def p_par(p):
     """
     p[0] = [(p[1], p[3])]
 
-#Fin Ariana Gonzabay
-
-#-------------ESTRUCTURAS DE CONTROL-----------------------
-
-# (Leonardo Parra) Regla principal: IF/ELSE
-
-
-def p_estructurasControl(p):
-  '''estructurasControl : WHILE
-                        | IF
-                        | ELSE
-                        | FOR
-  '''
-def p_if(p):
+def p_funciones(p):
     '''
-    if : IF LPAREN comparaciones RPAREN LLLAVE declaraciones RLLAVE
-       | IF LPAREN VARIABLE RPAREN LLLAVE declaraciones RLLAVE
+        funciones   : funcioninbuilt
+                    | funcion_anonima
+                    | arrow_function
     '''
-
-#if ($edad >= 18) {
-#if ($esAdmin) { 
-
-
-#} elseif ($numero2 > $numero1) {
-
-def p_else(p):
-  ''' else : RLLAVE ELSE LLLAVE declaraciones RLLAVE
-          | ELSE LLLAVE declaraciones RLLAVE
-
-          '''
-#} else {
-# else {
-
-def p_declaraciones(p):
-    '''
-    declaraciones : declaracion
-                  | declaraciones declaracion
-    '''
-def p_declaracion(p):
-    '''
-    declaracion : IF
-                | asignacion
-                | ELSE
-                | operacion
-                | WHILE
-                | FOR
-                | funcioninbuilt
-    '''
-def p_asignacion(p):
-    '''
-    asignacion : VARIABLE IGUAL valor PUNTOYCOMA
-                | VARIABLE IGUAL valor 
-    '''
-
-#Fin Leonardo Parra
-
-# (Ariana Gonzabay) Regla principal: WHILE
-# ------------------------------WHILE---------------------------------
-def p_while(p):
-    """
-    while : WHILE LBRACE condicion RBRACE bloque
-    """
-    p[0] = ('while', p[3], p[5])
-
-# -------------------------BLOQUES DE INSTRUCCIONES----------------------
-def p_bloque(p):
-    """
-    bloque : LBRACE instrucciones RBRACE
-    """
-    p[0] = p[2]
-
-def p_instrucciones(p):
-    """
-    instrucciones : instruccion
-                  | instrucciones instruccion
-    """
-    if len(p) == 2:
-        p[0] = [p[1]]
-    else:
-        p[0] = p[1] + [p[2]]
-
-def p_instruccion(p):
-    """
-    instruccion : asignacion
-                | imprimir
-    """
-    p[0] = p[1]
-
-#Fin Ariana Gonzabay
-
-#Inicio Kevin Magallanes 
-# Regla inicial
-def p_program(p):
-    '''program : for_statement
-               | program for_statement
-               | empty'''
-    pass
-
-# Regla para el bucle for
-def p_for_statement(p):
-    '''for_statement : FOR LPAREN initialization PUNTOYCOMA condition PUNTOYCOMA increment RPAREN LLLAVE program RLLAVE'''
-    print("Bucle 'for' válido")
-
-# Reglas para las partes del bucle for
-def p_initialization(p):
-    '''initialization : VARIABLE IGUAL expression
-                      | empty'''
-    pass
-
-def p_condition(p):
-    '''condition : VARIABLE MAYOR expression
-                 | VARIABLE MENOR expression
-                 | VARIABLE EQUAL expression
-                 | empty'''
-    pass
-
-def p_increment(p):
-    '''increment : VARIABLE INCREMENT
-                 | VARIABLE DECREMENT
-                 | VARIABLE PLUS_ASSIGN expression
-                 | VARIABLE MINUS_ASSIGN expression
-                 | empty'''
-    pass
-
-# Expresiones generales
-def p_expression(p):
-    '''expression : NUMBER
-                  | VARIABLE
-                  | STRING
-                  | FLOAT'''
-    pass
-
-# Regla para manejar cadenas vacías (necesario para evitar errores de parsing)
-def p_empty(p):
-    'empty :'
-    pass
-#fin Kevin Magallanes
-
-#----------------FUNCIONES----------------------
-
-# (Leonardo Parra) Regla principal: funcion_inbuilt
 def p_funcioninbuilt(p):
     '''
-    funcioninbuilt : funciones LPAREN operaciones RPAREN
-                   | funciones LPAREN RPAREN
+    funcioninbuilt : funcionesdefin LPAREN operaciones RPAREN
+                   | funcionesdefin LPAREN RPAREN
     '''
 
 def p_funcionesdefin(p):
     '''
-    funciones : STRLEN
+    funcionesdefin : STRLEN
                 | STRPOS
                 | ARRAY_PUSH
                 | ARRAY_POP
@@ -415,10 +317,13 @@ def p_funcionesdefin(p):
                 | COUNT
                 | SORT
     '''
-
-#Fin Leonardo Parra
-
-# (Ariana Gonzabay) Regla principal: funciones_anonimas
+def p_operaciones(p): 
+    ''' operaciones : operacion
+                    | operacion PUNTOYCOMA
+                    | operacion operadorAritmetico operaciones 
+                    | VARIABLE IGUAL operaciones'''
+    p[0] = p[1]
+  
 def p_funcion_anonima(p):
     """
     funcion_anonima : FUNCTION LPAREN parametros RPAREN LBRACE instrucciones RBRACE
@@ -435,10 +340,6 @@ def p_parametros(p):
     else:
         p[0] = p[1] + [p[3]]
 
-#Fin Ariana Gonzabay
-
-#Inicio Kevin Magallanes 
-# Reglas de producción para funciones flecha
 def p_arrow_function(p):
     '''arrow_function : VARIABLE EQUAL FN LPAREN parameter_list RPAREN ARROW expression'''
     print("Función flecha válida:", p[1])
@@ -456,115 +357,118 @@ def p_expression(p):
                   | VARIABLE MINUS VARIABLE
                   | VARIABLE DIVIDE VARIABLE'''
     pass
-#Fin Kevin Magallanes
 
-# # Función de manejo de errores para el log
-# def p_error(p):
-#     global usuario_git_global
-#     # Si se encuentra un error, crear un archivo de log
-#     if p:
-#         # Obtener la fecha y hora actual
-#         now = datetime.datetime.now()
-#         fecha_hora = now.strftime("%d%m%Y-%Hh%M")  # Formato: 20062024-23h32
-
-#         # Nombre del archivo de log, incluyendo el nombre de usuario Git y la fecha/hora
-#         log_filename = f"sintactico-{usuario_git_global}-{fecha_hora}.txt"
-
-#         # Abrir el archivo en modo append
-#         with open(log_filename, 'a') as log_file:
-#             log_file.write(f"Error de sintaxis en el token: {p.type}, valor: {p.value}\n")
-#             log_file.write(f"Ubicación: Línea {p.lineno}, Columna {p.lexpos}\n")
-
-#         print(f"Error de sintaxis registrado en {log_filename}")
-#     else:
-#         print(f"Error de sintaxis al final de la entrada para el usuario {usuario_git_global}.")
-
-# # Build the parser
-# parser = yacc.yacc()
-
-# # Función para analizar el archivo PHP
-# def analizar_php(archivo_php, usuario_git):
-#     global usuario_git_global
-#     # Asignamos el valor de usuario_git a la variable global
-#     usuario_git_global = usuario_git
-#     try:
-#         # Verificar si el archivo existe antes de intentar abrirlo
-#         if not os.path.isfile(archivo_php):
-#             raise FileNotFoundError(f"El archivo {archivo_php} no fue encontrado.")
-        
-#         # Abrir el archivo PHP
-#         with open(archivo_php, 'r') as f:
-#             php_code = f.read()
-
-#         try:
-#             # Analizar el código PHP con el parser
-#             result = parser.parse(php_code)
-#             print(f"Resultado del análisis de {archivo_php}: {result}")
-#         except Exception as e:
-#             # Manejo de errores en el análisis sintáctico
-#             print(f"Error al analizar el archivo PHP: {str(e)}")
-#             p_error(None)  # Llamar a p_error si hay un error en el análisis
-#             # Crear un archivo de log en caso de error durante el análisis
-#             now = datetime.datetime.now()
-#             fecha_hora = now.strftime("%d%m%Y-%Hh%M")
-#             log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
-#             with open(log_filename, 'a') as log_file:  # Modo append
-#                 log_file.write(f"Error de sintaxis en el archivo: {archivo_php}\n")
-#                 log_file.write(f"Error: {str(e)}\n")
-#     except FileNotFoundError as fnf_error:
-#         # Manejo de errores si el archivo no se encuentra
-#         print(fnf_error)
-#         # Generar log de error con usuario_git
-#         now = datetime.datetime.now()
-#         fecha_hora = now.strftime("%d%m%Y-%Hh%M")
-#         log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
-#         with open(log_filename, 'a') as log_file:  # Modo append
-#             log_file.write(f"Error: El archivo {archivo_php} no fue encontrado.\n")
-#     except Exception as e:
-#         # Captura cualquier otro tipo de excepción
-#         print(f"Error inesperado: {str(e)}")
-#         # Generar log de error con usuario_git
-#         now = datetime.datetime.now()
-#         fecha_hora = now.strftime("%d%m%Y-%Hh%M")
-#         log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
-#         with open(log_filename, 'a') as log_file:  # Modo append
-#             log_file.write(f"Error inesperado: {str(e)}\n")
-
-# # Llamar a la función de análisis con el archivo PHP y el usuario Git
-# analizar_php('algoritmos/algoritmo5.php', 'kevinMaga')
-# analizar_php('algoritmos/algoritmo6.php', 'ArianaGonzabay')
-# analizar_php('algoritmos/algoritmo7.php', 'LeoParra')
-
-
-#Funciones para la INTERFAZ
-errores = []
-
-def analizar_codigoSintactico(codigo):
-    parser.parse(codigo)
-
-    
-def checkErrors():
-    if len(errores)==0:
-        return False
-    else:
-        return True
-    
-def getErrors():
-    for error in errores:
-        print(error)
-    return errores
-
-def deleteErrors():
-    errores.clear()
-
+# Función de manejo de errores para el log
 def p_error(p):
+    global usuario_git_global
+    # Si se encuentra un error, crear un archivo de log
     if p:
-        error_message = f"Syntax error in input! {p.value}', line {p.lineno}"
-        errores.append(error_message)
-        print(f"Error in token: {p.value}, Line: {p.lineno}") 
-    else:
-        errores.append("Syntax error at EOF")
+        # Obtener la fecha y hora actual
+        now = datetime.datetime.now()
+        fecha_hora = now.strftime("%d%m%Y-%Hh%M")  # Formato: 20062024-23h32
 
-# Construcción del parser
+        # Nombre del archivo de log, incluyendo el nombre de usuario Git y la fecha/hora
+        log_filename = f"sintactico-{usuario_git_global}-{fecha_hora}.txt"
+
+        # Abrir el archivo en modo append
+        with open(log_filename, 'a') as log_file:
+            log_file.write(f"Error de sintaxis en el token: {p.type}, valor: {p.value}\n")
+            log_file.write(f"Ubicación: Línea {p.lineno}, Columna {p.lexpos}\n")
+
+        print(f"Error de sintaxis registrado en {log_filename}")
+    else:
+        print(f"Error de sintaxis al final de la entrada para el usuario {usuario_git_global}.")
+
+# Build the parser
 parser = yacc.yacc()
 
+# Función para analizar el archivo PHP
+def analizar_php(archivo_php, usuario_git):
+    global usuario_git_global
+    # Asignamos el valor de usuario_git a la variable global
+    usuario_git_global = usuario_git
+    try:
+        # Verificar si el archivo existe antes de intentar abrirlo
+        if not os.path.isfile(archivo_php):
+            raise FileNotFoundError(f"El archivo {archivo_php} no fue encontrado.")
+        
+        # Abrir el archivo PHP
+        with open(archivo_php, 'r') as f:
+            php_code = f.read()
+
+        try:
+            # Analizar el código PHP con el parser
+            result = parser.parse(php_code)
+            print(f"Resultado del análisis de {archivo_php}: {result}")
+        except Exception as e:
+            # Manejo de errores en el análisis sintáctico
+            print(f"Error al analizar el archivo PHP: {str(e)}")
+            p_error(None)  # Llamar a p_error si hay un error en el análisis
+            # Crear un archivo de log en caso de error durante el análisis
+            now = datetime.datetime.now()
+            fecha_hora = now.strftime("%d%m%Y-%Hh%M")
+            log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
+            with open(log_filename, 'a') as log_file:  # Modo append
+                log_file.write(f"Error de sintaxis en el archivo: {archivo_php}\n")
+                log_file.write(f"Error: {str(e)}\n")
+    except FileNotFoundError as fnf_error:
+        # Manejo de errores si el archivo no se encuentra
+        print(fnf_error)
+        # Generar log de error con usuario_git
+        now = datetime.datetime.now()
+        fecha_hora = now.strftime("%d%m%Y-%Hh%M")
+        log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
+        with open(log_filename, 'a') as log_file:  # Modo append
+            log_file.write(f"Error: El archivo {archivo_php} no fue encontrado.\n")
+    except Exception as e:
+        # Captura cualquier otro tipo de excepción
+        print(f"Error inesperado: {str(e)}")
+        # Generar log de error con usuario_git
+        now = datetime.datetime.now()
+        fecha_hora = now.strftime("%d%m%Y-%Hh%M")
+        log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
+        with open(log_filename, 'a') as log_file:  # Modo append
+            log_file.write(f"Error inesperado: {str(e)}\n")
+
+# Llamar a la función de análisis con el archivo PHP y el usuario Git
+analizar_php('algoritmos/algoritmo5.php', 'kevinMaga')
+analizar_php('algoritmos/algoritmo6.php', 'ArianaGonzabay')
+analizar_php('algoritmos/algoritmo7.php', 'LeoParra')
+
+
+# #Funciones para la INTERFAZ
+# errores = []
+
+# def analizar_codigoSintactico(codigo):
+#     parser.parse(codigo)
+
+    
+# def checkErrors():
+#     if len(errores)==0:
+#         return False
+#     else:
+#         return True
+    
+# def getErrors():
+#     for error in errores:
+#         print(error)
+#     return errores
+
+# def deleteErrors():
+#     errores.clear()
+
+# def p_error(p):
+#     if p:
+#         error_message = f"Syntax error in input! {p.value}', line {p.lineno}"
+#         errores.append(error_message)
+#         print(f"Error in token: {p.value}, Line: {p.lineno}") 
+#     else:
+#         errores.append("Syntax error at EOF")
+
+# # Construcción del parser
+# parser = yacc.yacc()
+
+
+
+    
+    

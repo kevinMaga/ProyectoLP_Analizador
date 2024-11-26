@@ -1,2 +1,0 @@
-Error de sintaxis en el token: DELIM_INICIO, valor: <
-Ubicación: Línea 111, Columna 0

@@ -10,6 +10,7 @@ reserved = {
     'while': 'WHILE',
     'for': 'FOR',
     'print': 'PRINT',
+    'print_r': "PRINT_R",
     'echo': 'ECHO',
     'class': 'CLASS',
     'public': 'PUBLIC',
