@@ -125,7 +125,7 @@ Rule 45    comparaciones -> comparacion
 Rule 46    comparaciones -> comparacion operadores comparaciones
 Rule 47    comparacion -> VARIABLE comparadorNum VARIABLE
 Rule 48    comparacion -> valor comparador valor
-Rule 49    comparacion -> VARIABLE comparadorNum NUMBER
+Rule 49    comparacion -> VARIABLE comparadorNum valor
 Rule 50    comparadorNum -> MAYOR
 Rule 51    comparadorNum -> MAYORIGUAL
 Rule 52    comparadorNum -> MENOR
@@ -176,8 +176,8 @@ Rule 96    estructurasDatos -> array
 Rule 97    estructurasDatos -> lista
 Rule 98    estructurasDatos -> diccionario
 Rule 99    array -> VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-Rule 100   array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-Rule 101   array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+Rule 100   array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+Rule 101   array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
 Rule 102   array -> VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
 Rule 103   array -> VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
 Rule 104   elementos -> elemento
@@ -316,7 +316,7 @@ NEW                  :
 NOT_EQUAL            : 56
 NOT_IDENTICAL        : 55
 NOT_LOGICAL          : 
-NUMBER               : 23 49 141 146 147 148 149
+NUMBER               : 23 141 146 147 148 149
 NUMERAL              : 
 OR                   : 
 OR_LOGICAL           : 62 84
@@ -339,7 +339,7 @@ READLINE             : 34 35
 REQUIRE              : 
 RETURN               : 
 RLLAVE               : 43 44 76 77 85 133
-RPAREN               : 16 17 18 19 34 35 36 43 44 66 77 85 99 101 119 120 133 137
+RPAREN               : 16 17 18 19 34 35 36 43 44 66 77 85 99 100 101 119 120 133 137
 SORT                 : 127
 STATIC               : 
 STRING               : 25 34 115 134 135
@@ -381,7 +381,7 @@ condicion_simple     : 78
 cuerpo               : 1
 diccionario          : 98
 elemento             : 104 105
-elementos            : 66 101 103 105 111
+elementos            : 66 100 103 105 111
 else                 : 41
 empty                : 3 87 93
 estructurasControl   : 10
@@ -411,7 +411,7 @@ parameter_list       : 137 139
 parametros           : 133 135
 pares                : 112 114
 solicitud_datos      : 7
-valor                : 16 18 20 22 22 30 31 32 33 37 38 48 48 63 64 80 80 81 86 91 92 106 109 109 115
+valor                : 16 18 20 22 22 30 31 32 33 37 38 48 48 49 63 64 80 80 81 86 91 92 101 106 109 109 115
 while                : 39
 
 Parsing method: LALR
@@ -491,8 +491,8 @@ state 2
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -624,8 +624,8 @@ state 4
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -1001,8 +1001,8 @@ state 20
     (92) increment -> VARIABLE . MINUS_ASSIGN valor
     (94) increment -> VARIABLE . INCREMENT PUNTOYCOMA
     (99) array -> VARIABLE . IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> VARIABLE . IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> VARIABLE . IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> VARIABLE . IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> VARIABLE . IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> VARIABLE . IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> VARIABLE . IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (119) funcioninbuilt -> VARIABLE . IGUAL funcionesdefin LPAREN operaciones RPAREN PUNTOYCOMA
@@ -1810,8 +1810,8 @@ state 58
     (65) asignacion -> VARIABLE IGUAL . ARRAY PUNTOYCOMA
     (66) asignacion -> VARIABLE IGUAL . ARRAY LPAREN elementos RPAREN PUNTOYCOMA
     (99) array -> VARIABLE IGUAL . ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> VARIABLE IGUAL . ARRAY LPAREN PUNTOYCOMA
-    (101) array -> VARIABLE IGUAL . ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> VARIABLE IGUAL . ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> VARIABLE IGUAL . ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> VARIABLE IGUAL . LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> VARIABLE IGUAL . LBRACKET elementos RBRACKET PUNTOYCOMA
     (119) funcioninbuilt -> VARIABLE IGUAL . funcionesdefin LPAREN operaciones RPAREN PUNTOYCOMA
@@ -2269,7 +2269,7 @@ state 81
     (46) comparaciones -> . comparacion operadores comparaciones
     (47) comparacion -> . VARIABLE comparadorNum VARIABLE
     (48) comparacion -> . valor comparador valor
-    (49) comparacion -> . VARIABLE comparadorNum NUMBER
+    (49) comparacion -> . VARIABLE comparadorNum valor
     (23) valor -> . NUMBER
     (24) valor -> . FLOAT
     (25) valor -> . STRING
@@ -2358,8 +2358,8 @@ state 82
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -2765,8 +2765,8 @@ state 106
     (65) asignacion -> VARIABLE IGUAL ARRAY . PUNTOYCOMA
     (66) asignacion -> VARIABLE IGUAL ARRAY . LPAREN elementos RPAREN PUNTOYCOMA
     (99) array -> VARIABLE IGUAL ARRAY . LPAREN RPAREN PUNTOYCOMA
-    (100) array -> VARIABLE IGUAL ARRAY . LPAREN PUNTOYCOMA
-    (101) array -> VARIABLE IGUAL ARRAY . LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> VARIABLE IGUAL ARRAY . LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> VARIABLE IGUAL ARRAY . LPAREN valor RPAREN PUNTOYCOMA
 
     PUNTOYCOMA      shift and go to state 157
     LPAREN          shift and go to state 158
@@ -3177,7 +3177,7 @@ state 126
 
     (44) if -> IF LPAREN VARIABLE . RPAREN LLLAVE instrucciones RLLAVE
     (47) comparacion -> VARIABLE . comparadorNum VARIABLE
-    (49) comparacion -> VARIABLE . comparadorNum NUMBER
+    (49) comparacion -> VARIABLE . comparadorNum valor
     (27) valor -> VARIABLE .
     (140) expression -> VARIABLE .
     (142) expression -> VARIABLE . TIMES VARIABLE
@@ -3321,8 +3321,8 @@ state 129
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -3949,13 +3949,10 @@ state 158
 
     (66) asignacion -> VARIABLE IGUAL ARRAY LPAREN . elementos RPAREN PUNTOYCOMA
     (99) array -> VARIABLE IGUAL ARRAY LPAREN . RPAREN PUNTOYCOMA
-    (100) array -> VARIABLE IGUAL ARRAY LPAREN . PUNTOYCOMA
-    (101) array -> VARIABLE IGUAL ARRAY LPAREN . elementos RPAREN PUNTOYCOMA
+    (100) array -> VARIABLE IGUAL ARRAY LPAREN . elementos RPAREN PUNTOYCOMA
+    (101) array -> VARIABLE IGUAL ARRAY LPAREN . valor RPAREN PUNTOYCOMA
     (104) elementos -> . elemento
     (105) elementos -> . elementos COMA elemento
-    (106) elemento -> . valor
-    (107) elemento -> . lista
-    (108) elemento -> . clave_valor
     (23) valor -> . NUMBER
     (24) valor -> . FLOAT
     (25) valor -> . STRING
@@ -3963,9 +3960,9 @@ state 158
     (27) valor -> . VARIABLE
     (28) valor -> . ID
     (29) valor -> . expression
-    (110) lista -> . LBRACKET RBRACKET
-    (111) lista -> . LBRACKET elementos RBRACKET
-    (109) clave_valor -> . valor ARROW valor
+    (106) elemento -> . valor
+    (107) elemento -> . lista
+    (108) elemento -> . clave_valor
     (140) expression -> . VARIABLE
     (141) expression -> . NUMBER
     (142) expression -> . VARIABLE TIMES VARIABLE
@@ -3977,9 +3974,11 @@ state 158
     (148) expression -> . VARIABLE MINUS NUMBER
     (149) expression -> . VARIABLE DIVIDE NUMBER
     (150) expression -> . VARIABLE MOD VARIABLE
+    (110) lista -> . LBRACKET RBRACKET
+    (111) lista -> . LBRACKET elementos RBRACKET
+    (109) clave_valor -> . valor ARROW valor
 
     RPAREN          shift and go to state 209
-    PUNTOYCOMA      shift and go to state 210
     NUMBER          shift and go to state 52
     FLOAT           shift and go to state 53
     STRING          shift and go to state 54
@@ -3989,11 +3988,11 @@ state 158
     LBRACKET        shift and go to state 21
 
     elementos                      shift and go to state 208
+    valor                          shift and go to state 210
     elemento                       shift and go to state 75
-    valor                          shift and go to state 76
+    expression                     shift and go to state 57
     lista                          shift and go to state 77
     clave_valor                    shift and go to state 78
-    expression                     shift and go to state 57
 
 state 159
 
@@ -4355,11 +4354,35 @@ state 183
 state 184
 
     (47) comparacion -> VARIABLE comparadorNum . VARIABLE
-    (49) comparacion -> VARIABLE comparadorNum . NUMBER
+    (49) comparacion -> VARIABLE comparadorNum . valor
+    (23) valor -> . NUMBER
+    (24) valor -> . FLOAT
+    (25) valor -> . STRING
+    (26) valor -> . BOOLEAN
+    (27) valor -> . VARIABLE
+    (28) valor -> . ID
+    (29) valor -> . expression
+    (140) expression -> . VARIABLE
+    (141) expression -> . NUMBER
+    (142) expression -> . VARIABLE TIMES VARIABLE
+    (143) expression -> . VARIABLE PLUS VARIABLE
+    (144) expression -> . VARIABLE MINUS VARIABLE
+    (145) expression -> . VARIABLE DIVIDE VARIABLE
+    (146) expression -> . VARIABLE TIMES NUMBER
+    (147) expression -> . VARIABLE PLUS NUMBER
+    (148) expression -> . VARIABLE MINUS NUMBER
+    (149) expression -> . VARIABLE DIVIDE NUMBER
+    (150) expression -> . VARIABLE MOD VARIABLE
 
     VARIABLE        shift and go to state 229
-    NUMBER          shift and go to state 230
+    NUMBER          shift and go to state 52
+    FLOAT           shift and go to state 53
+    STRING          shift and go to state 54
+    BOOLEAN         shift and go to state 55
+    ID              shift and go to state 56
 
+    valor                          shift and go to state 230
+    expression                     shift and go to state 57
 
 state 185
 
@@ -4367,6 +4390,10 @@ state 185
 
     VARIABLE        reduce using rule 50 (comparadorNum -> MAYOR .)
     NUMBER          reduce using rule 50 (comparadorNum -> MAYOR .)
+    FLOAT           reduce using rule 50 (comparadorNum -> MAYOR .)
+    STRING          reduce using rule 50 (comparadorNum -> MAYOR .)
+    BOOLEAN         reduce using rule 50 (comparadorNum -> MAYOR .)
+    ID              reduce using rule 50 (comparadorNum -> MAYOR .)
 
 
 state 186
@@ -4375,6 +4402,10 @@ state 186
 
     VARIABLE        reduce using rule 51 (comparadorNum -> MAYORIGUAL .)
     NUMBER          reduce using rule 51 (comparadorNum -> MAYORIGUAL .)
+    FLOAT           reduce using rule 51 (comparadorNum -> MAYORIGUAL .)
+    STRING          reduce using rule 51 (comparadorNum -> MAYORIGUAL .)
+    BOOLEAN         reduce using rule 51 (comparadorNum -> MAYORIGUAL .)
+    ID              reduce using rule 51 (comparadorNum -> MAYORIGUAL .)
 
 
 state 187
@@ -4383,6 +4414,10 @@ state 187
 
     VARIABLE        reduce using rule 52 (comparadorNum -> MENOR .)
     NUMBER          reduce using rule 52 (comparadorNum -> MENOR .)
+    FLOAT           reduce using rule 52 (comparadorNum -> MENOR .)
+    STRING          reduce using rule 52 (comparadorNum -> MENOR .)
+    BOOLEAN         reduce using rule 52 (comparadorNum -> MENOR .)
+    ID              reduce using rule 52 (comparadorNum -> MENOR .)
 
 
 state 188
@@ -4391,6 +4426,10 @@ state 188
 
     VARIABLE        reduce using rule 53 (comparadorNum -> MENORIGUAL .)
     NUMBER          reduce using rule 53 (comparadorNum -> MENORIGUAL .)
+    FLOAT           reduce using rule 53 (comparadorNum -> MENORIGUAL .)
+    STRING          reduce using rule 53 (comparadorNum -> MENORIGUAL .)
+    BOOLEAN         reduce using rule 53 (comparadorNum -> MENORIGUAL .)
+    ID              reduce using rule 53 (comparadorNum -> MENORIGUAL .)
 
 
 state 189
@@ -4400,7 +4439,7 @@ state 189
     (46) comparaciones -> . comparacion operadores comparaciones
     (47) comparacion -> . VARIABLE comparadorNum VARIABLE
     (48) comparacion -> . valor comparador valor
-    (49) comparacion -> . VARIABLE comparadorNum NUMBER
+    (49) comparacion -> . VARIABLE comparadorNum valor
     (23) valor -> . NUMBER
     (24) valor -> . FLOAT
     (25) valor -> . STRING
@@ -4711,7 +4750,7 @@ state 207
 state 208
 
     (66) asignacion -> VARIABLE IGUAL ARRAY LPAREN elementos . RPAREN PUNTOYCOMA
-    (101) array -> VARIABLE IGUAL ARRAY LPAREN elementos . RPAREN PUNTOYCOMA
+    (100) array -> VARIABLE IGUAL ARRAY LPAREN elementos . RPAREN PUNTOYCOMA
     (105) elementos -> elementos . COMA elemento
 
     RPAREN          shift and go to state 241
@@ -4727,20 +4766,16 @@ state 209
 
 state 210
 
-    (100) array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .
+    (101) array -> VARIABLE IGUAL ARRAY LPAREN valor . RPAREN PUNTOYCOMA
+    (106) elemento -> valor .
+    (109) clave_valor -> valor . ARROW valor
 
-    PRINT           reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
-    PRINT_R         reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
-    ECHO            reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
-    VARIABLE        reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
-    WHILE           reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
-    IF              reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
-    ELSE            reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
-    FOR             reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
-    LBRACKET        reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
-    LBRACE          reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
-    PHP_END         reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
-    RLLAVE          reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA .)
+  ! shift/reduce conflict for RPAREN resolved as shift
+    RPAREN          shift and go to state 243
+    COMA            reduce using rule 106 (elemento -> valor .)
+    ARROW           shift and go to state 120
+
+  ! RPAREN          [ reduce using rule 106 (elemento -> valor .) ]
 
 
 state 211
@@ -4765,7 +4800,7 @@ state 212
 
     (103) array -> VARIABLE IGUAL LBRACKET elementos RBRACKET . PUNTOYCOMA
 
-    PUNTOYCOMA      shift and go to state 243
+    PUNTOYCOMA      shift and go to state 244
 
 
 state 213
@@ -4781,7 +4816,7 @@ state 213
     (74) operadorAritmetico -> . MOD
     (75) operadorAritmetico -> . POT
 
-    IGUAL           shift and go to state 244
+    IGUAL           shift and go to state 245
     RPAREN          reduce using rule 132 (operaciones -> VARIABLE .)
     PLUS            shift and go to state 41
     MINUS           shift and go to state 42
@@ -4796,7 +4831,7 @@ state 214
 
     (119) funcioninbuilt -> VARIABLE IGUAL funcionesdefin LPAREN operaciones . RPAREN PUNTOYCOMA
 
-    RPAREN          shift and go to state 245
+    RPAREN          shift and go to state 246
 
 
 state 215
@@ -4813,7 +4848,7 @@ state 215
     (75) operadorAritmetico -> . POT
 
     RPAREN          reduce using rule 128 (operaciones -> operacion .)
-    PUNTOYCOMA      shift and go to state 246
+    PUNTOYCOMA      shift and go to state 247
     PLUS            shift and go to state 41
     MINUS           shift and go to state 42
     TIMES           shift and go to state 43
@@ -4821,7 +4856,7 @@ state 215
     MOD             shift and go to state 45
     POT             shift and go to state 46
 
-    operadorAritmetico             shift and go to state 247
+    operadorAritmetico             shift and go to state 248
 
 state 216
 
@@ -4836,8 +4871,8 @@ state 217
     (133) funcion_anonima -> VARIABLE IGUAL FUNCTION LPAREN parametros . RPAREN LLLAVE instrucciones RLLAVE PUNTOYCOMA
     (135) parametros -> parametros . COMA STRING
 
-    RPAREN          shift and go to state 248
-    COMA            shift and go to state 249
+    RPAREN          shift and go to state 249
+    COMA            shift and go to state 250
 
 
 state 218
@@ -4854,14 +4889,14 @@ state 219
     (139) parameter_list -> VARIABLE . COMA parameter_list
 
     RPAREN          reduce using rule 138 (parameter_list -> VARIABLE .)
-    COMA            shift and go to state 250
+    COMA            shift and go to state 251
 
 
 state 220
 
     (137) arrow_function -> VARIABLE IGUAL FN LPAREN parameter_list . RPAREN ARROW expression PUNTOYCOMA
 
-    RPAREN          shift and go to state 251
+    RPAREN          shift and go to state 252
 
 
 state 221
@@ -4939,8 +4974,8 @@ state 222
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -4985,7 +5020,7 @@ state 222
   ! LBRACKET        [ reduce using rule 95 (empty -> .) ]
   ! LBRACE          [ reduce using rule 95 (empty -> .) ]
 
-    instrucciones                  shift and go to state 252
+    instrucciones                  shift and go to state 253
     instruccion                    shift and go to state 6
     imprimir                       shift and go to state 7
     solicitud_datos                shift and go to state 8
@@ -5148,8 +5183,8 @@ state 227
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -5194,7 +5229,7 @@ state 227
   ! LBRACKET        [ reduce using rule 95 (empty -> .) ]
   ! LBRACE          [ reduce using rule 95 (empty -> .) ]
 
-    instrucciones                  shift and go to state 253
+    instrucciones                  shift and go to state 254
     instruccion                    shift and go to state 6
     imprimir                       shift and go to state 7
     solicitud_datos                shift and go to state 8
@@ -5275,8 +5310,8 @@ state 228
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -5321,7 +5356,7 @@ state 228
   ! LBRACKET        [ reduce using rule 95 (empty -> .) ]
   ! LBRACE          [ reduce using rule 95 (empty -> .) ]
 
-    instrucciones                  shift and go to state 254
+    instrucciones                  shift and go to state 255
     instruccion                    shift and go to state 6
     imprimir                       shift and go to state 7
     solicitud_datos                shift and go to state 8
@@ -5348,19 +5383,48 @@ state 228
 state 229
 
     (47) comparacion -> VARIABLE comparadorNum VARIABLE .
+    (27) valor -> VARIABLE .
+    (140) expression -> VARIABLE .
+    (142) expression -> VARIABLE . TIMES VARIABLE
+    (143) expression -> VARIABLE . PLUS VARIABLE
+    (144) expression -> VARIABLE . MINUS VARIABLE
+    (145) expression -> VARIABLE . DIVIDE VARIABLE
+    (146) expression -> VARIABLE . TIMES NUMBER
+    (147) expression -> VARIABLE . PLUS NUMBER
+    (148) expression -> VARIABLE . MINUS NUMBER
+    (149) expression -> VARIABLE . DIVIDE NUMBER
+    (150) expression -> VARIABLE . MOD VARIABLE
 
-    AND_LOGICAL     reduce using rule 47 (comparacion -> VARIABLE comparadorNum VARIABLE .)
-    OR_LOGICAL      reduce using rule 47 (comparacion -> VARIABLE comparadorNum VARIABLE .)
-    RPAREN          reduce using rule 47 (comparacion -> VARIABLE comparadorNum VARIABLE .)
+  ! reduce/reduce conflict for AND_LOGICAL resolved using rule 27 (valor -> VARIABLE .)
+  ! reduce/reduce conflict for OR_LOGICAL resolved using rule 27 (valor -> VARIABLE .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 27 (valor -> VARIABLE .)
+  ! reduce/reduce conflict for AND_LOGICAL resolved using rule 27 (valor -> VARIABLE .)
+  ! reduce/reduce conflict for OR_LOGICAL resolved using rule 27 (valor -> VARIABLE .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 27 (valor -> VARIABLE .)
+    AND_LOGICAL     reduce using rule 27 (valor -> VARIABLE .)
+    OR_LOGICAL      reduce using rule 27 (valor -> VARIABLE .)
+    RPAREN          reduce using rule 27 (valor -> VARIABLE .)
+    TIMES           shift and go to state 98
+    PLUS            shift and go to state 99
+    MINUS           shift and go to state 100
+    DIVIDE          shift and go to state 101
+    MOD             shift and go to state 102
+
+  ! AND_LOGICAL     [ reduce using rule 47 (comparacion -> VARIABLE comparadorNum VARIABLE .) ]
+  ! OR_LOGICAL      [ reduce using rule 47 (comparacion -> VARIABLE comparadorNum VARIABLE .) ]
+  ! RPAREN          [ reduce using rule 47 (comparacion -> VARIABLE comparadorNum VARIABLE .) ]
+  ! AND_LOGICAL     [ reduce using rule 140 (expression -> VARIABLE .) ]
+  ! OR_LOGICAL      [ reduce using rule 140 (expression -> VARIABLE .) ]
+  ! RPAREN          [ reduce using rule 140 (expression -> VARIABLE .) ]
 
 
 state 230
 
-    (49) comparacion -> VARIABLE comparadorNum NUMBER .
+    (49) comparacion -> VARIABLE comparadorNum valor .
 
-    AND_LOGICAL     reduce using rule 49 (comparacion -> VARIABLE comparadorNum NUMBER .)
-    OR_LOGICAL      reduce using rule 49 (comparacion -> VARIABLE comparadorNum NUMBER .)
-    RPAREN          reduce using rule 49 (comparacion -> VARIABLE comparadorNum NUMBER .)
+    AND_LOGICAL     reduce using rule 49 (comparacion -> VARIABLE comparadorNum valor .)
+    OR_LOGICAL      reduce using rule 49 (comparacion -> VARIABLE comparadorNum valor .)
+    RPAREN          reduce using rule 49 (comparacion -> VARIABLE comparadorNum valor .)
 
 
 state 231
@@ -5373,7 +5437,7 @@ state 231
 state 232
 
     (47) comparacion -> VARIABLE . comparadorNum VARIABLE
-    (49) comparacion -> VARIABLE . comparadorNum NUMBER
+    (49) comparacion -> VARIABLE . comparadorNum valor
     (27) valor -> VARIABLE .
     (140) expression -> VARIABLE .
     (142) expression -> VARIABLE . TIMES VARIABLE
@@ -5442,7 +5506,7 @@ state 234
     (83) compuesta_logica -> . AND_LOGICAL
     (84) compuesta_logica -> . OR_LOGICAL
 
-    PUNTOYCOMA      shift and go to state 255
+    PUNTOYCOMA      shift and go to state 256
     AND_LOGICAL     shift and go to state 171
     OR_LOGICAL      shift and go to state 172
 
@@ -5495,7 +5559,7 @@ state 238
 
     (34) solicitud_datos -> VARIABLE IGUAL READLINE LPAREN STRING RPAREN . PUNTOYCOMA
 
-    PUNTOYCOMA      shift and go to state 256
+    PUNTOYCOMA      shift and go to state 257
 
 
 state 239
@@ -5520,15 +5584,15 @@ state 240
 
     (36) input -> VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN . PUNTOYCOMA
 
-    PUNTOYCOMA      shift and go to state 257
+    PUNTOYCOMA      shift and go to state 258
 
 
 state 241
 
     (66) asignacion -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN . PUNTOYCOMA
-    (101) array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN . PUNTOYCOMA
+    (100) array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN . PUNTOYCOMA
 
-    PUNTOYCOMA      shift and go to state 258
+    PUNTOYCOMA      shift and go to state 259
 
 
 state 242
@@ -5551,6 +5615,13 @@ state 242
 
 state 243
 
+    (101) array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN . PUNTOYCOMA
+
+    PUNTOYCOMA      shift and go to state 260
+
+
+state 244
+
     (103) array -> VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA .
 
     PRINT           reduce using rule 103 (array -> VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA .)
@@ -5567,7 +5638,7 @@ state 243
     RLLAVE          reduce using rule 103 (array -> VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA .)
 
 
-state 244
+state 245
 
     (131) operaciones -> VARIABLE IGUAL . operaciones
     (128) operaciones -> . operacion
@@ -5581,24 +5652,24 @@ state 244
 
     VARIABLE        shift and go to state 213
 
-    operaciones                    shift and go to state 259
+    operaciones                    shift and go to state 261
     operacion                      shift and go to state 215
 
-state 245
+state 246
 
     (119) funcioninbuilt -> VARIABLE IGUAL funcionesdefin LPAREN operaciones RPAREN . PUNTOYCOMA
 
-    PUNTOYCOMA      shift and go to state 260
+    PUNTOYCOMA      shift and go to state 262
 
 
-state 246
+state 247
 
     (129) operaciones -> operacion PUNTOYCOMA .
 
     RPAREN          reduce using rule 129 (operaciones -> operacion PUNTOYCOMA .)
 
 
-state 247
+state 248
 
     (130) operaciones -> operacion operadorAritmetico . operaciones
     (68) operacion -> operacion operadorAritmetico . operacion
@@ -5613,24 +5684,24 @@ state 247
 
     VARIABLE        shift and go to state 213
 
-    operacion                      shift and go to state 261
-    operaciones                    shift and go to state 262
-
-state 248
-
-    (133) funcion_anonima -> VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN . LLLAVE instrucciones RLLAVE PUNTOYCOMA
-
-    LLLAVE          shift and go to state 263
-
+    operacion                      shift and go to state 263
+    operaciones                    shift and go to state 264
 
 state 249
 
-    (135) parametros -> parametros COMA . STRING
+    (133) funcion_anonima -> VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN . LLLAVE instrucciones RLLAVE PUNTOYCOMA
 
-    STRING          shift and go to state 264
+    LLLAVE          shift and go to state 265
 
 
 state 250
+
+    (135) parametros -> parametros COMA . STRING
+
+    STRING          shift and go to state 266
+
+
+state 251
 
     (139) parameter_list -> VARIABLE COMA . parameter_list
     (138) parameter_list -> . VARIABLE
@@ -5638,16 +5709,16 @@ state 250
 
     VARIABLE        shift and go to state 219
 
-    parameter_list                 shift and go to state 265
+    parameter_list                 shift and go to state 267
 
-state 251
+state 252
 
     (137) arrow_function -> VARIABLE IGUAL FN LPAREN parameter_list RPAREN . ARROW expression PUNTOYCOMA
 
-    ARROW           shift and go to state 266
+    ARROW           shift and go to state 268
 
 
-state 252
+state 253
 
     (77) while -> WHILE LPAREN condicion RPAREN LLLAVE instrucciones . RLLAVE
     (5) instrucciones -> instrucciones . instruccion
@@ -5703,262 +5774,8 @@ state 252
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
-    (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
-    (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
-    (110) lista -> . LBRACKET RBRACKET
-    (111) lista -> . LBRACKET elementos RBRACKET
-    (112) diccionario -> . LBRACE pares RBRACE
-    (119) funcioninbuilt -> . VARIABLE IGUAL funcionesdefin LPAREN operaciones RPAREN PUNTOYCOMA
-    (120) funcioninbuilt -> . VARIABLE funcionesdefin LPAREN RPAREN PUNTOYCOMA
-    (133) funcion_anonima -> . VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LLLAVE instrucciones RLLAVE PUNTOYCOMA
-    (137) arrow_function -> . VARIABLE IGUAL FN LPAREN parameter_list RPAREN ARROW expression PUNTOYCOMA
-    (95) empty -> .
-
-  ! shift/reduce conflict for RLLAVE resolved as shift
-  ! shift/reduce conflict for PRINT resolved as shift
-  ! shift/reduce conflict for PRINT_R resolved as shift
-  ! shift/reduce conflict for ECHO resolved as shift
-  ! shift/reduce conflict for VARIABLE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for IF resolved as shift
-  ! shift/reduce conflict for ELSE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for LBRACKET resolved as shift
-  ! shift/reduce conflict for LBRACE resolved as shift
-    RLLAVE          shift and go to state 267
-    PRINT           shift and go to state 17
-    PRINT_R         shift and go to state 18
-    ECHO            shift and go to state 19
-    VARIABLE        shift and go to state 20
-    WHILE           shift and go to state 32
-    IF              shift and go to state 33
-    ELSE            shift and go to state 34
-    FOR             shift and go to state 35
-    LBRACKET        shift and go to state 21
-    LBRACE          shift and go to state 36
-
-  ! RLLAVE          [ reduce using rule 95 (empty -> .) ]
-  ! PRINT           [ reduce using rule 95 (empty -> .) ]
-  ! PRINT_R         [ reduce using rule 95 (empty -> .) ]
-  ! ECHO            [ reduce using rule 95 (empty -> .) ]
-  ! VARIABLE        [ reduce using rule 95 (empty -> .) ]
-  ! WHILE           [ reduce using rule 95 (empty -> .) ]
-  ! IF              [ reduce using rule 95 (empty -> .) ]
-  ! ELSE            [ reduce using rule 95 (empty -> .) ]
-  ! FOR             [ reduce using rule 95 (empty -> .) ]
-  ! LBRACKET        [ reduce using rule 95 (empty -> .) ]
-  ! LBRACE          [ reduce using rule 95 (empty -> .) ]
-
-    instruccion                    shift and go to state 38
-    imprimir                       shift and go to state 7
-    solicitud_datos                shift and go to state 8
-    input                          shift and go to state 9
-    indexacion                     shift and go to state 10
-    estructurasControl             shift and go to state 11
-    asignacion                     shift and go to state 12
-    estructurasDatos               shift and go to state 13
-    funciones                      shift and go to state 14
-    operacion                      shift and go to state 15
-    increment                      shift and go to state 16
-    while                          shift and go to state 22
-    if                             shift and go to state 23
-    else                           shift and go to state 24
-    for_statement                  shift and go to state 25
-    array                          shift and go to state 26
-    lista                          shift and go to state 27
-    diccionario                    shift and go to state 28
-    funcioninbuilt                 shift and go to state 29
-    funcion_anonima                shift and go to state 30
-    arrow_function                 shift and go to state 31
-    empty                          shift and go to state 39
-
-state 253
-
-    (43) if -> IF LPAREN comparaciones RPAREN LLLAVE instrucciones . RLLAVE
-    (5) instrucciones -> instrucciones . instruccion
-    (6) instruccion -> . imprimir
-    (7) instruccion -> . solicitud_datos
-    (8) instruccion -> . input
-    (9) instruccion -> . indexacion
-    (10) instruccion -> . estructurasControl
-    (11) instruccion -> . asignacion
-    (12) instruccion -> . estructurasDatos
-    (13) instruccion -> . funciones
-    (14) instruccion -> . operacion
-    (15) instruccion -> . increment
-    (16) imprimir -> . PRINT LPAREN valor RPAREN PUNTOYCOMA
-    (17) imprimir -> . PRINT LPAREN argumentos RPAREN PUNTOYCOMA
-    (18) imprimir -> . PRINT_R LPAREN valor RPAREN PUNTOYCOMA
-    (19) imprimir -> . PRINT_R LPAREN argumentos RPAREN PUNTOYCOMA
-    (20) imprimir -> . ECHO valor PUNTOYCOMA
-    (21) imprimir -> . ECHO concatenar PUNTOYCOMA
-    (22) imprimir -> . ECHO valor COMA VARIABLE valor PUNTOYCOMA
-    (34) solicitud_datos -> . VARIABLE IGUAL READLINE LPAREN STRING RPAREN PUNTOYCOMA
-    (35) solicitud_datos -> . VARIABLE IGUAL READLINE LPAREN RPAREN PUNTOYCOMA
-    (36) input -> . VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA
-    (37) indexacion -> . VARIABLE LBRACKET valor RBRACKET
-    (38) indexacion -> . ECHO VARIABLE LBRACKET valor RBRACKET PUNTOYCOMA
-    (39) estructurasControl -> . while
-    (40) estructurasControl -> . if
-    (41) estructurasControl -> . else
-    (42) estructurasControl -> . for_statement
-    (63) asignacion -> . VARIABLE IGUAL valor PUNTOYCOMA
-    (64) asignacion -> . VARIABLE IGUAL valor
-    (65) asignacion -> . VARIABLE IGUAL ARRAY PUNTOYCOMA
-    (66) asignacion -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
-    (96) estructurasDatos -> . array
-    (97) estructurasDatos -> . lista
-    (98) estructurasDatos -> . diccionario
-    (116) funciones -> . funcioninbuilt
-    (117) funciones -> . funcion_anonima
-    (118) funciones -> . arrow_function
-    (67) operacion -> . VARIABLE operadorAritmetico VARIABLE
-    (68) operacion -> . operacion operadorAritmetico operacion
-    (69) operacion -> . VARIABLE operadorAritmetico VARIABLE PUNTOYCOMA
-    (88) increment -> . VARIABLE INCREMENT
-    (89) increment -> . VARIABLE DECREMENT
-    (90) increment -> . VARIABLE DECREMENT PUNTOYCOMA
-    (91) increment -> . VARIABLE PLUS_ASSIGN valor
-    (92) increment -> . VARIABLE MINUS_ASSIGN valor
-    (93) increment -> . empty
-    (94) increment -> . VARIABLE INCREMENT PUNTOYCOMA
-    (77) while -> . WHILE LPAREN condicion RPAREN LLLAVE instrucciones RLLAVE
-    (43) if -> . IF LPAREN comparaciones RPAREN LLLAVE instrucciones RLLAVE
-    (44) if -> . IF LPAREN VARIABLE RPAREN LLLAVE instrucciones RLLAVE
-    (76) else -> . ELSE LLLAVE instrucciones RLLAVE
-    (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
-    (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
-    (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
-    (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
-    (110) lista -> . LBRACKET RBRACKET
-    (111) lista -> . LBRACKET elementos RBRACKET
-    (112) diccionario -> . LBRACE pares RBRACE
-    (119) funcioninbuilt -> . VARIABLE IGUAL funcionesdefin LPAREN operaciones RPAREN PUNTOYCOMA
-    (120) funcioninbuilt -> . VARIABLE funcionesdefin LPAREN RPAREN PUNTOYCOMA
-    (133) funcion_anonima -> . VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LLLAVE instrucciones RLLAVE PUNTOYCOMA
-    (137) arrow_function -> . VARIABLE IGUAL FN LPAREN parameter_list RPAREN ARROW expression PUNTOYCOMA
-    (95) empty -> .
-
-  ! shift/reduce conflict for RLLAVE resolved as shift
-  ! shift/reduce conflict for PRINT resolved as shift
-  ! shift/reduce conflict for PRINT_R resolved as shift
-  ! shift/reduce conflict for ECHO resolved as shift
-  ! shift/reduce conflict for VARIABLE resolved as shift
-  ! shift/reduce conflict for WHILE resolved as shift
-  ! shift/reduce conflict for IF resolved as shift
-  ! shift/reduce conflict for ELSE resolved as shift
-  ! shift/reduce conflict for FOR resolved as shift
-  ! shift/reduce conflict for LBRACKET resolved as shift
-  ! shift/reduce conflict for LBRACE resolved as shift
-    RLLAVE          shift and go to state 268
-    PRINT           shift and go to state 17
-    PRINT_R         shift and go to state 18
-    ECHO            shift and go to state 19
-    VARIABLE        shift and go to state 20
-    WHILE           shift and go to state 32
-    IF              shift and go to state 33
-    ELSE            shift and go to state 34
-    FOR             shift and go to state 35
-    LBRACKET        shift and go to state 21
-    LBRACE          shift and go to state 36
-
-  ! RLLAVE          [ reduce using rule 95 (empty -> .) ]
-  ! PRINT           [ reduce using rule 95 (empty -> .) ]
-  ! PRINT_R         [ reduce using rule 95 (empty -> .) ]
-  ! ECHO            [ reduce using rule 95 (empty -> .) ]
-  ! VARIABLE        [ reduce using rule 95 (empty -> .) ]
-  ! WHILE           [ reduce using rule 95 (empty -> .) ]
-  ! IF              [ reduce using rule 95 (empty -> .) ]
-  ! ELSE            [ reduce using rule 95 (empty -> .) ]
-  ! FOR             [ reduce using rule 95 (empty -> .) ]
-  ! LBRACKET        [ reduce using rule 95 (empty -> .) ]
-  ! LBRACE          [ reduce using rule 95 (empty -> .) ]
-
-    instruccion                    shift and go to state 38
-    imprimir                       shift and go to state 7
-    solicitud_datos                shift and go to state 8
-    input                          shift and go to state 9
-    indexacion                     shift and go to state 10
-    estructurasControl             shift and go to state 11
-    asignacion                     shift and go to state 12
-    estructurasDatos               shift and go to state 13
-    funciones                      shift and go to state 14
-    operacion                      shift and go to state 15
-    increment                      shift and go to state 16
-    while                          shift and go to state 22
-    if                             shift and go to state 23
-    else                           shift and go to state 24
-    for_statement                  shift and go to state 25
-    array                          shift and go to state 26
-    lista                          shift and go to state 27
-    diccionario                    shift and go to state 28
-    funcioninbuilt                 shift and go to state 29
-    funcion_anonima                shift and go to state 30
-    arrow_function                 shift and go to state 31
-    empty                          shift and go to state 39
-
-state 254
-
-    (44) if -> IF LPAREN VARIABLE RPAREN LLLAVE instrucciones . RLLAVE
-    (5) instrucciones -> instrucciones . instruccion
-    (6) instruccion -> . imprimir
-    (7) instruccion -> . solicitud_datos
-    (8) instruccion -> . input
-    (9) instruccion -> . indexacion
-    (10) instruccion -> . estructurasControl
-    (11) instruccion -> . asignacion
-    (12) instruccion -> . estructurasDatos
-    (13) instruccion -> . funciones
-    (14) instruccion -> . operacion
-    (15) instruccion -> . increment
-    (16) imprimir -> . PRINT LPAREN valor RPAREN PUNTOYCOMA
-    (17) imprimir -> . PRINT LPAREN argumentos RPAREN PUNTOYCOMA
-    (18) imprimir -> . PRINT_R LPAREN valor RPAREN PUNTOYCOMA
-    (19) imprimir -> . PRINT_R LPAREN argumentos RPAREN PUNTOYCOMA
-    (20) imprimir -> . ECHO valor PUNTOYCOMA
-    (21) imprimir -> . ECHO concatenar PUNTOYCOMA
-    (22) imprimir -> . ECHO valor COMA VARIABLE valor PUNTOYCOMA
-    (34) solicitud_datos -> . VARIABLE IGUAL READLINE LPAREN STRING RPAREN PUNTOYCOMA
-    (35) solicitud_datos -> . VARIABLE IGUAL READLINE LPAREN RPAREN PUNTOYCOMA
-    (36) input -> . VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA
-    (37) indexacion -> . VARIABLE LBRACKET valor RBRACKET
-    (38) indexacion -> . ECHO VARIABLE LBRACKET valor RBRACKET PUNTOYCOMA
-    (39) estructurasControl -> . while
-    (40) estructurasControl -> . if
-    (41) estructurasControl -> . else
-    (42) estructurasControl -> . for_statement
-    (63) asignacion -> . VARIABLE IGUAL valor PUNTOYCOMA
-    (64) asignacion -> . VARIABLE IGUAL valor
-    (65) asignacion -> . VARIABLE IGUAL ARRAY PUNTOYCOMA
-    (66) asignacion -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
-    (96) estructurasDatos -> . array
-    (97) estructurasDatos -> . lista
-    (98) estructurasDatos -> . diccionario
-    (116) funciones -> . funcioninbuilt
-    (117) funciones -> . funcion_anonima
-    (118) funciones -> . arrow_function
-    (67) operacion -> . VARIABLE operadorAritmetico VARIABLE
-    (68) operacion -> . operacion operadorAritmetico operacion
-    (69) operacion -> . VARIABLE operadorAritmetico VARIABLE PUNTOYCOMA
-    (88) increment -> . VARIABLE INCREMENT
-    (89) increment -> . VARIABLE DECREMENT
-    (90) increment -> . VARIABLE DECREMENT PUNTOYCOMA
-    (91) increment -> . VARIABLE PLUS_ASSIGN valor
-    (92) increment -> . VARIABLE MINUS_ASSIGN valor
-    (93) increment -> . empty
-    (94) increment -> . VARIABLE INCREMENT PUNTOYCOMA
-    (77) while -> . WHILE LPAREN condicion RPAREN LLLAVE instrucciones RLLAVE
-    (43) if -> . IF LPAREN comparaciones RPAREN LLLAVE instrucciones RLLAVE
-    (44) if -> . IF LPAREN VARIABLE RPAREN LLLAVE instrucciones RLLAVE
-    (76) else -> . ELSE LLLAVE instrucciones RLLAVE
-    (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
-    (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -6028,7 +5845,261 @@ state 254
     arrow_function                 shift and go to state 31
     empty                          shift and go to state 39
 
+state 254
+
+    (43) if -> IF LPAREN comparaciones RPAREN LLLAVE instrucciones . RLLAVE
+    (5) instrucciones -> instrucciones . instruccion
+    (6) instruccion -> . imprimir
+    (7) instruccion -> . solicitud_datos
+    (8) instruccion -> . input
+    (9) instruccion -> . indexacion
+    (10) instruccion -> . estructurasControl
+    (11) instruccion -> . asignacion
+    (12) instruccion -> . estructurasDatos
+    (13) instruccion -> . funciones
+    (14) instruccion -> . operacion
+    (15) instruccion -> . increment
+    (16) imprimir -> . PRINT LPAREN valor RPAREN PUNTOYCOMA
+    (17) imprimir -> . PRINT LPAREN argumentos RPAREN PUNTOYCOMA
+    (18) imprimir -> . PRINT_R LPAREN valor RPAREN PUNTOYCOMA
+    (19) imprimir -> . PRINT_R LPAREN argumentos RPAREN PUNTOYCOMA
+    (20) imprimir -> . ECHO valor PUNTOYCOMA
+    (21) imprimir -> . ECHO concatenar PUNTOYCOMA
+    (22) imprimir -> . ECHO valor COMA VARIABLE valor PUNTOYCOMA
+    (34) solicitud_datos -> . VARIABLE IGUAL READLINE LPAREN STRING RPAREN PUNTOYCOMA
+    (35) solicitud_datos -> . VARIABLE IGUAL READLINE LPAREN RPAREN PUNTOYCOMA
+    (36) input -> . VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA
+    (37) indexacion -> . VARIABLE LBRACKET valor RBRACKET
+    (38) indexacion -> . ECHO VARIABLE LBRACKET valor RBRACKET PUNTOYCOMA
+    (39) estructurasControl -> . while
+    (40) estructurasControl -> . if
+    (41) estructurasControl -> . else
+    (42) estructurasControl -> . for_statement
+    (63) asignacion -> . VARIABLE IGUAL valor PUNTOYCOMA
+    (64) asignacion -> . VARIABLE IGUAL valor
+    (65) asignacion -> . VARIABLE IGUAL ARRAY PUNTOYCOMA
+    (66) asignacion -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (96) estructurasDatos -> . array
+    (97) estructurasDatos -> . lista
+    (98) estructurasDatos -> . diccionario
+    (116) funciones -> . funcioninbuilt
+    (117) funciones -> . funcion_anonima
+    (118) funciones -> . arrow_function
+    (67) operacion -> . VARIABLE operadorAritmetico VARIABLE
+    (68) operacion -> . operacion operadorAritmetico operacion
+    (69) operacion -> . VARIABLE operadorAritmetico VARIABLE PUNTOYCOMA
+    (88) increment -> . VARIABLE INCREMENT
+    (89) increment -> . VARIABLE DECREMENT
+    (90) increment -> . VARIABLE DECREMENT PUNTOYCOMA
+    (91) increment -> . VARIABLE PLUS_ASSIGN valor
+    (92) increment -> . VARIABLE MINUS_ASSIGN valor
+    (93) increment -> . empty
+    (94) increment -> . VARIABLE INCREMENT PUNTOYCOMA
+    (77) while -> . WHILE LPAREN condicion RPAREN LLLAVE instrucciones RLLAVE
+    (43) if -> . IF LPAREN comparaciones RPAREN LLLAVE instrucciones RLLAVE
+    (44) if -> . IF LPAREN VARIABLE RPAREN LLLAVE instrucciones RLLAVE
+    (76) else -> . ELSE LLLAVE instrucciones RLLAVE
+    (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
+    (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
+    (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
+    (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
+    (110) lista -> . LBRACKET RBRACKET
+    (111) lista -> . LBRACKET elementos RBRACKET
+    (112) diccionario -> . LBRACE pares RBRACE
+    (119) funcioninbuilt -> . VARIABLE IGUAL funcionesdefin LPAREN operaciones RPAREN PUNTOYCOMA
+    (120) funcioninbuilt -> . VARIABLE funcionesdefin LPAREN RPAREN PUNTOYCOMA
+    (133) funcion_anonima -> . VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LLLAVE instrucciones RLLAVE PUNTOYCOMA
+    (137) arrow_function -> . VARIABLE IGUAL FN LPAREN parameter_list RPAREN ARROW expression PUNTOYCOMA
+    (95) empty -> .
+
+  ! shift/reduce conflict for RLLAVE resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for PRINT_R resolved as shift
+  ! shift/reduce conflict for ECHO resolved as shift
+  ! shift/reduce conflict for VARIABLE resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for ELSE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for LBRACKET resolved as shift
+  ! shift/reduce conflict for LBRACE resolved as shift
+    RLLAVE          shift and go to state 270
+    PRINT           shift and go to state 17
+    PRINT_R         shift and go to state 18
+    ECHO            shift and go to state 19
+    VARIABLE        shift and go to state 20
+    WHILE           shift and go to state 32
+    IF              shift and go to state 33
+    ELSE            shift and go to state 34
+    FOR             shift and go to state 35
+    LBRACKET        shift and go to state 21
+    LBRACE          shift and go to state 36
+
+  ! RLLAVE          [ reduce using rule 95 (empty -> .) ]
+  ! PRINT           [ reduce using rule 95 (empty -> .) ]
+  ! PRINT_R         [ reduce using rule 95 (empty -> .) ]
+  ! ECHO            [ reduce using rule 95 (empty -> .) ]
+  ! VARIABLE        [ reduce using rule 95 (empty -> .) ]
+  ! WHILE           [ reduce using rule 95 (empty -> .) ]
+  ! IF              [ reduce using rule 95 (empty -> .) ]
+  ! ELSE            [ reduce using rule 95 (empty -> .) ]
+  ! FOR             [ reduce using rule 95 (empty -> .) ]
+  ! LBRACKET        [ reduce using rule 95 (empty -> .) ]
+  ! LBRACE          [ reduce using rule 95 (empty -> .) ]
+
+    instruccion                    shift and go to state 38
+    imprimir                       shift and go to state 7
+    solicitud_datos                shift and go to state 8
+    input                          shift and go to state 9
+    indexacion                     shift and go to state 10
+    estructurasControl             shift and go to state 11
+    asignacion                     shift and go to state 12
+    estructurasDatos               shift and go to state 13
+    funciones                      shift and go to state 14
+    operacion                      shift and go to state 15
+    increment                      shift and go to state 16
+    while                          shift and go to state 22
+    if                             shift and go to state 23
+    else                           shift and go to state 24
+    for_statement                  shift and go to state 25
+    array                          shift and go to state 26
+    lista                          shift and go to state 27
+    diccionario                    shift and go to state 28
+    funcioninbuilt                 shift and go to state 29
+    funcion_anonima                shift and go to state 30
+    arrow_function                 shift and go to state 31
+    empty                          shift and go to state 39
+
 state 255
+
+    (44) if -> IF LPAREN VARIABLE RPAREN LLLAVE instrucciones . RLLAVE
+    (5) instrucciones -> instrucciones . instruccion
+    (6) instruccion -> . imprimir
+    (7) instruccion -> . solicitud_datos
+    (8) instruccion -> . input
+    (9) instruccion -> . indexacion
+    (10) instruccion -> . estructurasControl
+    (11) instruccion -> . asignacion
+    (12) instruccion -> . estructurasDatos
+    (13) instruccion -> . funciones
+    (14) instruccion -> . operacion
+    (15) instruccion -> . increment
+    (16) imprimir -> . PRINT LPAREN valor RPAREN PUNTOYCOMA
+    (17) imprimir -> . PRINT LPAREN argumentos RPAREN PUNTOYCOMA
+    (18) imprimir -> . PRINT_R LPAREN valor RPAREN PUNTOYCOMA
+    (19) imprimir -> . PRINT_R LPAREN argumentos RPAREN PUNTOYCOMA
+    (20) imprimir -> . ECHO valor PUNTOYCOMA
+    (21) imprimir -> . ECHO concatenar PUNTOYCOMA
+    (22) imprimir -> . ECHO valor COMA VARIABLE valor PUNTOYCOMA
+    (34) solicitud_datos -> . VARIABLE IGUAL READLINE LPAREN STRING RPAREN PUNTOYCOMA
+    (35) solicitud_datos -> . VARIABLE IGUAL READLINE LPAREN RPAREN PUNTOYCOMA
+    (36) input -> . VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA
+    (37) indexacion -> . VARIABLE LBRACKET valor RBRACKET
+    (38) indexacion -> . ECHO VARIABLE LBRACKET valor RBRACKET PUNTOYCOMA
+    (39) estructurasControl -> . while
+    (40) estructurasControl -> . if
+    (41) estructurasControl -> . else
+    (42) estructurasControl -> . for_statement
+    (63) asignacion -> . VARIABLE IGUAL valor PUNTOYCOMA
+    (64) asignacion -> . VARIABLE IGUAL valor
+    (65) asignacion -> . VARIABLE IGUAL ARRAY PUNTOYCOMA
+    (66) asignacion -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (96) estructurasDatos -> . array
+    (97) estructurasDatos -> . lista
+    (98) estructurasDatos -> . diccionario
+    (116) funciones -> . funcioninbuilt
+    (117) funciones -> . funcion_anonima
+    (118) funciones -> . arrow_function
+    (67) operacion -> . VARIABLE operadorAritmetico VARIABLE
+    (68) operacion -> . operacion operadorAritmetico operacion
+    (69) operacion -> . VARIABLE operadorAritmetico VARIABLE PUNTOYCOMA
+    (88) increment -> . VARIABLE INCREMENT
+    (89) increment -> . VARIABLE DECREMENT
+    (90) increment -> . VARIABLE DECREMENT PUNTOYCOMA
+    (91) increment -> . VARIABLE PLUS_ASSIGN valor
+    (92) increment -> . VARIABLE MINUS_ASSIGN valor
+    (93) increment -> . empty
+    (94) increment -> . VARIABLE INCREMENT PUNTOYCOMA
+    (77) while -> . WHILE LPAREN condicion RPAREN LLLAVE instrucciones RLLAVE
+    (43) if -> . IF LPAREN comparaciones RPAREN LLLAVE instrucciones RLLAVE
+    (44) if -> . IF LPAREN VARIABLE RPAREN LLLAVE instrucciones RLLAVE
+    (76) else -> . ELSE LLLAVE instrucciones RLLAVE
+    (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
+    (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
+    (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
+    (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
+    (110) lista -> . LBRACKET RBRACKET
+    (111) lista -> . LBRACKET elementos RBRACKET
+    (112) diccionario -> . LBRACE pares RBRACE
+    (119) funcioninbuilt -> . VARIABLE IGUAL funcionesdefin LPAREN operaciones RPAREN PUNTOYCOMA
+    (120) funcioninbuilt -> . VARIABLE funcionesdefin LPAREN RPAREN PUNTOYCOMA
+    (133) funcion_anonima -> . VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LLLAVE instrucciones RLLAVE PUNTOYCOMA
+    (137) arrow_function -> . VARIABLE IGUAL FN LPAREN parameter_list RPAREN ARROW expression PUNTOYCOMA
+    (95) empty -> .
+
+  ! shift/reduce conflict for RLLAVE resolved as shift
+  ! shift/reduce conflict for PRINT resolved as shift
+  ! shift/reduce conflict for PRINT_R resolved as shift
+  ! shift/reduce conflict for ECHO resolved as shift
+  ! shift/reduce conflict for VARIABLE resolved as shift
+  ! shift/reduce conflict for WHILE resolved as shift
+  ! shift/reduce conflict for IF resolved as shift
+  ! shift/reduce conflict for ELSE resolved as shift
+  ! shift/reduce conflict for FOR resolved as shift
+  ! shift/reduce conflict for LBRACKET resolved as shift
+  ! shift/reduce conflict for LBRACE resolved as shift
+    RLLAVE          shift and go to state 271
+    PRINT           shift and go to state 17
+    PRINT_R         shift and go to state 18
+    ECHO            shift and go to state 19
+    VARIABLE        shift and go to state 20
+    WHILE           shift and go to state 32
+    IF              shift and go to state 33
+    ELSE            shift and go to state 34
+    FOR             shift and go to state 35
+    LBRACKET        shift and go to state 21
+    LBRACE          shift and go to state 36
+
+  ! RLLAVE          [ reduce using rule 95 (empty -> .) ]
+  ! PRINT           [ reduce using rule 95 (empty -> .) ]
+  ! PRINT_R         [ reduce using rule 95 (empty -> .) ]
+  ! ECHO            [ reduce using rule 95 (empty -> .) ]
+  ! VARIABLE        [ reduce using rule 95 (empty -> .) ]
+  ! WHILE           [ reduce using rule 95 (empty -> .) ]
+  ! IF              [ reduce using rule 95 (empty -> .) ]
+  ! ELSE            [ reduce using rule 95 (empty -> .) ]
+  ! FOR             [ reduce using rule 95 (empty -> .) ]
+  ! LBRACKET        [ reduce using rule 95 (empty -> .) ]
+  ! LBRACE          [ reduce using rule 95 (empty -> .) ]
+
+    instruccion                    shift and go to state 38
+    imprimir                       shift and go to state 7
+    solicitud_datos                shift and go to state 8
+    input                          shift and go to state 9
+    indexacion                     shift and go to state 10
+    estructurasControl             shift and go to state 11
+    asignacion                     shift and go to state 12
+    estructurasDatos               shift and go to state 13
+    funciones                      shift and go to state 14
+    operacion                      shift and go to state 15
+    increment                      shift and go to state 16
+    while                          shift and go to state 22
+    if                             shift and go to state 23
+    else                           shift and go to state 24
+    for_statement                  shift and go to state 25
+    array                          shift and go to state 26
+    lista                          shift and go to state 27
+    diccionario                    shift and go to state 28
+    funcioninbuilt                 shift and go to state 29
+    funcion_anonima                shift and go to state 30
+    arrow_function                 shift and go to state 31
+    empty                          shift and go to state 39
+
+state 256
 
     (85) for_statement -> FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA . increment RPAREN LLLAVE instrucciones RLLAVE
     (88) increment -> . VARIABLE INCREMENT
@@ -6040,13 +6111,13 @@ state 255
     (94) increment -> . VARIABLE INCREMENT PUNTOYCOMA
     (95) empty -> .
 
-    VARIABLE        shift and go to state 271
+    VARIABLE        shift and go to state 273
     RPAREN          reduce using rule 95 (empty -> .)
 
-    increment                      shift and go to state 270
+    increment                      shift and go to state 272
     empty                          shift and go to state 39
 
-state 256
+state 257
 
     (34) solicitud_datos -> VARIABLE IGUAL READLINE LPAREN STRING RPAREN PUNTOYCOMA .
 
@@ -6064,7 +6135,7 @@ state 256
     RLLAVE          reduce using rule 34 (solicitud_datos -> VARIABLE IGUAL READLINE LPAREN STRING RPAREN PUNTOYCOMA .)
 
 
-state 257
+state 258
 
     (36) input -> VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA .
 
@@ -6082,10 +6153,10 @@ state 257
     RLLAVE          reduce using rule 36 (input -> VARIABLE IGUAL FGETS LPAREN VARIABLE RPAREN PUNTOYCOMA .)
 
 
-state 258
+state 259
 
     (66) asignacion -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .
-    (101) array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .
+    (100) array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .
 
   ! reduce/reduce conflict for PRINT resolved using rule 66 (asignacion -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .)
   ! reduce/reduce conflict for PRINT_R resolved using rule 66 (asignacion -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .)
@@ -6112,28 +6183,46 @@ state 258
     PHP_END         reduce using rule 66 (asignacion -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .)
     RLLAVE          reduce using rule 66 (asignacion -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .)
 
-  ! PRINT           [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
-  ! PRINT_R         [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
-  ! ECHO            [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
-  ! VARIABLE        [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
-  ! WHILE           [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
-  ! IF              [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
-  ! ELSE            [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
-  ! FOR             [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
-  ! LBRACKET        [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
-  ! LBRACE          [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
-  ! PHP_END         [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
-  ! RLLAVE          [ reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! PRINT           [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! PRINT_R         [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! ECHO            [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! VARIABLE        [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! WHILE           [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! IF              [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! ELSE            [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! FOR             [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! LBRACKET        [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! LBRACE          [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! PHP_END         [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
+  ! RLLAVE          [ reduce using rule 100 (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA .) ]
 
 
-state 259
+state 260
+
+    (101) array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .
+
+    PRINT           reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+    PRINT_R         reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+    ECHO            reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+    VARIABLE        reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+    WHILE           reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+    IF              reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+    ELSE            reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+    FOR             reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+    LBRACKET        reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+    LBRACE          reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+    PHP_END         reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+    RLLAVE          reduce using rule 101 (array -> VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA .)
+
+
+state 261
 
     (131) operaciones -> VARIABLE IGUAL operaciones .
 
     RPAREN          reduce using rule 131 (operaciones -> VARIABLE IGUAL operaciones .)
 
 
-state 260
+state 262
 
     (119) funcioninbuilt -> VARIABLE IGUAL funcionesdefin LPAREN operaciones RPAREN PUNTOYCOMA .
 
@@ -6151,7 +6240,7 @@ state 260
     RLLAVE          reduce using rule 119 (funcioninbuilt -> VARIABLE IGUAL funcionesdefin LPAREN operaciones RPAREN PUNTOYCOMA .)
 
 
-state 261
+state 263
 
     (68) operacion -> operacion operadorAritmetico operacion .
     (128) operaciones -> operacion .
@@ -6174,7 +6263,7 @@ state 261
   ! shift/reduce conflict for MOD resolved as shift
   ! shift/reduce conflict for POT resolved as shift
     RPAREN          reduce using rule 68 (operacion -> operacion operadorAritmetico operacion .)
-    PUNTOYCOMA      shift and go to state 246
+    PUNTOYCOMA      shift and go to state 247
     PLUS            shift and go to state 41
     MINUS           shift and go to state 42
     TIMES           shift and go to state 43
@@ -6191,16 +6280,16 @@ state 261
   ! POT             [ reduce using rule 68 (operacion -> operacion operadorAritmetico operacion .) ]
   ! RPAREN          [ reduce using rule 128 (operaciones -> operacion .) ]
 
-    operadorAritmetico             shift and go to state 247
+    operadorAritmetico             shift and go to state 248
 
-state 262
+state 264
 
     (130) operaciones -> operacion operadorAritmetico operaciones .
 
     RPAREN          reduce using rule 130 (operaciones -> operacion operadorAritmetico operaciones .)
 
 
-state 263
+state 265
 
     (133) funcion_anonima -> VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LLLAVE . instrucciones RLLAVE PUNTOYCOMA
     (4) instrucciones -> . instruccion
@@ -6257,8 +6346,8 @@ state 263
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -6303,7 +6392,7 @@ state 263
   ! LBRACKET        [ reduce using rule 95 (empty -> .) ]
   ! LBRACE          [ reduce using rule 95 (empty -> .) ]
 
-    instrucciones                  shift and go to state 272
+    instrucciones                  shift and go to state 274
     instruccion                    shift and go to state 6
     imprimir                       shift and go to state 7
     solicitud_datos                shift and go to state 8
@@ -6327,7 +6416,7 @@ state 263
     arrow_function                 shift and go to state 31
     empty                          shift and go to state 39
 
-state 264
+state 266
 
     (135) parametros -> parametros COMA STRING .
 
@@ -6335,14 +6424,14 @@ state 264
     COMA            reduce using rule 135 (parametros -> parametros COMA STRING .)
 
 
-state 265
+state 267
 
     (139) parameter_list -> VARIABLE COMA parameter_list .
 
     RPAREN          reduce using rule 139 (parameter_list -> VARIABLE COMA parameter_list .)
 
 
-state 266
+state 268
 
     (137) arrow_function -> VARIABLE IGUAL FN LPAREN parameter_list RPAREN ARROW . expression PUNTOYCOMA
     (140) expression -> . VARIABLE
@@ -6357,12 +6446,12 @@ state 266
     (149) expression -> . VARIABLE DIVIDE NUMBER
     (150) expression -> . VARIABLE MOD VARIABLE
 
-    VARIABLE        shift and go to state 273
-    NUMBER          shift and go to state 275
+    VARIABLE        shift and go to state 275
+    NUMBER          shift and go to state 277
 
-    expression                     shift and go to state 274
+    expression                     shift and go to state 276
 
-state 267
+state 269
 
     (77) while -> WHILE LPAREN condicion RPAREN LLLAVE instrucciones RLLAVE .
 
@@ -6380,7 +6469,7 @@ state 267
     RLLAVE          reduce using rule 77 (while -> WHILE LPAREN condicion RPAREN LLLAVE instrucciones RLLAVE .)
 
 
-state 268
+state 270
 
     (43) if -> IF LPAREN comparaciones RPAREN LLLAVE instrucciones RLLAVE .
 
@@ -6398,7 +6487,7 @@ state 268
     RLLAVE          reduce using rule 43 (if -> IF LPAREN comparaciones RPAREN LLLAVE instrucciones RLLAVE .)
 
 
-state 269
+state 271
 
     (44) if -> IF LPAREN VARIABLE RPAREN LLLAVE instrucciones RLLAVE .
 
@@ -6416,14 +6505,14 @@ state 269
     RLLAVE          reduce using rule 44 (if -> IF LPAREN VARIABLE RPAREN LLLAVE instrucciones RLLAVE .)
 
 
-state 270
+state 272
 
     (85) for_statement -> FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment . RPAREN LLLAVE instrucciones RLLAVE
 
-    RPAREN          shift and go to state 276
+    RPAREN          shift and go to state 278
 
 
-state 271
+state 273
 
     (88) increment -> VARIABLE . INCREMENT
     (89) increment -> VARIABLE . DECREMENT
@@ -6438,7 +6527,7 @@ state 271
     MINUS_ASSIGN    shift and go to state 64
 
 
-state 272
+state 274
 
     (133) funcion_anonima -> VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LLLAVE instrucciones . RLLAVE PUNTOYCOMA
     (5) instrucciones -> instrucciones . instruccion
@@ -6494,8 +6583,8 @@ state 272
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -6518,7 +6607,7 @@ state 272
   ! shift/reduce conflict for FOR resolved as shift
   ! shift/reduce conflict for LBRACKET resolved as shift
   ! shift/reduce conflict for LBRACE resolved as shift
-    RLLAVE          shift and go to state 277
+    RLLAVE          shift and go to state 279
     PRINT           shift and go to state 17
     PRINT_R         shift and go to state 18
     ECHO            shift and go to state 19
@@ -6565,7 +6654,7 @@ state 272
     arrow_function                 shift and go to state 31
     empty                          shift and go to state 39
 
-state 273
+state 275
 
     (140) expression -> VARIABLE .
     (142) expression -> VARIABLE . TIMES VARIABLE
@@ -6586,35 +6675,35 @@ state 273
     MOD             shift and go to state 102
 
 
-state 274
+state 276
 
     (137) arrow_function -> VARIABLE IGUAL FN LPAREN parameter_list RPAREN ARROW expression . PUNTOYCOMA
 
-    PUNTOYCOMA      shift and go to state 278
+    PUNTOYCOMA      shift and go to state 280
 
 
-state 275
+state 277
 
     (141) expression -> NUMBER .
 
     PUNTOYCOMA      reduce using rule 141 (expression -> NUMBER .)
 
 
-state 276
+state 278
 
     (85) for_statement -> FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN . LLLAVE instrucciones RLLAVE
 
-    LLLAVE          shift and go to state 279
+    LLLAVE          shift and go to state 281
 
 
-state 277
+state 279
 
     (133) funcion_anonima -> VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LLLAVE instrucciones RLLAVE . PUNTOYCOMA
 
-    PUNTOYCOMA      shift and go to state 280
+    PUNTOYCOMA      shift and go to state 282
 
 
-state 278
+state 280
 
     (137) arrow_function -> VARIABLE IGUAL FN LPAREN parameter_list RPAREN ARROW expression PUNTOYCOMA .
 
@@ -6632,7 +6721,7 @@ state 278
     RLLAVE          reduce using rule 137 (arrow_function -> VARIABLE IGUAL FN LPAREN parameter_list RPAREN ARROW expression PUNTOYCOMA .)
 
 
-state 279
+state 281
 
     (85) for_statement -> FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE . instrucciones RLLAVE
     (4) instrucciones -> . instruccion
@@ -6689,8 +6778,8 @@ state 279
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -6736,7 +6825,7 @@ state 279
   ! LBRACE          [ reduce using rule 95 (empty -> .) ]
 
     increment                      shift and go to state 16
-    instrucciones                  shift and go to state 281
+    instrucciones                  shift and go to state 283
     instruccion                    shift and go to state 6
     imprimir                       shift and go to state 7
     solicitud_datos                shift and go to state 8
@@ -6759,7 +6848,7 @@ state 279
     arrow_function                 shift and go to state 31
     empty                          shift and go to state 39
 
-state 280
+state 282
 
     (133) funcion_anonima -> VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LLLAVE instrucciones RLLAVE PUNTOYCOMA .
 
@@ -6777,7 +6866,7 @@ state 280
     RLLAVE          reduce using rule 133 (funcion_anonima -> VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LLLAVE instrucciones RLLAVE PUNTOYCOMA .)
 
 
-state 281
+state 283
 
     (85) for_statement -> FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones . RLLAVE
     (5) instrucciones -> instrucciones . instruccion
@@ -6833,8 +6922,8 @@ state 281
     (76) else -> . ELSE LLLAVE instrucciones RLLAVE
     (85) for_statement -> . FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE
     (99) array -> . VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-    (100) array -> . VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
-    (101) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (100) array -> . VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+    (101) array -> . VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
     (102) array -> . VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
     (103) array -> . VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
     (110) lista -> . LBRACKET RBRACKET
@@ -6857,7 +6946,7 @@ state 281
   ! shift/reduce conflict for FOR resolved as shift
   ! shift/reduce conflict for LBRACKET resolved as shift
   ! shift/reduce conflict for LBRACE resolved as shift
-    RLLAVE          shift and go to state 282
+    RLLAVE          shift and go to state 284
     PRINT           shift and go to state 17
     PRINT_R         shift and go to state 18
     ECHO            shift and go to state 19
@@ -6904,7 +6993,7 @@ state 281
     arrow_function                 shift and go to state 31
     empty                          shift and go to state 39
 
-state 282
+state 284
 
     (85) for_statement -> FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE .
 
@@ -6984,6 +7073,7 @@ WARNING: shift/reduce conflict for ELSE in state 129 resolved as shift
 WARNING: shift/reduce conflict for FOR in state 129 resolved as shift
 WARNING: shift/reduce conflict for LBRACKET in state 129 resolved as shift
 WARNING: shift/reduce conflict for LBRACE in state 129 resolved as shift
+WARNING: shift/reduce conflict for RPAREN in state 210 resolved as shift
 WARNING: shift/reduce conflict for PRINT in state 222 resolved as shift
 WARNING: shift/reduce conflict for PRINT_R in state 222 resolved as shift
 WARNING: shift/reduce conflict for ECHO in state 222 resolved as shift
@@ -7018,17 +7108,6 @@ WARNING: shift/reduce conflict for LBRACKET in state 228 resolved as shift
 WARNING: shift/reduce conflict for LBRACE in state 228 resolved as shift
 WARNING: shift/reduce conflict for MAYOR in state 232 resolved as shift
 WARNING: shift/reduce conflict for MENOR in state 232 resolved as shift
-WARNING: shift/reduce conflict for RLLAVE in state 252 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 252 resolved as shift
-WARNING: shift/reduce conflict for PRINT_R in state 252 resolved as shift
-WARNING: shift/reduce conflict for ECHO in state 252 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 252 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 252 resolved as shift
-WARNING: shift/reduce conflict for IF in state 252 resolved as shift
-WARNING: shift/reduce conflict for ELSE in state 252 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 252 resolved as shift
-WARNING: shift/reduce conflict for LBRACKET in state 252 resolved as shift
-WARNING: shift/reduce conflict for LBRACE in state 252 resolved as shift
 WARNING: shift/reduce conflict for RLLAVE in state 253 resolved as shift
 WARNING: shift/reduce conflict for PRINT in state 253 resolved as shift
 WARNING: shift/reduce conflict for PRINT_R in state 253 resolved as shift
@@ -7051,45 +7130,45 @@ WARNING: shift/reduce conflict for ELSE in state 254 resolved as shift
 WARNING: shift/reduce conflict for FOR in state 254 resolved as shift
 WARNING: shift/reduce conflict for LBRACKET in state 254 resolved as shift
 WARNING: shift/reduce conflict for LBRACE in state 254 resolved as shift
-WARNING: shift/reduce conflict for PUNTOYCOMA in state 261 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 261 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 261 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 261 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 261 resolved as shift
-WARNING: shift/reduce conflict for MOD in state 261 resolved as shift
-WARNING: shift/reduce conflict for POT in state 261 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 263 resolved as shift
-WARNING: shift/reduce conflict for PRINT_R in state 263 resolved as shift
-WARNING: shift/reduce conflict for ECHO in state 263 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 263 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 263 resolved as shift
-WARNING: shift/reduce conflict for IF in state 263 resolved as shift
-WARNING: shift/reduce conflict for ELSE in state 263 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 263 resolved as shift
-WARNING: shift/reduce conflict for LBRACKET in state 263 resolved as shift
-WARNING: shift/reduce conflict for LBRACE in state 263 resolved as shift
-WARNING: shift/reduce conflict for RLLAVE in state 272 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 272 resolved as shift
-WARNING: shift/reduce conflict for PRINT_R in state 272 resolved as shift
-WARNING: shift/reduce conflict for ECHO in state 272 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 272 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 272 resolved as shift
-WARNING: shift/reduce conflict for IF in state 272 resolved as shift
-WARNING: shift/reduce conflict for ELSE in state 272 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 272 resolved as shift
-WARNING: shift/reduce conflict for LBRACKET in state 272 resolved as shift
-WARNING: shift/reduce conflict for LBRACE in state 272 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 279 resolved as shift
-WARNING: shift/reduce conflict for PRINT_R in state 279 resolved as shift
-WARNING: shift/reduce conflict for ECHO in state 279 resolved as shift
-WARNING: shift/reduce conflict for VARIABLE in state 279 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 279 resolved as shift
-WARNING: shift/reduce conflict for IF in state 279 resolved as shift
-WARNING: shift/reduce conflict for ELSE in state 279 resolved as shift
-WARNING: shift/reduce conflict for FOR in state 279 resolved as shift
-WARNING: shift/reduce conflict for LBRACKET in state 279 resolved as shift
-WARNING: shift/reduce conflict for LBRACE in state 279 resolved as shift
-WARNING: shift/reduce conflict for RLLAVE in state 281 resolved as shift
+WARNING: shift/reduce conflict for RLLAVE in state 255 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 255 resolved as shift
+WARNING: shift/reduce conflict for PRINT_R in state 255 resolved as shift
+WARNING: shift/reduce conflict for ECHO in state 255 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 255 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 255 resolved as shift
+WARNING: shift/reduce conflict for IF in state 255 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 255 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 255 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 255 resolved as shift
+WARNING: shift/reduce conflict for LBRACE in state 255 resolved as shift
+WARNING: shift/reduce conflict for PUNTOYCOMA in state 263 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 263 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 263 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 263 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 263 resolved as shift
+WARNING: shift/reduce conflict for MOD in state 263 resolved as shift
+WARNING: shift/reduce conflict for POT in state 263 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 265 resolved as shift
+WARNING: shift/reduce conflict for PRINT_R in state 265 resolved as shift
+WARNING: shift/reduce conflict for ECHO in state 265 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 265 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 265 resolved as shift
+WARNING: shift/reduce conflict for IF in state 265 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 265 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 265 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 265 resolved as shift
+WARNING: shift/reduce conflict for LBRACE in state 265 resolved as shift
+WARNING: shift/reduce conflict for RLLAVE in state 274 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 274 resolved as shift
+WARNING: shift/reduce conflict for PRINT_R in state 274 resolved as shift
+WARNING: shift/reduce conflict for ECHO in state 274 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 274 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 274 resolved as shift
+WARNING: shift/reduce conflict for IF in state 274 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 274 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 274 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 274 resolved as shift
+WARNING: shift/reduce conflict for LBRACE in state 274 resolved as shift
 WARNING: shift/reduce conflict for PRINT in state 281 resolved as shift
 WARNING: shift/reduce conflict for PRINT_R in state 281 resolved as shift
 WARNING: shift/reduce conflict for ECHO in state 281 resolved as shift
@@ -7100,6 +7179,17 @@ WARNING: shift/reduce conflict for ELSE in state 281 resolved as shift
 WARNING: shift/reduce conflict for FOR in state 281 resolved as shift
 WARNING: shift/reduce conflict for LBRACKET in state 281 resolved as shift
 WARNING: shift/reduce conflict for LBRACE in state 281 resolved as shift
+WARNING: shift/reduce conflict for RLLAVE in state 283 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 283 resolved as shift
+WARNING: shift/reduce conflict for PRINT_R in state 283 resolved as shift
+WARNING: shift/reduce conflict for ECHO in state 283 resolved as shift
+WARNING: shift/reduce conflict for VARIABLE in state 283 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 283 resolved as shift
+WARNING: shift/reduce conflict for IF in state 283 resolved as shift
+WARNING: shift/reduce conflict for ELSE in state 283 resolved as shift
+WARNING: shift/reduce conflict for FOR in state 283 resolved as shift
+WARNING: shift/reduce conflict for LBRACKET in state 283 resolved as shift
+WARNING: shift/reduce conflict for LBRACE in state 283 resolved as shift
 WARNING: reduce/reduce conflict in state 4 resolved using rule (cuerpo -> instrucciones)
 WARNING: rejected rule (empty -> <empty>) in state 4
 WARNING: reduce/reduce conflict in state 5 resolved using rule (cuerpo -> empty)
@@ -7118,11 +7208,16 @@ WARNING: reduce/reduce conflict in state 225 resolved using rule (valor -> VARIA
 WARNING: rejected rule (condicion_simple -> VARIABLE comparador VARIABLE) in state 225
 WARNING: reduce/reduce conflict in state 225 resolved using rule (valor -> VARIABLE)
 WARNING: rejected rule (expression -> VARIABLE) in state 225
+WARNING: reduce/reduce conflict in state 229 resolved using rule (valor -> VARIABLE)
+WARNING: rejected rule (comparacion -> VARIABLE comparadorNum VARIABLE) in state 229
+WARNING: reduce/reduce conflict in state 229 resolved using rule (valor -> VARIABLE)
+WARNING: rejected rule (expression -> VARIABLE) in state 229
 WARNING: reduce/reduce conflict in state 232 resolved using rule (valor -> VARIABLE)
 WARNING: rejected rule (expression -> VARIABLE) in state 232
-WARNING: reduce/reduce conflict in state 258 resolved using rule (asignacion -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA)
-WARNING: rejected rule (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA) in state 258
-WARNING: reduce/reduce conflict in state 261 resolved using rule (operacion -> operacion operadorAritmetico operacion)
-WARNING: rejected rule (operaciones -> operacion) in state 261
+WARNING: reduce/reduce conflict in state 259 resolved using rule (asignacion -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA)
+WARNING: rejected rule (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA) in state 259
+WARNING: reduce/reduce conflict in state 263 resolved using rule (operacion -> operacion operadorAritmetico operacion)
+WARNING: rejected rule (operaciones -> operacion) in state 263
 WARNING: Rule (condicion_simple -> VARIABLE comparador VARIABLE) is never reduced
+WARNING: Rule (comparacion -> VARIABLE comparadorNum VARIABLE) is never reduced
 WARNING: Rule (array -> VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA) is never reduced

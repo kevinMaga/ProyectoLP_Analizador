@@ -1,2 +1,0 @@
-Error de sintaxis en el token: MENOR, valor: <
-Ubicación: Línea 20, Columna 334

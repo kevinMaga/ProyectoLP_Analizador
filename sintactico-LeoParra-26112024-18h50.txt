@@ -1,2 +1,0 @@
-Error de sintaxis en el token: STRLEN, valor: strlen
-Ubicación: Línea 84, Columna 96

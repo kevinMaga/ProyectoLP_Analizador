@@ -16,10 +16,10 @@ $matriz = [
     [7, 8, 9]
 ];
 
-// Caso 1: Bucle 'for' válido
-// for ($i = 0; $i < 10; $i++) {
-//     echo "Iteración: $i\n";
-// }
+//Caso 1: Bucle 'for' válido
+for ($i = 0; $i < 10; $i++) {
+    echo "Iteración: $i\n";
+}
 
 // Caso 2: Bucle 'for' válido sin cuerpo explícito
 for ($k = 0; $k < 5; $k++){

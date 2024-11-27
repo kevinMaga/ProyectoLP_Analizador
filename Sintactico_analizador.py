@@ -126,8 +126,8 @@ def p_comparaciones(p):
 	'''
 def p_comparacion(p):
 	''' comparacion :  VARIABLE comparadorNum VARIABLE 
-            | valor comparador valor 
-            | VARIABLE comparadorNum NUMBER
+                    | valor comparador valor 
+                    | VARIABLE comparadorNum valor
 	'''
 def p_comparadorNum(p):
     ''' comparadorNum : MAYOR
@@ -246,15 +246,15 @@ def p_estructurasDatos(p):
 
 def p_array(p):
   ''' array : VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
-            | VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
             | VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+            | VARIABLE IGUAL ARRAY LPAREN valor RPAREN PUNTOYCOMA
             | VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
             | VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
   '''
-  if len(p) == 6:  # ARRAY VACIO
-        p[0] = ('array', [])
-  elif len(p) == 8:  # ARRAY CON ELEMENTOS
-        p[0] = ('array', p[5])
+  if len(p) == 6: 
+      p[0] = ('array', p[1], [])
+  elif len(p) == 8: 
+      p[0] = ('array', p[1], p[5])
 
 def p_elementos(p):
     """

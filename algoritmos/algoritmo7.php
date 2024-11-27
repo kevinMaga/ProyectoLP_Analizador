@@ -1,16 +1,16 @@
 <?php
 // Ejemplo de una función incorporada en PHP (strlen)
 $texto = "Hola Mundo";
-$longitud = strlen($texto); // Función incorporada que devuelve la longitud de una cadena
+$longitud = strlen ($texto); // Función incorporada que devuelve la longitud de una cadena
 // Ejemplo de declaración if/else
 $edad = 25;
-if ($edad >= 18) {
+if($edad >= 18) {
     echo "Eres mayor de edad.\n";
 } else {
     echo "Eres menor de edad.\n";
 }
 // Ejemplo de uso de un array
-$frutas =array("Manzana", "Banano", "Cereza");
+$frutas =array("Manzana","Banano","Cereza");
 // Operaciones aritméticas básicas
 $a = 10;
 $b = 5;

@@ -1,2 +1,0 @@
-Error de sintaxis en el token: VARIABLE, valor: $contador
-Ubicación: Línea 46, Columna 217
