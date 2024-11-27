@@ -41,6 +41,8 @@ def p_instruccion(p):
                 | asignacion
                 | estructurasDatos
                 | funciones
+                | operacion
+                | increment
     """
     p[0] = p[1]
     
@@ -88,7 +90,7 @@ def p_concatenar(p):
 #Solicitud de datos por teclado
 def p_solicitud_datos(p):
     """
-    solicitud_datos : READLINE LPAREN STRING RPAREN PUNTOYCOMA
+    solicitud_datos : VARIABLE IGUAL READLINE LPAREN STRING RPAREN PUNTOYCOMA
     """
     p[0] = ('solicitud_datos', p[3])
 
@@ -100,8 +102,8 @@ def p_input(p):
   """
 #indexacion
 def p_indexacion(p):
-   '''indexacion : VARIABLE LBRACKET valor RBRACKET
-                  | VARIABLE LBRACKET valor RBRACKET PUNTOYCOMA'''
+   '''indexacion :  VARIABLE LBRACKET valor RBRACKET
+                  | ECHO VARIABLE LBRACKET valor RBRACKET PUNTOYCOMA'''
 #estructuras de control
 def p_estructurasControl(p):
   '''estructurasControl : while
@@ -111,8 +113,8 @@ def p_estructurasControl(p):
   '''
 def p_if(p):
     '''
-    if : IF LPAREN comparaciones RPAREN LLLAVE instrucciones RLLAVE
-       | IF LPAREN VARIABLE RPAREN LLLAVE instrucciones RLLAVE
+    if : IF LPAREN comparaciones RPAREN  LLLAVE instrucciones RLLAVE PUNTOYCOMA
+       | IF LPAREN VARIABLE RPAREN LLLAVE instrucciones RLLAVE PUNTOYCOMA
     '''
 
 def p_comparaciones(p):
@@ -122,6 +124,7 @@ def p_comparaciones(p):
 def p_comparacion(p):
 	''' comparacion :  VARIABLE comparadorNum VARIABLE 
             | valor comparador valor 
+            | VARIABLE comparadorNum NUMBER
 	'''
 def p_comparadorNum(p):
     ''' comparadorNum : MAYOR
@@ -137,6 +140,8 @@ def p_comparador(p):
                  | NOT_EQUAL
                  | IGUAL
                  | IDENTICAL
+                 | MAYOR
+                 | MENOR
     '''
     p[0] = p[1]
 
@@ -154,6 +159,7 @@ def p_asignacion(p):
 def p_operacion(p): 
     ''' operacion : VARIABLE operadorAritmetico VARIABLE
                  | operacion operadorAritmetico operacion
+                 | VARIABLE operadorAritmetico VARIABLE PUNTOYCOMA
     '''
     p[0] = ('operacion', p[1], p[2], p[3])
     
@@ -190,7 +196,9 @@ def p_condicion(p):
 
 def p_condicion_simple(p):
     """
-    condicion_simple : valor comparador valor
+    condicion_simple    : valor comparador valor
+                        | VARIABLE comparador valor
+                        | VARIABLE comparador VARIABLE
     """
     p[0] = ('condicion_simple', p[1], p[2], p[3])
 
@@ -303,8 +311,8 @@ def p_funciones(p):
     '''
 def p_funcioninbuilt(p):
     '''
-    funcioninbuilt : funcionesdefin LPAREN operaciones RPAREN
-                   | funcionesdefin LPAREN RPAREN
+    funcioninbuilt : VARIABLE IGUAL funcionesdefin LPAREN operaciones RPAREN PUNTOYCOMA
+                   | VARIABLE funcionesdefin LPAREN RPAREN PUNTOYCOMA
     '''
 
 def p_funcionesdefin(p):
@@ -321,12 +329,13 @@ def p_operaciones(p):
     ''' operaciones : operacion
                     | operacion PUNTOYCOMA
                     | operacion operadorAritmetico operaciones 
-                    | VARIABLE IGUAL operaciones'''
+                    | VARIABLE IGUAL operaciones
+                    | VARIABLE'''
     p[0] = p[1]
   
 def p_funcion_anonima(p):
     """
-    funcion_anonima : FUNCTION LPAREN parametros RPAREN LBRACE instrucciones RBRACE
+    funcion_anonima : VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LBRACE instrucciones RBRACE PUNTOYCOMA
     """
     p[0] = ('funcion_anonima', p[3], p[6])
 
@@ -334,6 +343,7 @@ def p_parametros(p):
     """
     parametros : STRING
                | parametros COMA STRING
+               | VARIABLE
     """
     if len(p) == 2:
         p[0] = [p[1]]
@@ -341,7 +351,7 @@ def p_parametros(p):
         p[0] = p[1] + [p[3]]
 
 def p_arrow_function(p):
-    '''arrow_function : VARIABLE EQUAL FN LPAREN parameter_list RPAREN ARROW expression'''
+    '''arrow_function : VARIABLE IGUAL FN LPAREN parameter_list RPAREN ARROW expression PUNTOYCOMA'''
     print("Función flecha válida:", p[1])
 
 def p_parameter_list(p):
@@ -355,7 +365,11 @@ def p_expression(p):
                   | VARIABLE TIMES VARIABLE
                   | VARIABLE PLUS VARIABLE
                   | VARIABLE MINUS VARIABLE
-                  | VARIABLE DIVIDE VARIABLE'''
+                  | VARIABLE DIVIDE VARIABLE
+                  | VARIABLE TIMES NUMBER
+                  | VARIABLE PLUS NUMBER
+                  | VARIABLE MINUS NUMBER
+                  | VARIABLE DIVIDE NUMBER'''
     pass
 
 # Función de manejo de errores para el log
@@ -467,8 +481,5 @@ analizar_php('algoritmos/algoritmo7.php', 'LeoParra')
 
 # # Construcción del parser
 # parser = yacc.yacc()
-
-
-
     
     
