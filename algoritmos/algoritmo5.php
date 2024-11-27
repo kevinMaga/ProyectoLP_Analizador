@@ -22,9 +22,9 @@ $matriz = [
 // }
 
 // Caso 2: Bucle 'for' válido sin cuerpo explícito
-for ($k = 0; $k < 5; $k++)
+for ($k = 0; $k < 5; $k++){
     echo "k = $k\n";
-
+}
 
 $doblar = fn($n) => $n * 2;
 $triple = fn($x) => $x + 3;

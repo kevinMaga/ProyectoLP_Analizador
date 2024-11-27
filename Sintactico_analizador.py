@@ -55,6 +55,7 @@ def p_imprimir(p):
              | PRINT_R LPAREN argumentos RPAREN PUNTOYCOMA
              | ECHO valor PUNTOYCOMA
              | ECHO concatenar PUNTOYCOMA
+             | ECHO valor COMA VARIABLE valor PUNTOYCOMA
     """
     if len(p) == 5:
         p[0] = ('imprimir', [])
@@ -91,6 +92,7 @@ def p_concatenar(p):
 def p_solicitud_datos(p):
     """
     solicitud_datos : VARIABLE IGUAL READLINE LPAREN STRING RPAREN PUNTOYCOMA
+                    | VARIABLE IGUAL READLINE LPAREN RPAREN PUNTOYCOMA
     """
     p[0] = ('solicitud_datos', p[3])
 
@@ -113,8 +115,8 @@ def p_estructurasControl(p):
   '''
 def p_if(p):
     '''
-    if : IF LPAREN comparaciones RPAREN  LLLAVE instrucciones RLLAVE PUNTOYCOMA
-       | IF LPAREN VARIABLE RPAREN LLLAVE instrucciones RLLAVE PUNTOYCOMA
+    if : IF LPAREN comparaciones RPAREN  LLLAVE instrucciones RLLAVE 
+       | IF LPAREN VARIABLE RPAREN LLLAVE instrucciones RLLAVE 
     '''
 
 def p_comparaciones(p):
@@ -180,7 +182,7 @@ def p_else(p):
     '''
 def p_while(p):
     """
-        while : WHILE LBRACE condicion RBRACE bloque
+        while : WHILE LPAREN condicion RPAREN LLLAVE instrucciones PUNTOYCOMA RLLAVE
     """
     p[0] = ('while', p[3], p[5])
 
@@ -209,12 +211,6 @@ def p_compuesta_logica(p):
     """
     p[0] = p[1]
 
-def p_bloque(p):
-    """
-    bloque : LBRACE instrucciones RBRACE
-    """
-    p[0] = p[2]
-    
 def p_for_statement(p):
     '''for_statement : FOR LPAREN initialization PUNTOYCOMA condicion PUNTOYCOMA increment RPAREN LLLAVE instrucciones RLLAVE'''
     print("Bucle 'for' válido")
@@ -325,6 +321,8 @@ def p_funcionesdefin(p):
                 | COUNT
                 | SORT
     '''
+
+
 def p_operaciones(p): 
     ''' operaciones : operacion
                     | operacion PUNTOYCOMA
@@ -335,7 +333,7 @@ def p_operaciones(p):
   
 def p_funcion_anonima(p):
     """
-    funcion_anonima : VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LBRACE instrucciones RBRACE PUNTOYCOMA
+    funcion_anonima : VARIABLE IGUAL FUNCTION LPAREN parametros RPAREN LLLAVE instrucciones RLLAVE PUNTOYCOMA
     """
     p[0] = ('funcion_anonima', p[3], p[6])
 

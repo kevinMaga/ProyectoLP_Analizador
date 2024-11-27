@@ -8,11 +8,10 @@ $diccionario = [
     "universidad" => "ESPOL"
 ];
 print_r($diccionario);
-echo "\n";
 
 // Estructura While
 $contador = 0;
-while $contador < 3 {
+while ($contador < 3) {
     echo "Contador: $contador\n";
     $contador++;
 }
@@ -26,15 +25,15 @@ if ($numero1 < $numero2) {
 
 // Condición compleja
 $numero3 = 15;
-if ($numero1 < $numero2  $numero2 < $numero3) {
+if ($numero1 < $numero2 &&  $numero2 < $numero3) {
     echo "$numero1 es menor que $numero2 y $numero2 es menor que $numero3\n";
 }
 
 // Función anónima
-$saludar = function$nombre {
+$saludar = function ($nombre) {
     echo "Hola, $nombre!\n";
 };
-$saludar("Ariana");
+
 
 // Impresión con múltiples argumentos
 echo "Impresión con múltiples argumentos:\n";
@@ -43,7 +42,7 @@ echo "Este es un mensaje con varios argumentos\n";
 // Solicitud de datos
 echo "Ingrese su nombre: ";
 $nombre = readline();
-echo "Hola, $nombre!\n"
+echo "Hola, $nombre!\n";
 
 // Fin Ariana Gonzabay
 ?>
