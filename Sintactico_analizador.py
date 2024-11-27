@@ -392,118 +392,118 @@ def p_expression(p):
     pass
 
 # Función de manejo de errores para el log
-def p_error(p):
-    global usuario_git_global
-    # Si se encuentra un error, crear un archivo de log
-    if p:
-        # Obtener la fecha y hora actual
-        now = datetime.datetime.now()
-        fecha_hora = now.strftime("%d%m%Y-%Hh%M")  # Formato: 20062024-23h32
-
-        # Nombre del archivo de log, incluyendo el nombre de usuario Git y la fecha/hora
-        log_filename = f"sintactico-{usuario_git_global}-{fecha_hora}.txt"
-
-        # Abrir el archivo en modo append
-        with open(log_filename, 'a') as log_file:
-            log_file.write(f"Error de sintaxis en el token: {p.type}, valor: {p.value}\n")
-            log_file.write(f"Ubicación: Línea {p.lineno}, Columna {p.lexpos}\n")
-
-        print(f"Error de sintaxis registrado en {log_filename}")
-        
-    else:
-        print(f"Error de sintaxis al final de la entrada para el usuario {usuario_git_global}.")
-
-# Build the parser
-parser = yacc.yacc()
-
-# Función para analizar el archivo PHP
-def analizar_php(archivo_php, usuario_git):
-    lexer.lineno = 1  # Reinicia el contador de líneas antes de analizar
-    global usuario_git_global
-    # Asignamos el valor de usuario_git a la variable global
-    usuario_git_global = usuario_git
-    try:
-        # Verificar si el archivo existe antes de intentar abrirlo
-        if not os.path.isfile(archivo_php):
-            raise FileNotFoundError(f"El archivo {archivo_php} no fue encontrado.")
-        
-        # Abrir el archivo PHP
-        with open(archivo_php, 'r') as f:
-            php_code = f.read()
-
-        try:
-            # Analizar el código PHP con el parser
-            result = parser.parse(php_code, lexer=lexer)
-            print(f"Resultado del análisis de {archivo_php}: {result}")
-        except Exception as e:
-            # Manejo de errores en el análisis sintáctico
-            print(f"Error al analizar el archivo PHP: {str(e)}")
-            p_error(None)  # Llamar a p_error si hay un error en el análisis
-            # Crear un archivo de log en caso de error durante el análisis
-            now = datetime.datetime.now()
-            fecha_hora = now.strftime("%d%m%Y-%Hh%M")
-            log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
-            with open(log_filename, 'a') as log_file:  # Modo append
-                log_file.write(f"Error de sintaxis en el archivo: {archivo_php}\n")
-                log_file.write(f"Error: {str(e)}\n")
-    except FileNotFoundError as fnf_error:
-        # Manejo de errores si el archivo no se encuentra
-        print(fnf_error)
-        # Generar log de error con usuario_git
-        now = datetime.datetime.now()
-        fecha_hora = now.strftime("%d%m%Y-%Hh%M")
-        log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
-        with open(log_filename, 'a') as log_file:  # Modo append
-            log_file.write(f"Error: El archivo {archivo_php} no fue encontrado.\n")
-    except Exception as e:
-        # Captura cualquier otro tipo de excepción
-        print(f"Error inesperado: {str(e)}")
-        # Generar log de error con usuario_git
-        now = datetime.datetime.now()
-        fecha_hora = now.strftime("%d%m%Y-%Hh%M")
-        log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
-        with open(log_filename, 'a') as log_file:  # Modo append
-            log_file.write(f"Error inesperado: {str(e)}\n")
-
-# Llamar a la función de análisis con el archivo PHP y el usuario Git
-
-analizar_php('algoritmos/algoritmo5.php', 'kevinMaga')
-analizar_php('algoritmos/algoritmo6.php', 'ArianaGonzabay')
-analizar_php('algoritmos/algoritmo7.php', 'LeoParra')
-
-
-
-# #Funciones para la INTERFAZ
-# errores = []
-
-# def analizar_codigoSintactico(codigo):
-#     lexer.lineno = 1
-#     parser.parse(codigo, lexer=lexer)
-
-    
-# def checkErrors():
-#     if len(errores)==0:
-#         return False
-#     else:
-#         return True
-    
-# def getErrors():
-#     for error in errores:
-#         print(error)
-#     return errores
-
-# def deleteErrors():
-#     errores.clear()
-
 # def p_error(p):
+#     global usuario_git_global
+#     # Si se encuentra un error, crear un archivo de log
 #     if p:
-#         error_message = f"Syntax error in input! {p.value}', line {p.lineno}"
-#         errores.append(error_message)
-#         print(f"Error in token: {p.value}, Line: {p.lineno}") 
-#     else:
-#         errores.append("Syntax error at EOF")
+#         # Obtener la fecha y hora actual
+#         now = datetime.datetime.now()
+#         fecha_hora = now.strftime("%d%m%Y-%Hh%M")  # Formato: 20062024-23h32
 
-# # Construcción del parser
+#         # Nombre del archivo de log, incluyendo el nombre de usuario Git y la fecha/hora
+#         log_filename = f"sintactico-{usuario_git_global}-{fecha_hora}.txt"
+
+#         # Abrir el archivo en modo append
+#         with open(log_filename, 'a') as log_file:
+#             log_file.write(f"Error de sintaxis en el token: {p.type}, valor: {p.value}\n")
+#             log_file.write(f"Ubicación: Línea {p.lineno}, Columna {p.lexpos}\n")
+
+#         print(f"Error de sintaxis registrado en {log_filename}")
+        
+#     else:
+#         print(f"Error de sintaxis al final de la entrada para el usuario {usuario_git_global}.")
+
+# # Build the parser
 # parser = yacc.yacc()
+
+# # Función para analizar el archivo PHP
+# def analizar_php(archivo_php, usuario_git):
+#     lexer.lineno = 1  # Reinicia el contador de líneas antes de analizar
+#     global usuario_git_global
+#     # Asignamos el valor de usuario_git a la variable global
+#     usuario_git_global = usuario_git
+#     try:
+#         # Verificar si el archivo existe antes de intentar abrirlo
+#         if not os.path.isfile(archivo_php):
+#             raise FileNotFoundError(f"El archivo {archivo_php} no fue encontrado.")
+        
+#         # Abrir el archivo PHP
+#         with open(archivo_php, 'r') as f:
+#             php_code = f.read()
+
+#         try:
+#             # Analizar el código PHP con el parser
+#             result = parser.parse(php_code, lexer=lexer)
+#             print(f"Resultado del análisis de {archivo_php}: {result}")
+#         except Exception as e:
+#             # Manejo de errores en el análisis sintáctico
+#             print(f"Error al analizar el archivo PHP: {str(e)}")
+#             p_error(None)  # Llamar a p_error si hay un error en el análisis
+#             # Crear un archivo de log en caso de error durante el análisis
+#             now = datetime.datetime.now()
+#             fecha_hora = now.strftime("%d%m%Y-%Hh%M")
+#             log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
+#             with open(log_filename, 'a') as log_file:  # Modo append
+#                 log_file.write(f"Error de sintaxis en el archivo: {archivo_php}\n")
+#                 log_file.write(f"Error: {str(e)}\n")
+#     except FileNotFoundError as fnf_error:
+#         # Manejo de errores si el archivo no se encuentra
+#         print(fnf_error)
+#         # Generar log de error con usuario_git
+#         now = datetime.datetime.now()
+#         fecha_hora = now.strftime("%d%m%Y-%Hh%M")
+#         log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
+#         with open(log_filename, 'a') as log_file:  # Modo append
+#             log_file.write(f"Error: El archivo {archivo_php} no fue encontrado.\n")
+#     except Exception as e:
+#         # Captura cualquier otro tipo de excepción
+#         print(f"Error inesperado: {str(e)}")
+#         # Generar log de error con usuario_git
+#         now = datetime.datetime.now()
+#         fecha_hora = now.strftime("%d%m%Y-%Hh%M")
+#         log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
+#         with open(log_filename, 'a') as log_file:  # Modo append
+#             log_file.write(f"Error inesperado: {str(e)}\n")
+
+# # Llamar a la función de análisis con el archivo PHP y el usuario Git
+
+# analizar_php('algoritmos/algoritmo5.php', 'kevinMaga')
+# analizar_php('algoritmos/algoritmo6.php', 'ArianaGonzabay')
+# analizar_php('algoritmos/algoritmo7.php', 'LeoParra')
+
+
+
+#Funciones para la INTERFAZ
+errores = []
+
+def analizar_codigoSintactico(codigo):
+    lexer.lineno = 1
+    parser.parse(codigo, lexer=lexer)
+
+    
+def checkErrors():
+    if len(errores)==0:
+        return False
+    else:
+        return True
+    
+def getErrors():
+    for error in errores:
+        print(error)
+    return errores
+
+def deleteErrors():
+    errores.clear()
+
+def p_error(p):
+    if p:
+        error_message = f"Error de sintaxis en el token: {p.value}, Linea: {p.lineno}"
+        errores.append(error_message)
+        print(f"Error en token: {p.value}, Linea: {p.lineno}") 
+    else:
+        errores.append("Error de sintaxis al final de la entrada")
+
+# Construcción del parser
+parser = yacc.yacc()
     
     
