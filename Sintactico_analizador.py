@@ -477,7 +477,8 @@ analizar_php('algoritmos/algoritmo7.php', 'LeoParra')
 # errores = []
 
 # def analizar_codigoSintactico(codigo):
-#     parser.parse(codigo)
+#     lexer.lineno = 1
+#     parser.parse(codigo, lexer=lexer)
 
     
 # def checkErrors():

@@ -78,7 +78,8 @@ reserved = {
     'xor': 'XOR',
     'yield': 'YIELD',
     'yield_from': 'YIELD_FROM',
-    'readline': 'READLINE'
+    'readline': 'READLINE',
+    'array': 'ARRAY'
     # Fin Ariana Gonzabay
 
 
@@ -117,8 +118,7 @@ tokens = (
    
    # FIN lEONARDOPARRA
 
-   #Inicio Kevin Magallanes
-   'ARRAY' ,    
+   #Inicio Kevin Magallanes  
    'LBRACKET',    
    'RBRACKET',   
    'ARROW',
@@ -219,7 +219,6 @@ t_LBRACE = r'\{'
 t_RBRACE = r'\}'
 t_PHP_START = r'<\?php'
 t_PHP_END = r'\?>'
-t_ARRAY = r'array'
 
 #Fin Ariana Gonzabay
 

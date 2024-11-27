@@ -1,2 +1,0 @@
-Error de sintaxis en el token: LPAREN, valor: (
-Ubicación: Línea 13, Columna 364
