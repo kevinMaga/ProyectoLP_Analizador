@@ -1,7 +1,7 @@
 import ply.yacc as yacc
 import datetime
 import os
-from Lexico_analizador import tokens
+from Lexico_analizador import tokens, lexer
 
 usuario_git_global = None
 
@@ -157,7 +157,6 @@ def p_operadores(p):
 def p_asignacion(p):
     '''
     asignacion : VARIABLE IGUAL valor PUNTOYCOMA
-                | VARIABLE IGUAL valor 
                 | VARIABLE IGUAL ARRAY PUNTOYCOMA
                 | VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
     '''
@@ -312,15 +311,24 @@ def p_par(p):
 
 def p_funciones(p):
     '''
-        funciones   : funcioninbuilt
+        funciones   : funcion
+                    | funcioninbuilt
                     | funcion_anonima
                     | arrow_function
     '''
+
+def p_funcion(p):
+    '''
+    funcion : FUNCTION ID LPAREN RPAREN LLLAVE instrucciones RLLAVE
+            | FUNCTION ID LPAREN parametros RPAREN LLLAVE instrucciones RLLAVE
+    '''
+
 def p_funcioninbuilt(p):
     '''
     funcioninbuilt : VARIABLE IGUAL funcionesdefin LPAREN operaciones RPAREN PUNTOYCOMA
                    | VARIABLE funcionesdefin LPAREN RPAREN PUNTOYCOMA
     '''
+
 
 def p_funcionesdefin(p):
     '''
@@ -353,6 +361,7 @@ def p_parametros(p):
     parametros : STRING
                | parametros COMA STRING
                | VARIABLE
+               | parametros COMA VARIABLE
     """
     if len(p) == 2:
         p[0] = [p[1]]
@@ -400,6 +409,7 @@ def p_error(p):
             log_file.write(f"Ubicación: Línea {p.lineno}, Columna {p.lexpos}\n")
 
         print(f"Error de sintaxis registrado en {log_filename}")
+        
     else:
         print(f"Error de sintaxis al final de la entrada para el usuario {usuario_git_global}.")
 
@@ -408,6 +418,7 @@ parser = yacc.yacc()
 
 # Función para analizar el archivo PHP
 def analizar_php(archivo_php, usuario_git):
+    lexer.lineno = 1  # Reinicia el contador de líneas antes de analizar
     global usuario_git_global
     # Asignamos el valor de usuario_git a la variable global
     usuario_git_global = usuario_git
@@ -422,7 +433,7 @@ def analizar_php(archivo_php, usuario_git):
 
         try:
             # Analizar el código PHP con el parser
-            result = parser.parse(php_code)
+            result = parser.parse(php_code, lexer=lexer)
             print(f"Resultado del análisis de {archivo_php}: {result}")
         except Exception as e:
             # Manejo de errores en el análisis sintáctico
@@ -459,6 +470,7 @@ def analizar_php(archivo_php, usuario_git):
 analizar_php('algoritmos/algoritmo5.php', 'kevinMaga')
 analizar_php('algoritmos/algoritmo6.php', 'ArianaGonzabay')
 analizar_php('algoritmos/algoritmo7.php', 'LeoParra')
+
 
 
 # #Funciones para la INTERFAZ

@@ -1,7 +1,7 @@
 <?php
 // Función para comparar el resultado esperado y el real
 //Kevin Magallanes
-function verificar($operacion, $resultadoEsperado, $resultadoReal) {
+function verificar ($operacion, $resultadoEsperado, $resultadoReal) {
     echo "Prueba de $operacion: ";
     if ($resultadoEsperado === $resultadoReal) {
         echo "Correcto (Resultado: $resultadoReal)\n";
