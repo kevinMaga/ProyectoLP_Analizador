@@ -297,6 +297,7 @@ def t_COMENTARIO_MULTILINEA(t):
 #def t_PHP_END(t):
 #    r'\?>'
 #    return t
+
 #Fin Ariana Gonzabay
 
 # Test con tokens

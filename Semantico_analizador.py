@@ -61,6 +61,39 @@ def determinar_tipo(valor):
     else:
         registrar_error(f"No se pudo determinar el tipo de '{valor}'.")
         return None
+    
+#Inicio Ariana Gonzabay
+
+#Validar que la variable haya sido declarada antes de su uso
+def validar_variable_declarada(variable):
+    if variable not in tabla_tipos:
+        registrar_error(f"La variable '{variable}' no ha sido declarada antes de su uso.")
+
+# Verificar tipo de retorno de las funciones
+def validar_retorno_funcion(funcion, tipo_retorno):
+    if tipo_retorno != tipo_funcion[funcion]:  # tipo_funcion es un diccionario con los tipos de retorno
+        registrar_error(f"La función '{funcion}' debe retornar '{tipo_funcion[funcion]}', pero está retornando '{tipo_retorno}'.")
+
+# Reglas para operadores de comparación
+reglas_comparacion = {
+    "==": {"int": {"int": "bool"}, "float": {"float": "bool"}, "string": {"string": "bool"}},
+    "!=": {"int": {"int": "bool"}, "float": {"float": "bool"}, "string": {"string": "bool"}},
+    "<": {"int": {"int": "bool"}, "float": {"float": "bool"}},
+    ">": {"int": {"int": "bool"}, "float": {"float": "bool"}},
+}
+
+def validar_comparacion(tipo1, operador, tipo2):
+    if operador in reglas_comparacion:
+        if tipo1 in reglas_comparacion[operador] and tipo2 in reglas_comparacion[operador][tipo1]:
+            return reglas_comparacion[operador][tipo1][tipo2]
+        else:
+            registrar_error(f"Operación de comparación no válida: {tipo1} {operador} {tipo2}.")
+            return None
+    else:
+        registrar_error(f"Operador de comparación '{operador}' no definido para tipos '{tipo1}' y '{tipo2}'.")
+        return None
+
+#Fin Ariana Gonzabay
 
 # Analizar el árbol sintáctico desde el analizador sintáctico
 def analizar_semantico(archivo_php):
