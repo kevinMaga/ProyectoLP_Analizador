@@ -10,7 +10,7 @@ if ($edad >= 18) {
     echo "Eres menor de edad.\n";
 }
 // Ejemplo de uso de un array
-$frutas = array("Manzana", "Banano", "Cereza");
+$frutas =array("Manzana", "Banano", "Cereza");
 // Operaciones aritméticas básicas
 $a = 10;
 $b = 5;

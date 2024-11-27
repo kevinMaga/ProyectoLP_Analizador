@@ -70,6 +70,7 @@ def p_valor(p):
           | BOOLEAN
           | VARIABLE
           | ID
+          | expression
     """
 def p_argumentos(p):
     """
@@ -157,6 +158,8 @@ def p_asignacion(p):
     '''
     asignacion : VARIABLE IGUAL valor PUNTOYCOMA
                 | VARIABLE IGUAL valor 
+                | VARIABLE IGUAL ARRAY PUNTOYCOMA
+                | VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
     '''
 def p_operacion(p): 
     ''' operacion : VARIABLE operadorAritmetico VARIABLE
@@ -177,12 +180,11 @@ def p_operadorAritmetico(p):
 
 def p_else(p):
     ''' 
-        else    : RLLAVE ELSE LLLAVE instrucciones RLLAVE
-                | ELSE LLLAVE instrucciones RLLAVE
+        else    : ELSE LLLAVE instrucciones RLLAVE
     '''
 def p_while(p):
     """
-        while : WHILE LPAREN condicion RPAREN LLLAVE instrucciones PUNTOYCOMA RLLAVE
+        while : WHILE LPAREN condicion RPAREN LLLAVE instrucciones RLLAVE
     """
     p[0] = ('while', p[3], p[5])
 
@@ -223,9 +225,11 @@ def p_initialization(p):
 def p_increment(p):
     '''increment : VARIABLE INCREMENT
                  | VARIABLE DECREMENT
+                 | VARIABLE DECREMENT PUNTOYCOMA
                  | VARIABLE PLUS_ASSIGN valor
                  | VARIABLE MINUS_ASSIGN valor
-                 | empty'''
+                 | empty
+                 | VARIABLE INCREMENT PUNTOYCOMA'''
     pass
 
 def p_empty(p):
@@ -238,13 +242,20 @@ def p_estructurasDatos(p):
                             | lista
                             | diccionario
     '''
+#$frutas = array ("Manzana", "Banano", "Cereza");
 
 def p_array(p):
   ''' array : VARIABLE IGUAL ARRAY LPAREN RPAREN PUNTOYCOMA
+            | VARIABLE IGUAL ARRAY LPAREN PUNTOYCOMA
             | VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
             | VARIABLE IGUAL LBRACKET RBRACKET PUNTOYCOMA
             | VARIABLE IGUAL LBRACKET elementos RBRACKET PUNTOYCOMA
   '''
+  if len(p) == 6:  # ARRAY VACIO
+        p[0] = ('array', [])
+  elif len(p) == 8:  # ARRAY CON ELEMENTOS
+        p[0] = ('array', p[5])
+
 def p_elementos(p):
     """
     elementos : elemento
@@ -367,7 +378,8 @@ def p_expression(p):
                   | VARIABLE TIMES NUMBER
                   | VARIABLE PLUS NUMBER
                   | VARIABLE MINUS NUMBER
-                  | VARIABLE DIVIDE NUMBER'''
+                  | VARIABLE DIVIDE NUMBER
+                  | VARIABLE MOD VARIABLE'''
     pass
 
 # Función de manejo de errores para el log
@@ -443,6 +455,7 @@ def analizar_php(archivo_php, usuario_git):
             log_file.write(f"Error inesperado: {str(e)}\n")
 
 # Llamar a la función de análisis con el archivo PHP y el usuario Git
+
 analizar_php('algoritmos/algoritmo5.php', 'kevinMaga')
 analizar_php('algoritmos/algoritmo6.php', 'ArianaGonzabay')
 analizar_php('algoritmos/algoritmo7.php', 'LeoParra')

@@ -219,6 +219,7 @@ t_LBRACE = r'\{'
 t_RBRACE = r'\}'
 t_PHP_START = r'<\?php'
 t_PHP_END = r'\?>'
+t_ARRAY = r'array'
 
 #Fin Ariana Gonzabay
 
@@ -255,11 +256,6 @@ def t_ID(t):
 
  # FIN lEONARDOPARRA
 
-# Inicio Kevin Magallanes
-def t_ARRAY(t):
-    r'array\s*\('
-    return t
-# Fin Kevin Magallanes
 
 def t_newline(t):
     r'\n+'
