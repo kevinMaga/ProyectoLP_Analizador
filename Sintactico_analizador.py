@@ -3,9 +3,6 @@ import datetime
 import os
 from Lexico_analizador import tokens, lexer
 
-d_variables = {}
-errores_semanticos = []
-
 usuario_git_global = None
 
 #Inicio Kevin Magallanes
@@ -44,7 +41,7 @@ def p_instruccion(p):
                 | asignacion
                 | estructurasDatos
                 | funciones
-                | expresiones
+                | operacion
                 | increment
     """
     p[0] = p[1]
@@ -75,10 +72,6 @@ def p_valor(p):
           | ID
           | expression
     """
-    if isinstance(p[1], str) and p[1] in d_variables:
-        p[0] = d_variables[p[1]]
-    else:
-        p[0] = p[1]
 def p_argumentos(p):
     """
     argumentos : valor
@@ -167,23 +160,8 @@ def p_asignacion(p):
                 | VARIABLE IGUAL ARRAY PUNTOYCOMA
                 | VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
     '''
-    d_variables[p[1]] = p[3]
 
-def p_expresiones(p):
-    '''
-        expresiones : VARIABLE IGUAL valor operadorAritmetico valor PUNTOYCOMA
-                    | VARIABLE IGUAL valor operadorAritmetico operacion
-    '''    
-    if not isinstance(p[3], str) or p[3] in d_variables:
-        pass
-    else:
-        mensaje = "Error semantico: la variable {p[3]} no sido inicializada"
-        errores_semanticos.append(mensaje)
-    if not isinstance(p[5], str) or p[5] in d_variables:
-        pass
-    else:
-        mensaje = "Error semantico: la variable {p[5]} no sido inicializada"  
-        errores_semanticos.append(mensaje)
+
 def p_operacion(p): 
     ''' operacion : valor operadorAritmetico valor PUNTOYCOMA
                  | operacion operadorAritmetico operacion
@@ -431,7 +409,7 @@ def p_error(p):
             log_file.write(f"Ubicación: Línea {p.lineno}, Columna {p.lexpos}\n")
 
         print(f"Error de sintaxis registrado en {log_filename}")
-        
+
     else:
         print(f"Error de sintaxis al final de la entrada para el usuario {usuario_git_global}.")
 
@@ -448,11 +426,10 @@ def analizar_php(archivo_php, usuario_git):
         # Verificar si el archivo existe antes de intentar abrirlo
         if not os.path.isfile(archivo_php):
             raise FileNotFoundError(f"El archivo {archivo_php} no fue encontrado.")
-        
+
         # Abrir el archivo PHP
         with open(archivo_php, 'r') as f:
             php_code = f.read()
-
         try:
             # Analizar el código PHP con el parser
             result = parser.parse(php_code, lexer=lexer)
@@ -486,68 +463,43 @@ def analizar_php(archivo_php, usuario_git):
         log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
         with open(log_filename, 'a') as log_file:  # Modo append
             log_file.write(f"Error inesperado: {str(e)}\n")
-
 # Llamar a la función de análisis con el archivo PHP y el usuario Git
-
-def pruebasSemantico(algoritmo_file, log_prefix):
-    archivo = f"algoritmos/{algoritmo_file}"
-
-    with open(archivo, "r") as file:
-        for linea in file:
-            if linea.strip():
-                parser.parse(linea)
-    file.close()
-    
-    ahora = datetime.datetime.now()
-    fecha_hora = ahora.strftime("%Y%m%d-%H%M%S")
-    nombre_archivo = f"Semanticos-{log_prefix}-{fecha_hora}.txt"
-
-    ruta_archivo = f"{nombre_archivo}"
-    with open(ruta_archivo, "a+") as log_file:
-        for error in errores_semanticos:
-            log_file.write(error + "\n")
-            print(error)
-
-    print(f"Resultado guardado en {ruta_archivo}")
-
-
 analizar_php('algoritmos/algoritmo5.php', 'kevinMaga')
 analizar_php('algoritmos/algoritmo6.php', 'ArianaGonzabay')
 analizar_php('algoritmos/algoritmo7.php', 'LeoParra')
-pruebasSemantico('algoritmo7.php', 'LeoParra')
 
 
-#Funciones para la INTERFAZ
-errores = []
+# #Funciones para la INTERFAZ
+# errores = []
 
-def analizar_codigoSintactico(codigo):
-    lexer.lineno = 1
-    parser.parse(codigo, lexer=lexer)
+# def analizar_codigoSintactico(codigo):
+#     lexer.lineno = 1
+#     parser.parse(codigo, lexer=lexer)
 
     
-def checkErrors():
-    if len(errores)==0:
-        return False
-    else:
-        return True
+# def checkErrors():
+#     if len(errores)==0:
+#         return False
+#     else:
+#         return True
     
-def getErrors():
-    for error in errores:
-        print(error)
-    return errores
+# def getErrors():
+#     for error in errores:
+#         print(error)
+#     return errores
 
-def deleteErrors():
-    errores.clear()
+# def deleteErrors():
+#     errores.clear()
 
-def p_error(p):
-    if p:
-        error_message = f"Error de sintaxis en el token: {p.value}, Linea: {p.lineno}"
-        errores.append(error_message)
-        print(f"Error en token: {p.value}, Linea: {p.lineno}") 
-    else:
-        errores.append("Error de sintaxis al final de la entrada")
+# def p_error(p):
+#     if p:
+#         error_message = f"Error de sintaxis en el token: {p.value}, Linea: {p.lineno}"
+#         errores.append(error_message)
+#         print(f"Error en token: {p.value}, Linea: {p.lineno}") 
+#     else:
+#         errores.append("Error de sintaxis al final de la entrada")
 
-# Construcción del parser
-parser = yacc.yacc()
+# # Construcción del parser
+# parser = yacc.yacc()
     
     
