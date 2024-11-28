@@ -1,0 +1,42 @@
+Error de sintaxis en el token: VARIABLE, valor: $texto
+Ubicación: Línea 33, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $longitud
+Ubicación: Línea 34, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $edad
+Ubicación: Línea 36, Columna 0
+Error de sintaxis en el token: IF, valor: if
+Ubicación: Línea 37, Columna 0
+Error de sintaxis en el token: ECHO, valor: echo
+Ubicación: Línea 38, Columna 4
+Error de sintaxis en el token: RLLAVE, valor: }
+Ubicación: Línea 39, Columna 0
+Error de sintaxis en el token: ECHO, valor: echo
+Ubicación: Línea 40, Columna 4
+Error de sintaxis en el token: RLLAVE, valor: }
+Ubicación: Línea 41, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $frutas
+Ubicación: Línea 43, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $a
+Ubicación: Línea 45, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $b
+Ubicación: Línea 46, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $suma
+Ubicación: Línea 47, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $resta
+Ubicación: Línea 48, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $multiplicacion
+Ubicación: Línea 49, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $division
+Ubicación: Línea 50, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $modulo
+Ubicación: Línea 51, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $contador
+Ubicación: Línea 53, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $contador
+Ubicación: Línea 54, Columna 0
+Error de sintaxis en el token: VARIABLE, valor: $contador
+Ubicación: Línea 55, Columna 0
+Error de sintaxis en el token: ECHO, valor: echo
+Ubicación: Línea 57, Columna 0
+Error de sintaxis en el token: PHP_END, valor: ?>
+Ubicación: Línea 58, Columna 0
