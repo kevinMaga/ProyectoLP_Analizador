@@ -1,7 +1,7 @@
 import ply.lex as lex 
 import time
 
-error_messages = []
+lexer_errors = []
 
 reserved = {
     # Inicio lEONARDOPARRA
@@ -282,20 +282,6 @@ def t_COMENTARIO_MULTILINEA(t):
     t.lexer.lineno += t.value.count('\n')
     pass
 
-
-#Delimitadores
-
-#def t_PHP_START(t):
-#    r'<\?php'
-#    return t
-
-#def t_PHP_END(t):
-#    r'\?>'
-#    return t
-
-#Fin Ariana Gonzabay
-
-# Test con tokens
 data = '''
 3 + 5 - 2 * 10 / 5 % 2;
 (3 + 5) * 2;
@@ -381,22 +367,22 @@ $expresion7 = <expresion>;
 #FUNCIONES PARA LA INTERFAZ
 
 def checkErrorsL():
-    if len(error_messages)==0:
+    if len(lexer_errors)==0:
         return False
     else:
         return True
     
 def getErrorsL():
-    return error_messages
+    return lexer_errors
 
 def deleteErrorsL():
-    error_messages.clear()
+    lexer_errors.clear()
 
 def t_error(t):
-    global error_messages
+    global lexer_errors
     error_message = f"Carácter ilegal '%s'" % t.value[0]
-    error_messages.append(error_message)
-    print(len(error_messages))
+    lexer_errors.append(error_message)
+    print(len(lexer_errors))
     print(error_message)
     t.lexer.skip(1)
 
@@ -415,3 +401,16 @@ def analizar_codigoLexico(codigo):
             break
         print(tok)
         tokens_reconocidos.append(tok)
+
+
+# def t_error(t):
+#     global lexer_errors
+#     lexer_errors.append(f"Illegal character '{t.value[0]}' at line {t.lineno}")
+#     t.lexer.skip(1)
+
+# # Variable para errores léxicos
+# lexer_errors = []
+
+# # Función para inicializar el lexer
+# def get_lexer():
+#     return lex.lex()
