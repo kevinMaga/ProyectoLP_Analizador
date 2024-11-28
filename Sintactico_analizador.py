@@ -4,13 +4,14 @@ import os
 from Lexico_analizador import tokens, lexer
 
 usuario_git_global = None
-
+#llll
 #Inicio Kevin Magallanes
 def p_padre(p):
     """
     padre : PHP_START cuerpo PHP_END
     """
     p[0] = ('programa', p[2])
+
 
 # Definición del cuerpo del programa
 def p_cuerpo(p):
