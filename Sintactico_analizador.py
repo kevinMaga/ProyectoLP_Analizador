@@ -3,6 +3,9 @@ import datetime
 import os
 from Lexico_analizador import tokens, lexer
 
+d_variables = {}
+errores_semanticos = []
+
 usuario_git_global = None
 
 #Inicio Kevin Magallanes
@@ -41,7 +44,7 @@ def p_instruccion(p):
                 | asignacion
                 | estructurasDatos
                 | funciones
-                | operacion
+                | expresiones
                 | increment
     """
     p[0] = p[1]
@@ -72,6 +75,10 @@ def p_valor(p):
           | ID
           | expression
     """
+    if isinstance(p[1], str) and p[1] in d_variables:
+        p[0] = d_variables[p[1]]
+    else:
+        p[0] = p[1]
 def p_argumentos(p):
     """
     argumentos : valor
@@ -160,12 +167,27 @@ def p_asignacion(p):
                 | VARIABLE IGUAL ARRAY PUNTOYCOMA
                 | VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
     '''
-def p_operacion(p): 
-    ''' operacion : VARIABLE operadorAritmetico VARIABLE
-                 | operacion operadorAritmetico operacion
-                 | VARIABLE operadorAritmetico VARIABLE PUNTOYCOMA
+    d_variables[p[1]] = p[3]
+
+def p_expresiones(p):
     '''
-    p[0] = ('operacion', p[1], p[2], p[3])
+        expresiones : VARIABLE IGUAL valor operadorAritmetico valor PUNTOYCOMA
+                    | VARIABLE IGUAL valor operadorAritmetico operacion
+    '''    
+    if not isinstance(p[3], str) or p[3] in d_variables:
+        pass
+    else:
+        mensaje = "Error semantico: la variable {p[3]} no sido inicializada"
+        errores_semanticos.append(mensaje)
+    if not isinstance(p[5], str) or p[5] in d_variables:
+        pass
+    else:
+        mensaje = "Error semantico: la variable {p[5]} no sido inicializada"  
+        errores_semanticos.append(mensaje)
+def p_operacion(p): 
+    ''' operacion : valor operadorAritmetico valor PUNTOYCOMA
+                 | operacion operadorAritmetico operacion
+    '''
     
 def p_operadorAritmetico(p):
     '''operadorAritmetico : PLUS
@@ -392,85 +414,107 @@ def p_expression(p):
     pass
 
 # Función de manejo de errores para el log
-# def p_error(p):
-#     global usuario_git_global
-#     # Si se encuentra un error, crear un archivo de log
-#     if p:
-#         # Obtener la fecha y hora actual
-#         now = datetime.datetime.now()
-#         fecha_hora = now.strftime("%d%m%Y-%Hh%M")  # Formato: 20062024-23h32
+def p_error(p):
+    global usuario_git_global
+    # Si se encuentra un error, crear un archivo de log
+    if p:
+        # Obtener la fecha y hora actual
+        now = datetime.datetime.now()
+        fecha_hora = now.strftime("%d%m%Y-%Hh%M")  # Formato: 20062024-23h32
 
-#         # Nombre del archivo de log, incluyendo el nombre de usuario Git y la fecha/hora
-#         log_filename = f"sintactico-{usuario_git_global}-{fecha_hora}.txt"
+        # Nombre del archivo de log, incluyendo el nombre de usuario Git y la fecha/hora
+        log_filename = f"sintactico-{usuario_git_global}-{fecha_hora}.txt"
 
-#         # Abrir el archivo en modo append
-#         with open(log_filename, 'a') as log_file:
-#             log_file.write(f"Error de sintaxis en el token: {p.type}, valor: {p.value}\n")
-#             log_file.write(f"Ubicación: Línea {p.lineno}, Columna {p.lexpos}\n")
+        # Abrir el archivo en modo append
+        with open(log_filename, 'a') as log_file:
+            log_file.write(f"Error de sintaxis en el token: {p.type}, valor: {p.value}\n")
+            log_file.write(f"Ubicación: Línea {p.lineno}, Columna {p.lexpos}\n")
 
-#         print(f"Error de sintaxis registrado en {log_filename}")
+        print(f"Error de sintaxis registrado en {log_filename}")
         
-#     else:
-#         print(f"Error de sintaxis al final de la entrada para el usuario {usuario_git_global}.")
+    else:
+        print(f"Error de sintaxis al final de la entrada para el usuario {usuario_git_global}.")
 
-# # Build the parser
-# parser = yacc.yacc()
+# Build the parser
+parser = yacc.yacc()
 
-# # Función para analizar el archivo PHP
-# def analizar_php(archivo_php, usuario_git):
-#     lexer.lineno = 1  # Reinicia el contador de líneas antes de analizar
-#     global usuario_git_global
-#     # Asignamos el valor de usuario_git a la variable global
-#     usuario_git_global = usuario_git
-#     try:
-#         # Verificar si el archivo existe antes de intentar abrirlo
-#         if not os.path.isfile(archivo_php):
-#             raise FileNotFoundError(f"El archivo {archivo_php} no fue encontrado.")
+# Función para analizar el archivo PHP
+def analizar_php(archivo_php, usuario_git):
+    lexer.lineno = 1  # Reinicia el contador de líneas antes de analizar
+    global usuario_git_global
+    # Asignamos el valor de usuario_git a la variable global
+    usuario_git_global = usuario_git
+    try:
+        # Verificar si el archivo existe antes de intentar abrirlo
+        if not os.path.isfile(archivo_php):
+            raise FileNotFoundError(f"El archivo {archivo_php} no fue encontrado.")
         
-#         # Abrir el archivo PHP
-#         with open(archivo_php, 'r') as f:
-#             php_code = f.read()
+        # Abrir el archivo PHP
+        with open(archivo_php, 'r') as f:
+            php_code = f.read()
 
-#         try:
-#             # Analizar el código PHP con el parser
-#             result = parser.parse(php_code, lexer=lexer)
-#             print(f"Resultado del análisis de {archivo_php}: {result}")
-#         except Exception as e:
-#             # Manejo de errores en el análisis sintáctico
-#             print(f"Error al analizar el archivo PHP: {str(e)}")
-#             p_error(None)  # Llamar a p_error si hay un error en el análisis
-#             # Crear un archivo de log en caso de error durante el análisis
-#             now = datetime.datetime.now()
-#             fecha_hora = now.strftime("%d%m%Y-%Hh%M")
-#             log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
-#             with open(log_filename, 'a') as log_file:  # Modo append
-#                 log_file.write(f"Error de sintaxis en el archivo: {archivo_php}\n")
-#                 log_file.write(f"Error: {str(e)}\n")
-#     except FileNotFoundError as fnf_error:
-#         # Manejo de errores si el archivo no se encuentra
-#         print(fnf_error)
-#         # Generar log de error con usuario_git
-#         now = datetime.datetime.now()
-#         fecha_hora = now.strftime("%d%m%Y-%Hh%M")
-#         log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
-#         with open(log_filename, 'a') as log_file:  # Modo append
-#             log_file.write(f"Error: El archivo {archivo_php} no fue encontrado.\n")
-#     except Exception as e:
-#         # Captura cualquier otro tipo de excepción
-#         print(f"Error inesperado: {str(e)}")
-#         # Generar log de error con usuario_git
-#         now = datetime.datetime.now()
-#         fecha_hora = now.strftime("%d%m%Y-%Hh%M")
-#         log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
-#         with open(log_filename, 'a') as log_file:  # Modo append
-#             log_file.write(f"Error inesperado: {str(e)}\n")
+        try:
+            # Analizar el código PHP con el parser
+            result = parser.parse(php_code, lexer=lexer)
+            print(f"Resultado del análisis de {archivo_php}: {result}")
+        except Exception as e:
+            # Manejo de errores en el análisis sintáctico
+            print(f"Error al analizar el archivo PHP: {str(e)}")
+            p_error(None)  # Llamar a p_error si hay un error en el análisis
+            # Crear un archivo de log en caso de error durante el análisis
+            now = datetime.datetime.now()
+            fecha_hora = now.strftime("%d%m%Y-%Hh%M")
+            log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
+            with open(log_filename, 'a') as log_file:  # Modo append
+                log_file.write(f"Error de sintaxis en el archivo: {archivo_php}\n")
+                log_file.write(f"Error: {str(e)}\n")
+    except FileNotFoundError as fnf_error:
+        # Manejo de errores si el archivo no se encuentra
+        print(fnf_error)
+        # Generar log de error con usuario_git
+        now = datetime.datetime.now()
+        fecha_hora = now.strftime("%d%m%Y-%Hh%M")
+        log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
+        with open(log_filename, 'a') as log_file:  # Modo append
+            log_file.write(f"Error: El archivo {archivo_php} no fue encontrado.\n")
+    except Exception as e:
+        # Captura cualquier otro tipo de excepción
+        print(f"Error inesperado: {str(e)}")
+        # Generar log de error con usuario_git
+        now = datetime.datetime.now()
+        fecha_hora = now.strftime("%d%m%Y-%Hh%M")
+        log_filename = f"sintactico-{usuario_git}-{fecha_hora}-error.txt"
+        with open(log_filename, 'a') as log_file:  # Modo append
+            log_file.write(f"Error inesperado: {str(e)}\n")
 
-# # Llamar a la función de análisis con el archivo PHP y el usuario Git
+# Llamar a la función de análisis con el archivo PHP y el usuario Git
 
-# analizar_php('algoritmos/algoritmo5.php', 'kevinMaga')
-# analizar_php('algoritmos/algoritmo6.php', 'ArianaGonzabay')
-# analizar_php('algoritmos/algoritmo7.php', 'LeoParra')
+def pruebasSemantico(algoritmo_file, log_prefix):
+    archivo = f"algoritmos/{algoritmo_file}"
 
+    with open(archivo, "r") as file:
+        for linea in file:
+            if linea.strip():
+                parser.parse(linea)
+    file.close()
+    
+    ahora = datetime.datetime.now()
+    fecha_hora = ahora.strftime("%Y%m%d-%H%M%S")
+    nombre_archivo = f"Semanticos-{log_prefix}-{fecha_hora}.txt"
+
+    ruta_archivo = f"{nombre_archivo}"
+    with open(ruta_archivo, "a+") as log_file:
+        for error in errores_semanticos:
+            log_file.write(error + "\n")
+            print(error)
+
+    print(f"Resultado guardado en {ruta_archivo}")
+
+
+analizar_php('algoritmos/algoritmo5.php', 'kevinMaga')
+analizar_php('algoritmos/algoritmo6.php', 'ArianaGonzabay')
+analizar_php('algoritmos/algoritmo7.php', 'LeoParra')
+pruebasSemantico('algoritmo7.php', 'LeoParra')
 
 
 #Funciones para la INTERFAZ
