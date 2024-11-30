@@ -4,6 +4,8 @@ import os
 from Lexico_analizador import tokens, lexer
 
 usuario_git_global = None
+
+symbol_table = {}
 #llll
 #Inicio Kevin Magallanes
 def p_padre(p):
@@ -58,9 +60,17 @@ def p_imprimir(p):
              | ECHO concatenar PUNTOYCOMA
              | ECHO valor COMA VARIABLE valor PUNTOYCOMA
     """
-    if len(p) == 5:
-        p[0] = ('imprimir', [])
-    else:
+    if len(p) == 5:  # Caso PRINT(valor) o PRINT_R(valor)
+        if isinstance(p[3], (int, float, str, bool)):  # Validar si es imprimible
+            p[0] = ('imprimir', p[3])
+        else:
+            semantic_errors.append(f"Error semántico: No se puede imprimir el tipo '{type(p[3]).__name__}' (línea {p.lineno(2)})")
+    elif len(p) == 7:  # Caso ECHO(valor, variable, valor)
+        variable_name = p[4]
+        if variable_name not in symbol_table:
+            semantic_errors.append(f"Error semántico: La variable '{variable_name}' no está definida (línea {p.lineno(4)})")
+        p[0] = ('imprimir', [p[3], variable_name, p[5]])
+    else:  # PRINT(argumentos) o concatenación
         p[0] = ('imprimir', p[3])
 
 def p_valor(p):
@@ -73,21 +83,45 @@ def p_valor(p):
           | ID
           | expression
     """
+    if p.slice[1].type == "VARIABLE":
+        if p[1] not in symbol_table:  # Validar si la variable está definida
+            error_message = f"Error semántico: La variable '{p[1]}' no está definida (línea {p.lineno(1)})"
+            semantic_errors.append(error_message)
+            p[0] = None  # Asignar un valor nulo si hay un error
+        else:
+            p[0] = symbol_table[p[1]]
+    else:
+        p[0] = p[1]  # Asignar el valor literal directamente
 def p_argumentos(p):
     """
     argumentos : valor
                | argumentos COMA valor
     """
-    if len(p) == 2:
+    if len(p) == 2:  # Un único valor
+        if not isinstance(p[1], (int, float, str, bool)):  # Validar tipo imprimible
+            semantic_errors.append(f"Error semántico: No se puede usar '{type(p[1]).__name__}' como argumento para imprimir (línea {p.lineno(1)})")
         p[0] = [p[1]]
-    else:
+    else:  # Múltiples valores
+        if not isinstance(p[3], (int, float, str, bool)):  # Validar tipo imprimible
+            semantic_errors.append(f"Error semántico: No se puede usar '{type(p[3]).__name__}' como argumento para imprimir (línea {p.lineno(3)})")
         p[0] = p[1] + [p[3]]
         
+
 def p_concatenar(p):
     '''
     concatenar : valor
-                | valor PUNTO concatenar
+               | valor PUNTO concatenar
     '''
+    if len(p) == 2:  # Un único valor
+        if not isinstance(p[1], str):  # Validar si es una cadena
+            semantic_errors.append(f"Error semántico: La concatenación solo es válida para cadenas, encontrado '{type(p[1]).__name__}' (línea {p.lineno(1)})")
+        p[0] = p[1]
+    else:  # Concatenación múltiple
+        if not isinstance(p[1], str):  # Validar si el primer valor es cadena
+            semantic_errors.append(f"Error semántico: La concatenación solo es válida para cadenas, encontrado '{type(p[1]).__name__}' (línea {p.lineno(1)})")
+        if not isinstance(p[3], str):  # Validar si el segundo valor es cadena
+            semantic_errors.append(f"Error semántico: La concatenación solo es válida para cadenas, encontrado '{type(p[3]).__name__}' (línea {p.lineno(3)})")
+        p[0] = p[1] + p[3]  # Concatenar cadenas
 
         
 #Solicitud de datos por teclado
@@ -158,10 +192,21 @@ def p_operadores(p):
 def p_asignacion(p):
     '''
     asignacion : VARIABLE IGUAL valor PUNTOYCOMA
-                | VARIABLE IGUAL ARRAY PUNTOYCOMA
-                | VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
+               | VARIABLE IGUAL ARRAY PUNTOYCOMA
+               | VARIABLE IGUAL ARRAY LPAREN elementos RPAREN PUNTOYCOMA
     '''
-
+    if len(p) == 5 and p[3] != "ARRAY":  # Caso: VARIABLE = valor;
+        symbol_table[p[1]] = p[3]
+        p[0] = f"Asignación: {p[1]} = {p[3]}"
+    elif len(p) == 5:  # Caso: VARIABLE = ARRAY;
+        symbol_table[p[1]] = []
+        p[0] = f"Asignación: {p[1]} = []"
+    else:  # Caso: VARIABLE = ARRAY(elementos);
+        if not isinstance(p[5], list):  # Validar que los elementos sean una lista
+            semantic_errors.append(f"Error semántico: '{p[5]}' no es una lista válida (línea {p.lineno(5)})")
+        else:
+            symbol_table[p[1]] = p[5]
+        p[0] = f"Asignación: {p[1]} = {p[5]}"
 
 def p_operacion(p): 
     ''' operacion : valor operadorAritmetico valor PUNTOYCOMA
@@ -262,9 +307,9 @@ def p_elementos(p):
               | elementos COMA elemento
     """
     if len(p) == 2:
-        p[0] = [p[1]]  # Una lista con un solo elemento
+        p[0] = [p[1]]  # Una lista con un único elemento
     else:
-        p[0] = p[1] + [p[3]]  # Combina los elementos anteriores con el nuevo
+        p[0] = p[1] + [p[3]]  # Concatenar listas
 
 def p_elemento(p):
     """
@@ -279,14 +324,18 @@ def p_clave_valor(p):
     """
     clave_valor : valor ARROW valor
     """
-    p[0] = {p[1]: p[3]}  # Devuelve un diccionario con clave y valor
+    p[0] = {p[1]: p[3]}  # Diccionario clave-valor
+
 
 def p_lista(p):
     """
     lista : LBRACKET RBRACKET
           | LBRACKET elementos RBRACKET
     """
-    p[0] = p[2]  # Devuelve los elementos de la lista
+    if len(p) == 3:
+        p[0] = []  # Lista vacía
+    else:
+        p[0] = p[2]  # Lista con elementos
 
 def p_diccionario(p):
     """
@@ -327,7 +376,7 @@ def p_funcion(p):
 def p_funcioninbuilt(p):
     '''
     funcioninbuilt : VARIABLE IGUAL funcionesdefin LPAREN operaciones RPAREN PUNTOYCOMA
-                   | VARIABLE funcionesdefin LPAREN RPAREN PUNTOYCOMA
+                   | VARIABLE IGUAL funcionesdefin LPAREN RPAREN PUNTOYCOMA
     '''
 
 
@@ -497,11 +546,36 @@ def p_error(p):
         error_message = f"Error de sintaxis en el token: {p.value}, Linea: {p.lineno}"
         parser_errors.append(error_message)
         print(f"Error en token: {p.value}, Linea: {p.lineno}") 
+        yacc.errok()
     else:
         parser_errors.append("Error de sintaxis al final de la entrada")
 
 # Construcción del parser
 parser = yacc.yacc()
+
+# Lista para almacenar errores semánticos
+semantic_errors = []
+
+# Función para analizar código con reglas semánticas
+def analizar_codigoSemantico(codigo):
+    lexer.lineno = 1  # Reiniciar el contador de líneas
+    semantic_errors.clear()  # Limpiar errores previos
+    parser.parse(codigo, lexer=lexer)
+
+# Verificar si hay errores semánticos
+def checkSemanticErrors():
+    return len(semantic_errors) > 0
+
+# Obtener la lista de errores semánticos
+def getSemanticErrors():
+    for error in semantic_errors:
+        print(error)
+    return semantic_errors
+
+# Limpiar la lista de errores semánticos
+def deleteSemanticErrors():
+    semantic_errors.clear()
+
     
 # def p_error(p):
 #     global parser_errors

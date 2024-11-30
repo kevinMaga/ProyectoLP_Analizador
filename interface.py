@@ -1,9 +1,10 @@
 import tkinter as tk
 from tkinter import scrolledtext
 from Lexico_analizador import analizar_codigoLexico, checkErrorsL, getErrorsL, deleteErrorsL
-from Sintactico_analizador import analizar_codigoSintactico, checkErrors, getErrors, deleteErrors
+from Sintactico_analizador import analizar_codigoSintactico, checkErrors, getErrors, deleteErrors, analizar_codigoSemantico, checkSemanticErrors, getSemanticErrors, deleteSemanticErrors
 
 # Función para analizar código desde la interfaz
+# Función para analizar el código desde la interfaz
 def analyze_code():
     code = code_input.get("1.0", tk.END).strip()
     result_output.delete("1.0", tk.END)
@@ -11,6 +12,7 @@ def analyze_code():
     # Limpiar errores previos
     deleteErrorsL()
     deleteErrors()
+    deleteSemanticErrors()
 
     # Ejecutar el analizador léxico
     analizar_codigoLexico(code)
@@ -22,7 +24,13 @@ def analyze_code():
     if checkErrors():
         result_output.insert(tk.END, "Errores sintácticos:\n" + "\n".join(getErrors()) + "\n\n")
 
-    if not checkErrorsL() and not checkErrors():
+    # Ejecutar el analizador semántico
+    analizar_codigoSemantico(code)
+    if checkSemanticErrors():
+        result_output.insert(tk.END, "Errores semánticos:\n" + "\n".join(getSemanticErrors()) + "\n\n")
+
+    # Si no hay errores
+    if not checkErrorsL() and not checkErrors() and not checkSemanticErrors():
         result_output.insert(tk.END, "Análisis completado sin errores.\n")
 
 # Crear interfaz gráfica
